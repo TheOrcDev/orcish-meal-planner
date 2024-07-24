@@ -4,7 +4,7 @@ import {
 } from '@clerk/nextjs/server';
 
 const isProtectedRoute = createRouteMatcher([
-    '/ai-selector(.*)',
+    '/meal-planner(.*)',
 ]);
 
 export default clerkMiddleware((auth, req) => {
