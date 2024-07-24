@@ -1,6 +1,6 @@
-# Orcish AI Next.js Framework
+# Orcish Meal Planner
 
-![orcish-ai-nextjs-framework](https://github.com/TheOrcDev/orcish-ai-nextjs-framework/assets/7549148/81f0102f-c201-4bbe-92e3-cc8012da9aca)
+![orcish-meal-planner](https://github.com/user-attachments/assets/9c1cdd6d-9e46-4380-8ec6-b36b69934bf8)
 
 ## Overview
 
