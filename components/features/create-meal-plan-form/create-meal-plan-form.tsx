@@ -85,7 +85,9 @@ export default function CreateMealPlanForm() {
         </div>
       )}
 
-      {aiResult && !getCompletion.isPending && <MealPlan meals={aiResult} />}
+      {aiResult && !getCompletion.isPending && (
+        <MealPlan meals={aiResult} back={() => setAiResult(null)} />
+      )}
 
       {!aiResult && !getCompletion.isPending && (
         <Form {...form}>

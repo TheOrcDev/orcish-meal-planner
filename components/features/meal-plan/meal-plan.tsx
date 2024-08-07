@@ -1,17 +1,20 @@
 import { Meal } from "@/components/shared/types";
 import {
+  Button,
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui";
+import { ArrowLeft } from "lucide-react";
 
 interface Props {
   meals: Meal[];
+  back: () => void;
 }
 
-export default function MealPlan({ meals }: Props) {
+export default function MealPlan({ meals, back }: Props) {
   return (
     <div className="grid gap-5 md:grid-cols-2">
       {meals.map((meal, index) => (
@@ -29,6 +32,12 @@ export default function MealPlan({ meals }: Props) {
           </CardContent>
         </Card>
       ))}
+      <div className="col-span-full flex items-center justify-center">
+        <Button onClick={back}>
+          <ArrowLeft className="mr-1 size-5" />
+          New Meal Plan
+        </Button>
+      </div>
     </div>
   );
 }
