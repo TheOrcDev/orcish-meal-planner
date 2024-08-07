@@ -70,16 +70,8 @@ export default function CreateMealPlanForm() {
       setAiResult(JSON.parse(completion));
     } catch (e) {
       console.error("Error fetching AI completion:", e);
-      console.log("restarting");
-
-      const completion = await getCompletion.mutateAsync({
-        prompt: `${prompt} ${jsonFormat}`,
-        model: CompletionModel.GPT_3_5_TURBO,
-      });
-
-      setAiResult(JSON.parse(completion));
+      throw e;
     }
-    console.log(values);
   }
 
   return (
