@@ -58,3 +58,10 @@ export interface Meal {
   calories: string;
   ingredients: string[];
 }
+
+export const Tokens = {
+  TEN: "10",
+  FIFTY: "50",
+  HUNDRED: "100"
+} as const;
+export type Tokens = (typeof Tokens)[keyof typeof Tokens];
