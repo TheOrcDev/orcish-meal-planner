@@ -27,8 +27,9 @@ import {
   Skeleton,
 } from "@/components/ui";
 import { trpc } from "@/server/client";
-import { CompletionModel } from "@/components/shared/types";
+import { CompletionModel, Meal } from "@/components/shared/types";
 import { useState } from "react";
+import MealPlan from "@/components/features/meal-plan/meal-plan";
 
 export const Goal = {
   LOSE_WEIGHT: "Lose Weight",
@@ -61,12 +62,6 @@ const formSchema = z.object({
   diet: z.nativeEnum(Diet),
   allergies: z.string(),
 });
-
-interface Meal {
-  mealTitle: string;
-  calories: string;
-  ingredients: string[];
-}
 
 export default function MealPlanner() {
   const [aiResult, setAiResult] = useState<Meal[] | null>(null);
@@ -145,25 +140,8 @@ export default function MealPlanner() {
           <Skeleton className="h-52 w-96 rounded-xl" />
         </div>
       )}
-      {aiResult && !getCompletion.isPending && (
-        <div className="grid gap-5 md:grid-cols-2">
-          {aiResult.map((meal, index) => (
-            <Card key={meal.mealTitle} className="min-w-96">
-              <CardHeader>
-                <CardTitle>
-                  Meal #{index + 1}: {meal.mealTitle}
-                </CardTitle>
-                <CardDescription>Calories: {meal.calories}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                {meal?.ingredients?.map((ingredient: string) => (
-                  <p key={ingredient}>{ingredient}</p>
-                ))}
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      )}
+
+      {aiResult && !getCompletion.isPending && <MealPlan meals={aiResult} />}
 
       {!aiResult && !getCompletion.isPending && (
         <Form {...form}>

@@ -52,3 +52,9 @@ export const Method = {
   TTS: "Text to Speech",
 } as const;
 export type Method = (typeof Method)[keyof typeof Method];
+
+export interface Meal {
+  mealTitle: string;
+  calories: string;
+  ingredients: string[];
+}
