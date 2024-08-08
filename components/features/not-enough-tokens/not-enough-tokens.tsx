@@ -20,7 +20,7 @@ export default function NotEnoughTokens() {
       <CardContent className="flex flex-col gap-5">
         <p>Want to buy tokens to create awesome meal plans?</p>
         <Link href={"/buy-tokens"}>
-          <Button>Buy Tokens</Button>
+          <Button>Buy Now!</Button>
         </Link>
       </CardContent>
     </Card>
