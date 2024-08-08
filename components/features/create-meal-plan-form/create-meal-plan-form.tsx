@@ -28,6 +28,7 @@ import {
   SelectTrigger,
   SelectValue,
   Skeleton,
+  Textarea,
 } from "@/components/ui";
 
 const goals = Object.values(Goal);
@@ -93,7 +94,7 @@ export default function CreateMealPlanForm() {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="grid gap-5 md:grid-cols-2"
+            className="grid w-full gap-5 md:w-1/2 md:grid-cols-2"
           >
             <FormField
               control={form.control}
@@ -213,22 +214,25 @@ export default function CreateMealPlanForm() {
               )}
             />
 
-            <FormField
-              control={form.control}
-              name="allergies"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Allergies</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Some allergies or food that you don't like"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="col-span-full flex w-full justify-center">
+              <FormField
+                control={form.control}
+                name="allergies"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormLabel>Allergies</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Some allergies or food that you don't like"
+                        {...field}
+                        rows={5}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
             <div className="col-span-full flex w-full justify-center">
               <Button type="submit">Get your meal plan!</Button>
             </div>
