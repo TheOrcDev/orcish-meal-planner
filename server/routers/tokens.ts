@@ -74,27 +74,29 @@ export const tokensRouter = router({
 
                 const paymentIntent = await stripe.paymentIntents.retrieve(input.paymentIntent);
 
-                if (paymentIntent.status === "succeeded") {
-                    const [existingRecord] = await db.select().from(purchases).where(eq(purchases.paymentIntentSecret, input.paymentIntentSecret));
-
-                    if (existingRecord) {
-                        console.log("Already saved");
-                        return existingRecord.amount;
-                    }
-
-                    const amountOfTokens = getTokenByPrice(paymentIntent.amount / 100);
-
-                    await db.insert(purchases).values({
-                        email: user?.emailAddresses[0].emailAddress!,
-                        paymentIntent: input.paymentIntent,
-                        paymentIntentSecret: input.paymentIntentSecret,
-                        amount: +amountOfTokens
-                    });
-
-                    // TODO: Send success email to this user
+                if (paymentIntent.status !== "succeeded") {
+                    return
                 }
 
-                return paymentIntent.amount;
+                const [existingRecord] = await db.select().from(purchases).where(eq(purchases.paymentIntentSecret, input.paymentIntentSecret));
+
+                // Already Saved
+                if (existingRecord) {
+                    return existingRecord.amount;
+                }
+
+                const amountOfTokens = getTokenByPrice(paymentIntent.amount / 100);
+
+                await db.insert(purchases).values({
+                    email: user?.emailAddresses[0].emailAddress!,
+                    paymentIntent: input.paymentIntent,
+                    paymentIntentSecret: input.paymentIntentSecret,
+                    amount: +amountOfTokens
+                });
+
+                // TODO: Send success email to this user
+
+                return amountOfTokens;
             } catch (e) {
                 console.log(e)
             }
