@@ -44,7 +44,7 @@ export default function PaymentSuccess() {
       {paymentIntentData && (
         <div className="flex flex-col items-center justify-center gap-5">
           <h2>You have successfully bought {paymentIntentData} tokens!</h2>
-          <Link href={"/"}>
+          <Link href={"/meal-planner"}>
             <Button>Go and use your tokens!</Button>
           </Link>
         </div>

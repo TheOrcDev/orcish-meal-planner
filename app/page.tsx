@@ -2,6 +2,7 @@
 
 import { AuroraBackground, Button } from "@/components/ui";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
@@ -17,6 +18,12 @@ export default function Home() {
         }}
         className="relative flex flex-col items-center justify-center gap-4 px-4"
       >
+        <Image
+          src={"/images/healthy-food.png"}
+          width={400}
+          height={400}
+          alt="Meal Planner Healthy Food"
+        />
         <div className="text-center text-3xl font-bold dark:text-white md:text-7xl">
           Your personal chef & nutritionist
         </div>
