@@ -96,7 +96,7 @@ export const tokensRouter = router({
 
                 // TODO: Send success email to this user
 
-                return amountOfTokens;
+                return +amountOfTokens;
             } catch (e) {
                 console.log(e)
             }
