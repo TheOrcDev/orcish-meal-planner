@@ -11,7 +11,7 @@ import { Goal, Diet } from ".";
 import { getPrompt } from "./prompt";
 
 import { CompletionModel, Meal } from "@/components/shared/types";
-import { MealPlan } from "@/components/features";
+import { MealPlan, NotEnoughTokens } from "@/components/features";
 
 import {
   Button,
@@ -45,6 +45,7 @@ export const formSchema = z.object({
 
 export default function CreateMealPlanForm() {
   const [aiResult, setAiResult] = useState<Meal[] | null>(null);
+  const [notEnoughTokens, setNotEnoughTokens] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -68,6 +69,11 @@ export default function CreateMealPlanForm() {
         model: CompletionModel.GPT_3_5_TURBO,
       });
 
+      if (completion === "Not enough tokens") {
+        setNotEnoughTokens(true);
+        return;
+      }
+
       setAiResult(JSON.parse(completion));
     } catch (e) {
       console.error("Error fetching AI completion:", e);
@@ -90,7 +96,9 @@ export default function CreateMealPlanForm() {
         <MealPlan meals={aiResult} back={() => setAiResult(null)} />
       )}
 
-      {!aiResult && !getCompletion.isPending && (
+      {notEnoughTokens && <NotEnoughTokens />}
+
+      {!aiResult && !getCompletion.isPending && !notEnoughTokens && (
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}

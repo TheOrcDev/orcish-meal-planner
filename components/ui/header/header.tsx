@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ModeToggle } from "../mode-toggle/mode-toggle";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
+import UserInfo from "../user-info/user-info";
 
 export default function Header() {
   return (
@@ -18,13 +18,7 @@ export default function Header() {
 
       <div className="flex gap-3">
         <ModeToggle />
-
-        <SignedOut>
-          <SignInButton />
-        </SignedOut>
-        <SignedIn>
-          <UserButton />
-        </SignedIn>
+        <UserInfo />
       </div>
     </header>
   );

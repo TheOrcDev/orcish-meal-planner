@@ -1,4 +1,5 @@
 export { AuroraBackground } from "./aurora-background/aurora-background";
+export { Badge } from "./badge/badge";
 export { Button } from "./button/button";
 export * from "./card/card";
 export * from "./dropdown-menu/dropdown-menu";
@@ -12,4 +13,5 @@ export { ModeToggle } from "./mode-toggle/mode-toggle";
 export * from "./select/select";
 export { Skeleton } from "./skeleton/skeleton";
 export { Textarea } from "./textarea/textarea";
+export { default as UserInfo } from "./user-info/user-info";
 
