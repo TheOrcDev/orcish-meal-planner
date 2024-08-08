@@ -47,6 +47,9 @@ export default function CreateMealPlanForm() {
   const [aiResult, setAiResult] = useState<Meal[] | null>(null);
   const [notEnoughTokens, setNotEnoughTokens] = useState<boolean>(false);
 
+  const getCompletion = trpc.ai.completion.useMutation();
+  const utils = trpc.useUtils();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -58,7 +61,6 @@ export default function CreateMealPlanForm() {
       allergies: "",
     },
   });
-  const getCompletion = trpc.ai.completion.useMutation();
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
@@ -73,6 +75,8 @@ export default function CreateMealPlanForm() {
         setNotEnoughTokens(true);
         return;
       }
+
+      utils.tokens.getTokens.refetch();
 
       setAiResult(JSON.parse(completion));
     } catch (e) {
