@@ -15,6 +15,7 @@ export default function PaymentSuccess() {
   );
 
   const getPaymentIntent = trpc.tokens.getPaymentIntent.useMutation();
+  const utils = trpc.useUtils();
 
   const paymentIntent = searchParams.get("payment_intent");
   const paymentIntentSecret = searchParams.get("payment_intent_client_secret");
@@ -29,6 +30,7 @@ export default function PaymentSuccess() {
         paymentIntentSecret,
       });
 
+      utils.tokens.getTokens.refetch();
       setPaymentIntentData(data!);
     };
 
