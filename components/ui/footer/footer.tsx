@@ -10,7 +10,7 @@ export default function Footer() {
         bg-green-200 pl-2 text-xs dark:bg-green-950 md:fixed md:text-sm
         "
     >
-      <p>Made with axe © {year}</p>
+      <p>Smart Eating, Every Day © {year}</p>
     </footer>
   );
 }

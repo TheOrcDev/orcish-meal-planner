@@ -103,153 +103,161 @@ export default function CreateMealPlanForm() {
       {notEnoughTokens && <NotEnoughTokens />}
 
       {!aiResult && !getCompletion.isPending && !notEnoughTokens && (
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="grid w-full gap-5 md:w-1/2 md:grid-cols-2"
-          >
-            <FormField
-              control={form.control}
-              name="age"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Age</FormLabel>
-                  <FormControl>
-                    <Input type="number" placeholder="Age" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="meals"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Number of meals</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      placeholder="Number of meals"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="sex"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Sex</FormLabel>
-                  <FormControl>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Your Sex" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="male">Male</SelectItem>
-                        <SelectItem value="female">Female</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="goal"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Goal</FormLabel>
-                  <FormControl>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Your Goal" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {goals.map((goal) => (
-                          <SelectItem key={goal} value={goal}>
-                            {goal}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="diet"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Diet</FormLabel>
-                  <FormControl>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Your Diet" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {diets.map((diet) => (
-                          <SelectItem key={diet} value={diet}>
-                            {diet}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <div className="col-span-full flex w-full justify-center">
+        <div className="flex flex-col items-center justify-center gap-5">
+          <p className="w-1/2 text-center">
+            Please take a moment to fill out this form so we can tailor your
+            experience and provide you with the most personalized and effective
+            results possible. Let&apos;s get started on your journey to BE
+            HEALTHY!
+          </p>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="grid w-full gap-5 md:w-1/2 md:grid-cols-2"
+            >
               <FormField
                 control={form.control}
-                name="allergies"
+                name="age"
                 render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Allergies</FormLabel>
+                  <FormItem>
+                    <FormLabel>Age</FormLabel>
                     <FormControl>
-                      <Textarea
-                        placeholder="Some allergies or food that you don't like"
+                      <Input type="number" placeholder="Age" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="meals"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Number of meals</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        placeholder="Number of meals"
                         {...field}
-                        rows={5}
                       />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-            </div>
-            <div className="col-span-full flex w-full justify-center">
-              <Button type="submit">Get your meal plan!</Button>
-            </div>
-          </form>
-        </Form>
+
+              <FormField
+                control={form.control}
+                name="sex"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Sex</FormLabel>
+                    <FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Your Sex" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="male">Male</SelectItem>
+                          <SelectItem value="female">Female</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="goal"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Goal</FormLabel>
+                    <FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Your Goal" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {goals.map((goal) => (
+                            <SelectItem key={goal} value={goal}>
+                              {goal}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="diet"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Diet</FormLabel>
+                    <FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Your Diet" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {diets.map((diet) => (
+                            <SelectItem key={diet} value={diet}>
+                              {diet}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <div className="col-span-full flex w-full justify-center">
+                <FormField
+                  control={form.control}
+                  name="allergies"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel>Allergies</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Some allergies or food that you don't like"
+                          {...field}
+                          rows={5}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <div className="col-span-full flex w-full justify-center">
+                <Button type="submit">Get your meal plan!</Button>
+              </div>
+            </form>
+          </Form>
+        </div>
       )}
     </main>
   );
