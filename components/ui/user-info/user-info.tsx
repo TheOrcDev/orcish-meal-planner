@@ -11,15 +11,15 @@ export default function UserInfo() {
 
   return (
     <div className="flex items-center gap-2">
-      <Link href={"/buy-tokens"}>
-        <Badge>{tokens?.data} tokens</Badge>
-      </Link>
-
       <SignedOut>
         <SignInButton />
       </SignedOut>
 
       <SignedIn>
+        <Link href={"/buy-tokens"}>
+          <Badge>{tokens?.data} tokens</Badge>
+        </Link>
+
         <UserButton />
       </SignedIn>
     </div>
