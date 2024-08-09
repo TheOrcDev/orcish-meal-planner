@@ -11,6 +11,9 @@ importers:
       '@clerk/nextjs':
         specifier: ^5.2.14
         version: 5.2.14(next@14.2.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@clerk/themes':
+        specifier: ^2.1.19
+        version: 2.1.19
       '@heroicons/react':
         specifier: ^2.1.5
         version: 2.1.5(react@18.3.1)
@@ -185,8 +188,16 @@ packages:
       react-dom:
         optional: true
 
+  '@clerk/themes@2.1.19':
+    resolution: {integrity: sha512-SCdmIEY+mw2v8YboA55uQvYPqzpsjYa0tjMhib7Kra2jJF/PoUuhrAbx0tusm64vG1QKCW24T/1bt7mLmP/g7A==}
+    engines: {node: '>=18.17.0'}
+
   '@clerk/types@4.12.1':
     resolution: {integrity: sha512-0torlmJM3S3kYdaZuIrw1pf4K8aMvoFV+PE1xg7MGfZ0enD9UO3Vhw24pP/yBhI4hVGtNu95E63gpeOFIYysrA==}
+    engines: {node: '>=18.17.0'}
+
+  '@clerk/types@4.13.0':
+    resolution: {integrity: sha512-W/iZ5ig35UgJHmZqqgO1tosHuGtdKR8e+f8FJWphpdIW6KNCK+Oxc5lOO/hJU1c9aih0x5QdlLrKsqF3S8JKdA==}
     engines: {node: '>=18.17.0'}
 
   '@cspotcode/source-map-support@0.8.1':
@@ -2992,7 +3003,16 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
+  '@clerk/themes@2.1.19':
+    dependencies:
+      '@clerk/types': 4.13.0
+      tslib: 2.4.1
+
   '@clerk/types@4.12.1':
+    dependencies:
+      csstype: 3.1.1
+
+  '@clerk/types@4.13.0':
     dependencies:
       csstype: 3.1.1
 
