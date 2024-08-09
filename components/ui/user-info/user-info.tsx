@@ -3,7 +3,7 @@
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 import { trpc } from "@/server/client";
-import { Badge } from "@/components/ui";
+import { Badge, Button } from "@/components/ui";
 import Link from "next/link";
 
 export default function UserInfo() {
@@ -12,7 +12,9 @@ export default function UserInfo() {
   return (
     <div className="flex items-center gap-2">
       <SignedOut>
-        <SignInButton />
+        <Button variant={"outline"} asChild>
+          <SignInButton />
+        </Button>
       </SignedOut>
 
       <SignedIn>
