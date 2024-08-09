@@ -1,3 +1,4 @@
+import { Resend } from 'resend';
 import Stripe from "stripe";
 
 import { currentUser } from "@clerk/nextjs/server";
@@ -9,6 +10,9 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
     apiVersion: STRIPE_API_VERSION,
 });
 
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+import { BoughtTokens } from '@/components/emails/bought-tokens';
 import { Tokens } from "@/components/shared/types";
 import db from "@/db/drizzle";
 import { purchases, tokenSpends } from "@/db/schema";
@@ -94,7 +98,16 @@ export const tokensRouter = router({
                     amount: +amountOfTokens
                 });
 
-                // TODO: Send success email to this user
+                const { error } = await resend.emails.send({
+                    from: `${process.env.EMAIL_SENDER_NAME} <${process.env.EMAIL_SENDER_ADDRESS}>`,
+                    to: [user?.emailAddresses[0].emailAddress!],
+                    subject: 'Your Meal Planning Starts Here',
+                    react: BoughtTokens({ tokens: amountOfTokens }),
+                });
+
+                if (error) {
+                    throw (error);
+                }
 
                 return +amountOfTokens;
             } catch (e) {

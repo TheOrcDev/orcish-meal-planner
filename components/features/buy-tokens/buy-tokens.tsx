@@ -51,7 +51,10 @@ export default function BuyTokens() {
       {!showPayment && !createClientSecret.isPending && (
         <>
           <div className="grid w-full gap-5 md:grid-cols-2 lg:px-20 xl:grid-cols-3">
-            <Card className="cursor-pointer transition duration-300 ease-in-out hover:bg-primary/10">
+            <Card
+              className="cursor-pointer transition duration-300 ease-in-out hover:bg-primary/10"
+              onClick={() => buyTokens(Tokens.TEN)}
+            >
               <CardHeader>
                 <CardTitle>Cheapest</CardTitle>
                 <CardDescription>1$</CardDescription>
@@ -82,7 +85,10 @@ export default function BuyTokens() {
               </CardFooter>
             </Card>
 
-            <Card className="cursor-pointer transition duration-300 ease-in-out hover:bg-primary/10">
+            <Card
+              className="cursor-pointer transition duration-300 ease-in-out hover:bg-primary/10"
+              onClick={() => buyTokens(Tokens.FIFTY)}
+            >
               <CardHeader>
                 <CardTitle>Efficent</CardTitle>
                 <CardDescription>3.5$</CardDescription>
@@ -114,7 +120,10 @@ export default function BuyTokens() {
               </CardFooter>
             </Card>
 
-            <Card className="cursor-pointer transition duration-300 ease-in-out hover:bg-primary/10">
+            <Card
+              className="cursor-pointer transition duration-300 ease-in-out hover:bg-primary/10"
+              onClick={() => buyTokens(Tokens.HUNDRED)}
+            >
               <CardHeader>
                 <CardTitle>Best Deal</CardTitle>
                 <CardDescription>6$</CardDescription>
