@@ -23,7 +23,9 @@ export default function UserInfo() {
 
       <SignedIn>
         <Link href={"/buy-tokens"}>
-          <Badge>{tokens?.data} tokens</Badge>
+          <Badge className={`${tokens?.data === 0 && "bg-destructive"}`}>
+            {tokens?.data} tokens
+          </Badge>
         </Link>
 
         <UserButton

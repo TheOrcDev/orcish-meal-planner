@@ -10,7 +10,7 @@ import { trpc } from "@/server/client";
 import { Goal, Diet } from ".";
 import { getPrompt } from "./prompt";
 
-import { CompletionModel, Meal } from "@/components/shared/types";
+import { CompletionModel, DailyMealPlan } from "@/components/shared/types";
 import { MealPlan, NotEnoughTokens } from "@/components/features";
 
 import {
@@ -44,7 +44,7 @@ export const formSchema = z.object({
 });
 
 export default function CreateMealPlanForm() {
-  const [aiResult, setAiResult] = useState<Meal[] | null>(null);
+  const [aiResult, setAiResult] = useState<DailyMealPlan | null>(null);
   const [notEnoughTokens, setNotEnoughTokens] = useState<boolean>(false);
 
   const getCompletion = trpc.ai.completion.useMutation();
@@ -97,7 +97,7 @@ export default function CreateMealPlanForm() {
       )}
 
       {aiResult && !getCompletion.isPending && (
-        <MealPlan meals={aiResult} back={() => setAiResult(null)} />
+        <MealPlan daily={aiResult} back={() => setAiResult(null)} />
       )}
 
       {notEnoughTokens && <NotEnoughTokens />}

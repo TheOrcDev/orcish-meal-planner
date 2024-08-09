@@ -27,7 +27,10 @@ export const getPrompt = (values: z.infer<typeof formSchema>): string => {
   const jsonFormat = `
     The result should be returned in the following format, and please keep it in one line, nothing should break the JSON formatting:
 
-    { mealTitle: string, calories: string, ingredients: string[] }[]
+    { 
+      meals: { mealTitle: string, calories: string, ingredients: string[] }[]
+      totalCalories: string
+    }
 
     Ingredients should have amount of food in grams like this: Chicken Breasts (200g)
     `;

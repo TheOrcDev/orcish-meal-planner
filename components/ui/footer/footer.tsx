@@ -6,8 +6,8 @@ export default function Footer() {
   return (
     <footer
       className="
-        bottom-5 left-5 flex w-max items-center border-l-2 border-green-800
-        bg-green-200 pl-2 text-xs dark:bg-green-950 md:fixed md:text-sm
+        bottom-5 left-5 flex w-max items-center rounded-xl border-l-2
+        border-primary bg-primary/40 px-2 text-xs md:fixed
         "
     >
       <p>Smart Eating, Every Day © {year}</p>
