@@ -5,6 +5,7 @@ import {
 
 const isProtectedRoute = createRouteMatcher([
     '/meal-planner(.*)',
+    '/meal-plans(.*)',
 ]);
 
 export default clerkMiddleware((auth, req) => {
