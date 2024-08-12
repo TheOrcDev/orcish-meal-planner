@@ -30,6 +30,7 @@ import {
   Skeleton,
   Textarea,
 } from "@/components/ui";
+import { useSearchParams } from "next/navigation";
 
 const goals = Object.values(Goal);
 const diets = Object.values(Diet);
@@ -44,7 +45,14 @@ export const formSchema = z.object({
 });
 
 export default function CreateMealPlanForm() {
+  const searchParams = useSearchParams();
+
+  const type = searchParams.get("type");
+
   const [aiResult, setAiResult] = useState<DailyMealPlan | null>(null);
+  const [mealPlannerType, setMealPlannerType] = useState<"daily" | "weekly">(
+    type === "daily" || type === "weekly" ? type : "daily"
+  );
   const [notEnoughTokens, setNotEnoughTokens] = useState<boolean>(false);
 
   const getCompletion = trpc.ai.completion.useMutation();
@@ -64,8 +72,9 @@ export default function CreateMealPlanForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      const prompt = getPrompt(values);
+      const prompt = getPrompt(values, mealPlannerType);
 
+      console.log(prompt);
       const completion = await getCompletion.mutateAsync({
         prompt,
         model: CompletionModel.GPT_3_5_TURBO,

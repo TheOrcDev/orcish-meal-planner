@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { Elements } from "@stripe/react-stripe-js";
 import getStripe from "@/lib/stripe";
 import PaymentForm from "./payment-form";
@@ -26,6 +27,8 @@ import { useTheme } from "next-themes";
 export default function BuyTokens() {
   const stripePromise = getStripe();
   const createClientSecret = trpc.tokens.getClientSecret.useMutation();
+
+  const searchParams = useSearchParams();
 
   const { resolvedTheme } = useTheme();
 

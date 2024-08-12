@@ -28,7 +28,7 @@ export default function MealPlansPage() {
     <div className="flex flex-col items-center justify-center gap-10 p-24">
       <h1 className="text-3xl">Choose your meal plan</h1>
       <div className="grid w-full gap-5 md:grid-cols-2 lg:px-20">
-        <Link href={"/meal-planner"}>
+        <Link href={"/meal-planner?type=daily"}>
           <Card className="cursor-pointer transition duration-300 ease-in-out hover:bg-primary/10">
             <CardHeader>
               <CardTitle>Daily</CardTitle>
@@ -53,7 +53,7 @@ export default function MealPlansPage() {
             </CardContent>
           </Card>
         </Link>
-        <Link href={"/meal-planner"}>
+        <Link href={"/meal-planner?type=weekly"}>
           <Card className="cursor-pointer transition duration-300 ease-in-out hover:bg-primary/10">
             <CardHeader>
               <CardTitle>Weekly</CardTitle>
@@ -67,6 +67,7 @@ export default function MealPlansPage() {
                     {benefit}
                   </div>
                 ))}
+
                 <p>
                   Plan your entire week with a personalized approach. Tailor
                   your meals based on diet, preferences, and lifestyle. Perfect
