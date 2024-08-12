@@ -6,12 +6,12 @@ import UserInfo from "../user-info/user-info";
 export default function Header() {
   return (
     <header className="absolute z-10 flex w-full items-center justify-between p-5">
-      <Link href={"/"}>
+      <Link href={"/"} className="flex items-center gap-3">
         <Image
           width={50}
           height={50}
-          src={"/orcish-meal-planner.png"}
-          alt="Orcish AI NextJS Framework"
+          src={"/meal-planner.png"}
+          alt="Meal Planner Logo"
           priority
         />
       </Link>
