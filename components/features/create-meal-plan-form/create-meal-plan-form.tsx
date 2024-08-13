@@ -95,7 +95,22 @@ export default function CreateMealPlanForm() {
   }
 
   return (
-    <main className="flex flex-col items-center justify-center p-24">
+    <main className="flex flex-col items-center justify-center gap-5 p-24">
+      <div className="flex gap-3">
+        <Button
+          disabled={mealPlannerType === "daily"}
+          onClick={() => setMealPlannerType("daily")}
+        >
+          Daily
+        </Button>
+        <Button
+          disabled={mealPlannerType === "weekly"}
+          onClick={() => setMealPlannerType("weekly")}
+        >
+          Weekly
+        </Button>
+      </div>
+
       {getCompletion.isPending && (
         <div className="grid gap-5 md:grid-cols-2">
           <Skeleton className="h-52 w-96 rounded-xl" />
