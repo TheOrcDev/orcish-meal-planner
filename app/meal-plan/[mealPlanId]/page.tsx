@@ -14,7 +14,7 @@ export default function MealPlanPage({
 
   return (
     <main className="flex flex-col items-center justify-center gap-5 p-24">
-      {!mealPlan.isPending && <MealPlan daily={mealPlan.data} />}
+      {!mealPlan.isPending && <MealPlan daily={mealPlan.data!} />}
     </main>
   );
 }
