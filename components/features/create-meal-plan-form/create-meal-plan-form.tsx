@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,8 +11,8 @@ import { trpc } from "@/server/client";
 import { Goal, Diet } from ".";
 import { getPrompt } from "./prompt";
 
-import { CompletionModel, DailyMealPlan } from "@/components/shared/types";
-import { MealPlan, NotEnoughTokens } from "@/components/features";
+import { CompletionModel } from "@/components/shared/types";
+import { NotEnoughTokens } from "@/components/features";
 
 import {
   Button,
@@ -46,16 +47,16 @@ export const formSchema = z.object({
 
 export default function CreateMealPlanForm() {
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const type = searchParams.get("type");
 
-  const [aiResult, setAiResult] = useState<DailyMealPlan | null>(null);
   const [mealPlannerType, setMealPlannerType] = useState<"daily" | "weekly">(
     type === "daily" || type === "weekly" ? type : "daily"
   );
   const [notEnoughTokens, setNotEnoughTokens] = useState<boolean>(false);
 
-  const getCompletion = trpc.ai.completion.useMutation();
+  const getCompletion = trpc.ai.getMealPlan.useMutation();
   const utils = trpc.useUtils();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -74,7 +75,6 @@ export default function CreateMealPlanForm() {
     try {
       const prompt = getPrompt(values, mealPlannerType);
 
-      console.log(prompt);
       const completion = await getCompletion.mutateAsync({
         prompt,
         model: CompletionModel.GPT_3_5_TURBO,
@@ -87,7 +87,7 @@ export default function CreateMealPlanForm() {
 
       utils.tokens.getTokens.refetch();
 
-      setAiResult(JSON.parse(completion));
+      router.push(`/meal-plan/${completion}`);
     } catch (e) {
       console.error("Error fetching AI completion:", e);
       throw e;
@@ -120,13 +120,9 @@ export default function CreateMealPlanForm() {
         </div>
       )}
 
-      {aiResult && !getCompletion.isPending && (
-        <MealPlan daily={aiResult} back={() => setAiResult(null)} />
-      )}
-
       {notEnoughTokens && <NotEnoughTokens />}
 
-      {!aiResult && !getCompletion.isPending && !notEnoughTokens && (
+      {!getCompletion.isPending && !notEnoughTokens && (
         <div className="flex flex-col items-center justify-center gap-5">
           <p className="w-1/2 text-center">
             Please take a moment to fill out this form so we can tailor your

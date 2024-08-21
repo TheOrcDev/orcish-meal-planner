@@ -6,13 +6,14 @@ import { z } from "zod";
 import {
   CompletionModel,
   ImageModel,
+  Meal,
   Resolution,
   Voice,
   VoiceModel,
 } from "@/components/shared/types";
 
 import db from "@/db/drizzle";
-import { tokenSpends } from "@/db/schema";
+import { dailyPlans, meals, tokenSpends } from "@/db/schema";
 import { getTotalTokens } from "@/lib/queries";
 import { createFileName } from "@/lib/utils";
 import { currentUser } from "@clerk/nextjs/server";
@@ -27,7 +28,7 @@ const orcishOpenAIService = new OrcishOpenAIService({
 });
 
 export const aiRouter = router({
-  completion: publicProcedure
+  getMealPlan: publicProcedure
     .input(
       z.object({ prompt: z.string(), model: z.nativeEnum(CompletionModel) })
     )
@@ -55,7 +56,24 @@ export const aiRouter = router({
           action: "completion"
         });
 
-        return result;
+        const data = JSON.parse(result);
+
+        const [dailyPlan] = await db.insert(dailyPlans).values({
+          email: user?.emailAddresses[0].emailAddress!,
+          title: "Monday",
+          totalCalories: data.totalCalories,
+        }).returning({ id: dailyPlans.id });;
+
+        data.meals.map(async (meal: Meal) => {
+          await db.insert(meals).values({
+            title: meal.mealTitle,
+            calories: meal.calories,
+            ingredients: JSON.stringify(meal.ingredients),
+            dailyPlanId: dailyPlan.id,
+          })
+        })
+
+        return dailyPlan.id;
       } catch (e) {
         throw (e);
       }
