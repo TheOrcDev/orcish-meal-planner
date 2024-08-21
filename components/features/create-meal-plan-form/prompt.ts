@@ -4,7 +4,7 @@ import { formSchema } from "./create-meal-plan-form";
 const formats = {
   daily: `
     { 
-      meals: { mealTitle: string, calories: string, ingredients: string[] }[];
+      meals: { title: string, calories: string, ingredients: string[] }[];
       totalCalories: string;
     }
   `,
@@ -12,7 +12,7 @@ const formats = {
     {
       { 
         day: string;
-        meals: { mealTitle: string, calories: string, ingredients: string[] }[];
+        meals: { title: string, calories: string, ingredients: string[] }[];
         totalCalories: string;
       }[],
       totalCalories: string;

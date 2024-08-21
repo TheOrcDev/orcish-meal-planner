@@ -9,7 +9,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { trpc } from "@/server/client";
 import { Goal, Diet } from ".";
-import { getPrompt } from "./prompt";
 
 import { CompletionModel } from "@/components/shared/types";
 import { NotEnoughTokens } from "@/components/features";
@@ -73,11 +72,10 @@ export default function CreateMealPlanForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      const prompt = getPrompt(values, mealPlannerType);
-
       const completion = await getCompletion.mutateAsync({
-        prompt,
+        ...values,
         model: CompletionModel.GPT_3_5_TURBO,
+        mealPlannerType,
       });
 
       if (completion === "Not enough tokens") {

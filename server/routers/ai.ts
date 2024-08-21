@@ -12,6 +12,8 @@ import {
   VoiceModel,
 } from "@/components/shared/types";
 
+import { Diet, Goal } from "@/components/features/create-meal-plan-form";
+import { getPrompt } from "@/components/features/create-meal-plan-form/prompt";
 import db from "@/db/drizzle";
 import { dailyPlans, meals, tokenSpends } from "@/db/schema";
 import { getTotalTokens } from "@/lib/queries";
@@ -30,13 +32,24 @@ const orcishOpenAIService = new OrcishOpenAIService({
 export const aiRouter = router({
   getMealPlan: publicProcedure
     .input(
-      z.object({ prompt: z.string(), model: z.nativeEnum(CompletionModel) })
+      z.object({
+        age: z.coerce.number().min(1).max(100),
+        goal: z.nativeEnum(Goal),
+        meals: z.coerce.number().min(2).max(12),
+        sex: z.enum(["male", "female"]),
+        diet: z.nativeEnum(Diet),
+        allergies: z.string(),
+        mealPlannerType: z.enum(["daily", "weekly"]),
+        model: z.nativeEnum(CompletionModel)
+      })
     )
     .mutation(async (opts) => {
       const { input } = opts;
       const user = await currentUser();
 
       try {
+        const prompt = getPrompt(input, input.mealPlannerType);
+
         const totalUserTokens = await getTotalTokens(user?.emailAddresses[0].emailAddress!);
 
         if (totalUserTokens <= 0) {
@@ -44,7 +57,7 @@ export const aiRouter = router({
         }
 
         const result = await orcishOpenAIService.getChatGPTCompletion(
-          input.prompt,
+          prompt,
           {
             gptModel: input.model,
           }
@@ -66,7 +79,7 @@ export const aiRouter = router({
 
         data.meals.map(async (meal: Meal) => {
           await db.insert(meals).values({
-            title: meal.mealTitle,
+            title: meal.title,
             calories: meal.calories,
             ingredients: JSON.stringify(meal.ingredients),
             dailyPlanId: dailyPlan.id,
