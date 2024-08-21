@@ -3,19 +3,21 @@ import { formSchema } from "./create-meal-plan-form";
 
 const formats = {
   daily: `
-    { 
-      meals: { title: string, calories: string, ingredients: string[] }[];
-      totalCalories: string;
+    {
+      "meals": [{"title": "string", "calories": "string", "ingredients": ["string"]}],
+      "totalCalories": "string"
     }
   `,
   weekly: `
     {
-      { 
-        day: string;
-        meals: { title: string, calories: string, ingredients: string[] }[];
-        totalCalories: string;
-      }[],
-      totalCalories: string;
+      "days": [
+        { 
+          "day": "string",
+          "meals": [{"title": "string", "calories": "string", "ingredients": ["string"]}],
+          "totalCalories": "string"
+        }
+      ],
+      "totalCalories": "string"
     }
   `,
 };
@@ -41,16 +43,16 @@ export const getPrompt = (
   }
 
   const jsonFormat = `
-    Please ensure that the meal plan aligns with my nutritional needs and goals, 
+    Keep the result in one line, nothing should break the JSON formatting.
+
+    Ensure that the meal plan aligns with my nutritional needs and goals, 
     offering a balanced and varied diet. Provide detailed meal ideas with portion sizes, 
-    ingredient suggestions, and nutritional information if possible.
+    ingredient suggestions, and nutritional information. 
+    Ingredients should have amounts in grams like this: Chicken Breasts (200g).
 
-    Ingredients should have amount of food in grams like this: Chicken Breasts (200g)
-
-    The result should be returned in the following format, and please keep it in one line, nothing should break the JSON formatting:
-
+    Return the result as a single line of valid JSON in this format:
     ${formats[type]}
   `;
-
+  console.log(`${prompt} ${jsonFormat}`)
   return `${prompt} ${jsonFormat}`;
 };
