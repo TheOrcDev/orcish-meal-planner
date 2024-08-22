@@ -50,19 +50,10 @@ export default function MyMealPlansPage() {
               </Card>
             </Link>
           ))}
-
-        {!dailyPlans.isPending && !dailyPlans.data?.length && (
-          <div className="col-span-full flex flex-col items-center justify-center gap-2">
-            <h2 className="text-2xl">No meal plans yet!</h2>
-            <Link href={"/meal-planner"}>
-              <Button>
-                <ArrowLeft className="mr-1 size-5" />
-                Create now!
-              </Button>
-            </Link>
-          </div>
-        )}
       </div>
+      {!dailyPlans.isPending && !dailyPlans.data?.length && (
+        <h2 className="text-2xl">No meal plans yet!</h2>
+      )}
     </main>
   );
 }
