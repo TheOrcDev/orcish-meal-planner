@@ -6,17 +6,16 @@ import { z } from "zod";
 import {
   CompletionModel,
   ImageModel,
-  Meal,
   Resolution,
   Voice,
-  VoiceModel,
+  VoiceModel
 } from "@/components/shared/types";
 
 import { Diet, Goal } from "@/components/features/create-meal-plan-form";
 import { getPrompt } from "@/components/shared/lib";
 import db from "@/db/drizzle";
-import { dailyPlans, meals, tokenSpends } from "@/db/schema";
-import { getTotalTokens } from "@/lib/queries";
+import { tokenSpends } from "@/db/schema";
+import { addDailyPlanAndMeals, getTotalTokens } from "@/lib/queries";
 import { createFileName } from "@/lib/utils";
 import { currentUser } from "@clerk/nextjs/server";
 import { publicProcedure, router } from "../trpc";
@@ -71,22 +70,7 @@ export const aiRouter = router({
 
         const data = JSON.parse(result);
 
-        const [dailyPlan] = await db.insert(dailyPlans).values({
-          email: user?.emailAddresses[0].emailAddress!,
-          title: data.mealPlanTitle,
-          totalCalories: data.totalCalories,
-        }).returning({ id: dailyPlans.id });;
-
-        data.meals.map(async (meal: Meal) => {
-          await db.insert(meals).values({
-            title: meal.title,
-            calories: meal.calories,
-            ingredients: JSON.stringify(meal.ingredients),
-            dailyPlanId: dailyPlan.id,
-          })
-        })
-
-        return dailyPlan.id;
+        return addDailyPlanAndMeals(data, user?.emailAddresses[0].emailAddress!);
       } catch (e) {
         throw (e);
       }
