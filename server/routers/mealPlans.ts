@@ -1,5 +1,6 @@
 import db from "@/db/drizzle";
 import { dailyPlans } from "@/db/schema";
+import { currentUser } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { publicProcedure, router } from "../trpc";
@@ -21,6 +22,22 @@ export const mealPlansRouter = router({
                 });
 
                 return dailyMealPlan;
+            } catch (error) {
+                console.log(error)
+                throw (error);
+            }
+        }),
+    getDailyPlans: publicProcedure
+        .query(async () => {
+            try {
+                const user = await currentUser();
+
+                return await db.query.dailyPlans.findMany({
+                    with: {
+                        meals: true
+                    },
+                    where: eq(dailyPlans.email, user?.emailAddresses[0].emailAddress!)
+                });
             } catch (error) {
                 console.log(error)
                 throw (error);

@@ -15,6 +15,10 @@ export default function UserInfo() {
 
   return (
     <div className="flex items-center gap-2">
+      <Link href={"/my-meal-plans"}>
+        <Button variant={"outline"}>My Meal Plans</Button>
+      </Link>
+
       <SignedOut>
         <Button variant={"outline"} asChild>
           <SignInButton />
