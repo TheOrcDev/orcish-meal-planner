@@ -1,20 +1,22 @@
 import { z } from "zod";
-import { formSchema } from "./create-meal-plan-form";
+
+import { formSchema } from "../../features/create-meal-plan-form/create-meal-plan-form";
 
 const formats = {
   daily: `
     {
       "meals": [{"title": "string", "calories": "string", "ingredients": ["string"]}],
-      "totalCalories": "string"
+      "totalCalories": "string",
+      "mealPlanTitle": "string",
     }
   `,
   weekly: `
     {
       "days": [
         { 
-          "day": "string",
           "meals": [{"title": "string", "calories": "string", "ingredients": ["string"]}],
           "totalCalories": "string"
+          "mealPlanTitle": "string",
         }
       ],
       "totalCalories": "string"
@@ -49,10 +51,11 @@ export const getPrompt = (
     offering a balanced and varied diet. Provide detailed meal ideas with portion sizes, 
     ingredient suggestions, and nutritional information. 
     Ingredients should have amounts in grams like this: Chicken Breasts (200g).
+    mealPlanTitle should be something logical, connected to the diet type, food, etc
 
     Return the result as a single line of valid JSON in this format:
     ${formats[type]}
   `;
-  console.log(`${prompt} ${jsonFormat}`)
+
   return `${prompt} ${jsonFormat}`;
 };

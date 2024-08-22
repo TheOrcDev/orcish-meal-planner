@@ -61,8 +61,9 @@ export interface Meal {
 
 
 export interface DailyMealPlan {
-  meals: Meal[]
-  totalCalories: string
+  meals: Meal[];
+  totalCalories: string;
+  mealPlanTitle: string;
 }
 
 export const Tokens = {

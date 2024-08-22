@@ -10,7 +10,6 @@ export const Diet = {
 } as const;
 export type Diet = (typeof Diet)[keyof typeof Diet];
 
-
 export const Goal = {
     LOSE_WEIGHT: "Lose Weight",
     HEALTHY: "To be Healthy",

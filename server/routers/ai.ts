@@ -13,7 +13,7 @@ import {
 } from "@/components/shared/types";
 
 import { Diet, Goal } from "@/components/features/create-meal-plan-form";
-import { getPrompt } from "@/components/features/create-meal-plan-form/prompt";
+import { getPrompt } from "@/components/shared/lib";
 import db from "@/db/drizzle";
 import { dailyPlans, meals, tokenSpends } from "@/db/schema";
 import { getTotalTokens } from "@/lib/queries";
@@ -73,7 +73,7 @@ export const aiRouter = router({
 
         const [dailyPlan] = await db.insert(dailyPlans).values({
           email: user?.emailAddresses[0].emailAddress!,
-          title: "Monday",
+          title: data.mealPlanTitle,
           totalCalories: data.totalCalories,
         }).returning({ id: dailyPlans.id });;
 
