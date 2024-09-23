@@ -7,6 +7,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 const inter = Inter({ subsets: ["latin"] });
 
 import { TRPCProvider, ThemeProvider } from "@/components/providers";
+import { Toaster } from "@/components/ui";
 
 export const metadata: Metadata = {
   title: "Orcish Meal Planner",
@@ -33,6 +34,7 @@ export default function RootLayout({
               <Header />
               {children}
               <Footer />
+              <Toaster />
             </ThemeProvider>
           </TRPCProvider>
         </body>
