@@ -85,7 +85,7 @@ export default function CreateMealPlanForm() {
 
       utils.tokens.getTokens.refetch();
 
-      router.push(`/meal-plan/${completion}`);
+      router.push(`/meal-plan/${completion.id}`);
     } catch (e) {
       console.error("Error fetching AI completion:", e);
       throw e;

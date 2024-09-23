@@ -8,14 +8,18 @@ import {
   ImageModel,
   Resolution,
   Voice,
-  VoiceModel
+  VoiceModel,
 } from "@/components/shared/types";
 
 import { Diet, Goal } from "@/components/features/create-meal-plan-form";
 import { getPrompt } from "@/components/shared/lib";
 import db from "@/db/drizzle";
 import { tokenSpends } from "@/db/schema";
-import { addDailyPlanAndMeals, addWeeklyPlan, getTotalTokens } from "@/lib/queries";
+import {
+  addDailyPlanAndMeals,
+  addWeeklyPlan,
+  getTotalTokens,
+} from "@/lib/queries";
 import { createFileName } from "@/lib/utils";
 import { currentUser } from "@clerk/nextjs/server";
 import { publicProcedure, router } from "../trpc";
@@ -39,7 +43,7 @@ export const aiRouter = router({
         diet: z.nativeEnum(Diet),
         allergies: z.string(),
         mealPlannerType: z.enum(["daily", "weekly"]),
-        model: z.nativeEnum(CompletionModel)
+        model: z.nativeEnum(CompletionModel),
       })
     )
     .mutation(async (opts) => {
@@ -49,18 +53,17 @@ export const aiRouter = router({
       try {
         const prompt = getPrompt(input, input.mealPlannerType);
 
-        const totalUserTokens = await getTotalTokens(user?.emailAddresses[0].emailAddress!);
+        const totalUserTokens = await getTotalTokens(
+          user?.emailAddresses[0].emailAddress!
+        );
 
         if (totalUserTokens <= 0) {
           return "Not enough tokens";
         }
 
-        const result = await orcishOpenAIService.getChatGPTCompletion(
-          prompt,
-          {
-            gptModel: input.model,
-          }
-        );
+        const result = await orcishOpenAIService.getChatGPTCompletion(prompt, {
+          gptModel: input.model,
+        });
 
         const data = JSON.parse(result);
 
@@ -70,40 +73,46 @@ export const aiRouter = router({
           await db.insert(tokenSpends).values({
             amount: 5,
             email: user?.emailAddresses[0].emailAddress!,
-            action: "weekly meal plan"
+            action: "weekly meal plan",
           });
-          id = addWeeklyPlan(data, user?.emailAddresses[0].emailAddress!);
+          id = await addWeeklyPlan(data, user?.emailAddresses[0].emailAddress!);
         } else {
           await db.insert(tokenSpends).values({
             amount: 1,
             email: user?.emailAddresses[0].emailAddress!,
-            action: "daily meal plan"
+            action: "daily meal plan",
           });
-          id = addDailyPlanAndMeals(data, user?.emailAddresses[0].emailAddress!);
+          id = await addDailyPlanAndMeals(
+            data,
+            user?.emailAddresses[0].emailAddress!
+          );
         }
 
         return {
           type: input.mealPlannerType,
-          id
-        }
-
+          id,
+        };
       } catch (e) {
-        throw (e);
+        throw e;
       }
     }),
   image: publicProcedure
-    .input(z.object({
-      prompt: z.string(),
-      model: z.nativeEnum(ImageModel),
-      resolution: z.nativeEnum(Resolution)
-    }))
+    .input(
+      z.object({
+        prompt: z.string(),
+        model: z.nativeEnum(ImageModel),
+        resolution: z.nativeEnum(Resolution),
+      })
+    )
     .mutation(async (opts) => {
       const { input } = opts;
 
       const user = await currentUser();
 
       try {
-        const totalUserTokens = await getTotalTokens(user?.emailAddresses[0].emailAddress!);
+        const totalUserTokens = await getTotalTokens(
+          user?.emailAddresses[0].emailAddress!
+        );
 
         if (totalUserTokens <= 0) {
           return "Not enough tokens";
@@ -111,18 +120,18 @@ export const aiRouter = router({
 
         const image = await orcishOpenAIService.getDalle3Image(input.prompt, {
           imageModel: input.model,
-          imageResolution: input.resolution
+          imageResolution: input.resolution,
         });
 
         await db.insert(tokenSpends).values({
           amount: 1,
           email: user?.emailAddresses[0].emailAddress!,
-          action: "image"
+          action: "image",
         });
 
         return image;
       } catch (e) {
-        throw (e);
+        throw e;
       }
     }),
   voice: publicProcedure
@@ -138,7 +147,9 @@ export const aiRouter = router({
       const user = await currentUser();
 
       try {
-        const totalUserTokens = await getTotalTokens(user?.emailAddresses[0].emailAddress!);
+        const totalUserTokens = await getTotalTokens(
+          user?.emailAddresses[0].emailAddress!
+        );
 
         if (totalUserTokens <= 0) {
           return "Not enough tokens";
@@ -162,12 +173,12 @@ export const aiRouter = router({
         await db.insert(tokenSpends).values({
           amount: 1,
           email: user?.emailAddresses[0].emailAddress!,
-          action: "image"
+          action: "image",
         });
 
         return outputPath;
       } catch (e) {
-        throw (e);
+        throw e;
       }
     }),
 });
