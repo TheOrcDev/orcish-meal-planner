@@ -38,8 +38,9 @@ const readComponents = (relativePath) => {
   return reactFiles;
 };
 
-const providers = readComponents("providers");
+const pages = readFolders("", "app/");
 const features = readComponents("features");
+const providers = readComponents("providers");
 const entities = readFolders("entities")
   .map((entity) => [entity, ...readFolders(`entities/${entity}/ui`)])
   .flat();
@@ -93,15 +94,15 @@ module.exports = {
 
     "---",
     "pages",
-
-    "---",
-
-    "providers",
-    ...providers,
+    ...pages,
 
     "---",
     "features",
     ...features,
+
+    "---",
+    "providers",
+    ...providers,
 
     "---",
     "entities",
@@ -141,7 +142,6 @@ module.exports = {
   messages: {
     type: "Select the type of change that you're committing:",
     scope: "\nDenote the SCOPE of this change (optional):",
-
     customScope: "Denote the SCOPE of this change:",
     subject: "Write a SHORT, IMPERATIVE tense description of the change:\n",
     body: 'Provide a LONGER description of the change (optional). Use "|" to break new line:\n',
@@ -153,6 +153,5 @@ module.exports = {
 
   allowCustomScopes: true,
   allowBreakingChanges: ["feat", "fix"],
-
   subjectLimit: 100,
 };
