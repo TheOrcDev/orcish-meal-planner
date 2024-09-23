@@ -1,7 +1,8 @@
-import { DailyMealPlan, Meal } from "@/components/shared/types";
 import db from "@/db/drizzle";
-import { dailyPlans, meals, purchases, tokenSpends } from "@/db/schema";
+import { dailyPlans, meals, purchases, tokenSpends, weeklyPlans } from "@/db/schema";
 import { count, eq, sum } from "drizzle-orm";
+
+import { DailyMealPlan, Meal, WeeklyMealPlan } from "@/components/shared/types";
 
 const FREE_TOKENS = 5;
 
@@ -26,12 +27,13 @@ export const getTotalTokens = async (email: string): Promise<number> => {
     }
 }
 
-export const addDailyPlanAndMeals = async (data: DailyMealPlan, email: string) => {
+export const addDailyPlanAndMeals = async (data: DailyMealPlan, email: string, weeklyPlanId?: string) => {
     const [dailyPlan] = await db.insert(dailyPlans).values({
         email,
         title: data.mealPlanTitle,
         totalCalories: data.totalCalories,
-    }).returning({ id: dailyPlans.id });;
+        weeklyPlanId,
+    }).returning({ id: dailyPlans.id });
 
     data.meals.map(async (meal: Meal) => {
         await db.insert(meals).values({
@@ -43,4 +45,25 @@ export const addDailyPlanAndMeals = async (data: DailyMealPlan, email: string) =
     })
 
     return dailyPlan.id;
+}
+
+export const addWeeklyPlan = async (data: WeeklyMealPlan, email: string) => {
+    const [weeklyPlan] = await db.insert(weeklyPlans).values({
+        email,
+        title: data.weeklyMealPlanTitle,
+        totalCalories: data.totalCalories,
+    }).returning({ id: weeklyPlans.id });
+
+    data.days.map((dailyPlan) => {
+        addDailyPlanAndMeals(dailyPlan, email, weeklyPlan.id);
+    })
+
+}
+
+export const spendTokens = async (amount: number, email: string, action: string) => {
+    await db.insert(tokenSpends).values({
+        amount,
+        email,
+        action
+    });
 }

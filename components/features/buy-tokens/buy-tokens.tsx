@@ -52,7 +52,7 @@ export default function BuyTokens() {
         <>
           <div className="grid w-full gap-5 md:grid-cols-2 lg:px-20 xl:grid-cols-3">
             <Card
-              className="cursor-pointer transition duration-300 ease-in-out hover:bg-primary/10"
+              className="cursor-pointer from-primary/40 to-transparent transition duration-300 ease-in-out hover:-translate-y-2 hover:bg-primary/10 hover:bg-gradient-to-br"
               onClick={() => buyTokens(Tokens.TEN)}
             >
               <CardHeader>
@@ -86,7 +86,7 @@ export default function BuyTokens() {
             </Card>
 
             <Card
-              className="cursor-pointer transition duration-300 ease-in-out hover:bg-primary/10"
+              className="cursor-pointer from-primary/40 to-transparent transition duration-300 ease-in-out hover:-translate-y-2 hover:bg-primary/10 hover:bg-gradient-to-br"
               onClick={() => buyTokens(Tokens.FIFTY)}
             >
               <CardHeader>
@@ -121,7 +121,7 @@ export default function BuyTokens() {
             </Card>
 
             <Card
-              className="cursor-pointer transition duration-300 ease-in-out hover:bg-primary/10"
+              className="cursor-pointer from-primary/40 to-transparent transition duration-300 ease-in-out hover:-translate-y-2 hover:bg-primary/10 hover:bg-gradient-to-br"
               onClick={() => buyTokens(Tokens.HUNDRED)}
             >
               <CardHeader>

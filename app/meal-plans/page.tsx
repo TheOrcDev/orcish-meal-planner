@@ -30,7 +30,7 @@ export default function MealPlansPage() {
 
       <div className="grid w-full gap-5 md:grid-cols-2 lg:px-20">
         <Link href={"/meal-planner?type=daily"}>
-          <Card className="cursor-pointer transition duration-300 ease-in-out hover:bg-primary/10">
+          <Card className="cursor-pointer from-primary/40 to-transparent transition duration-300 ease-in-out hover:-translate-y-2 hover:bg-primary/10 hover:bg-gradient-to-br">
             <CardHeader>
               <CardTitle>Daily</CardTitle>
               <CardDescription>1 token</CardDescription>
@@ -56,7 +56,7 @@ export default function MealPlansPage() {
         </Link>
 
         <Link href={"/meal-planner?type=weekly"}>
-          <Card className="cursor-pointer transition duration-300 ease-in-out hover:bg-primary/10">
+          <Card className="cursor-pointer from-primary/40 to-transparent transition duration-300 ease-in-out hover:-translate-y-2 hover:bg-primary/10 hover:bg-gradient-to-br">
             <CardHeader>
               <CardTitle>Weekly</CardTitle>
               <CardDescription>5 tokens</CardDescription>

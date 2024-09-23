@@ -19,7 +19,8 @@ const formats = {
           "mealPlanTitle": "string",
         }
       ],
-      "totalCalories": "string"
+      "weeklyMealPlanTitle": "string",
+      "totalCalories": "string",
     }
   `,
 };

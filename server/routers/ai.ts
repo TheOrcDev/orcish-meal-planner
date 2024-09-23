@@ -15,7 +15,7 @@ import { Diet, Goal } from "@/components/features/create-meal-plan-form";
 import { getPrompt } from "@/components/shared/lib";
 import db from "@/db/drizzle";
 import { tokenSpends } from "@/db/schema";
-import { addDailyPlanAndMeals, getTotalTokens } from "@/lib/queries";
+import { addDailyPlanAndMeals, addWeeklyPlan, getTotalTokens } from "@/lib/queries";
 import { createFileName } from "@/lib/utils";
 import { currentUser } from "@clerk/nextjs/server";
 import { publicProcedure, router } from "../trpc";
@@ -62,15 +62,31 @@ export const aiRouter = router({
           }
         );
 
-        await db.insert(tokenSpends).values({
-          amount: 1,
-          email: user?.emailAddresses[0].emailAddress!,
-          action: "completion"
-        });
-
         const data = JSON.parse(result);
 
-        return addDailyPlanAndMeals(data, user?.emailAddresses[0].emailAddress!);
+        let id;
+
+        if (input.mealPlannerType === "weekly") {
+          await db.insert(tokenSpends).values({
+            amount: 5,
+            email: user?.emailAddresses[0].emailAddress!,
+            action: "weekly meal plan"
+          });
+          id = addWeeklyPlan(data, user?.emailAddresses[0].emailAddress!);
+        } else {
+          await db.insert(tokenSpends).values({
+            amount: 1,
+            email: user?.emailAddresses[0].emailAddress!,
+            action: "daily meal plan"
+          });
+          id = addDailyPlanAndMeals(data, user?.emailAddresses[0].emailAddress!);
+        }
+
+        return {
+          type: input.mealPlannerType,
+          id
+        }
+
       } catch (e) {
         throw (e);
       }

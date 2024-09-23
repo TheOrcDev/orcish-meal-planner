@@ -15,10 +15,6 @@ export default function UserInfo() {
 
   return (
     <div className="flex items-center gap-2">
-      <Link href={"/my-meal-plans"}>
-        <Button variant={"outline"}>My Meal Plans</Button>
-      </Link>
-
       <SignedOut>
         <Button variant={"outline"} asChild>
           <SignInButton />
@@ -26,6 +22,9 @@ export default function UserInfo() {
       </SignedOut>
 
       <SignedIn>
+        <Link href={"/my-meal-plans"}>
+          <Button variant={"outline"}>My Meal Plans</Button>
+        </Link>
         <Link href={"/buy-tokens"}>
           <Badge className={`${tokens?.data === 0 && "bg-destructive"}`}>
             {tokens?.data} tokens

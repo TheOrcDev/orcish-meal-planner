@@ -66,6 +66,12 @@ export interface DailyMealPlan {
   mealPlanTitle: string;
 }
 
+export interface WeeklyMealPlan {
+  days: DailyMealPlan[];
+  totalCalories: string;
+  weeklyMealPlanTitle: string;
+}
+
 export const Tokens = {
   TEN: "10",
   FIFTY: "50",
