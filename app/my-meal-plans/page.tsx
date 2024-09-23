@@ -77,7 +77,7 @@ export default function MyMealPlansPage() {
                     </div>
                   </CardContent>
                 </Link>
-                <CardFooter className="flex items-center justify-center gap-3">
+                <CardFooter className="flex items-center justify-between gap-3">
                   <Link href={`/meal-plan/${plan.id}`}>
                     <Button>Go to plan</Button>
                   </Link>
