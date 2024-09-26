@@ -30,7 +30,6 @@ import {
   Skeleton,
   Textarea,
 } from "@/components/ui";
-import { useSearchParams } from "next/navigation";
 
 const goals = Object.values(Goal);
 const diets = Object.values(Diet);
@@ -45,14 +44,7 @@ export const formSchema = z.object({
 });
 
 export default function CreateMealPlanForm() {
-  const searchParams = useSearchParams();
   const router = useRouter();
-
-  const type = searchParams.get("type");
-
-  const [mealPlannerType, setMealPlannerType] = useState<"daily" | "weekly">(
-    type === "daily" || type === "weekly" ? type : "daily"
-  );
   const [notEnoughTokens, setNotEnoughTokens] = useState<boolean>(false);
 
   const getCompletion = trpc.ai.getMealPlan.useMutation();
@@ -75,7 +67,7 @@ export default function CreateMealPlanForm() {
       const completion = await getCompletion.mutateAsync({
         ...values,
         model: CompletionModel.GPT_3_5_TURBO,
-        mealPlannerType,
+        mealPlannerType: "daily",
       });
 
       if (completion === "Not enough tokens") {
@@ -94,21 +86,6 @@ export default function CreateMealPlanForm() {
 
   return (
     <main className="flex flex-col items-center justify-center gap-5 p-24">
-      <div className="flex gap-3">
-        <Button
-          disabled={mealPlannerType === "daily"}
-          onClick={() => setMealPlannerType("daily")}
-        >
-          Daily
-        </Button>
-        <Button
-          disabled={mealPlannerType === "weekly"}
-          onClick={() => setMealPlannerType("weekly")}
-        >
-          Weekly
-        </Button>
-      </div>
-
       {getCompletion.isPending && (
         <div className="grid gap-5 md:grid-cols-2">
           <Skeleton className="h-52 w-96 rounded-xl" />

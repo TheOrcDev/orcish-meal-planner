@@ -59,11 +59,11 @@ export interface Meal {
   ingredients: string;
 }
 
-
 export interface DailyMealPlan {
+  id: string;
   meals: Meal[];
   totalCalories: string;
-  mealPlanTitle: string;
+  mealPlanTitle?: string;
 }
 
 export interface WeeklyMealPlan {
@@ -75,6 +75,6 @@ export interface WeeklyMealPlan {
 export const Tokens = {
   TEN: "10",
   FIFTY: "50",
-  HUNDRED: "100"
+  HUNDRED: "100",
 } as const;
 export type Tokens = (typeof Tokens)[keyof typeof Tokens];

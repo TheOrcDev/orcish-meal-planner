@@ -24,6 +24,7 @@ import {
 import Link from "next/link";
 import { Plus } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { DailyMealPlan } from "@/components/features";
 
 export default function MyMealPlansPage() {
   const dailyPlans = trpc.mealPlans.getDailyPlans.useQuery();
@@ -58,59 +59,11 @@ export default function MyMealPlansPage() {
         {!dailyPlans.isPending && (
           <>
             {dailyPlans.data?.map((plan) => (
-              <Card
-                key={plan.id}
-                className="h-full cursor-pointer from-primary/40 to-transparent transition duration-300 ease-in-out hover:-translate-y-2 hover:bg-primary/10 hover:bg-gradient-to-br"
-              >
-                <Link href={`/meal-plan/${plan.id}`}>
-                  <CardHeader>
-                    <CardTitle>{plan.title}</CardTitle>
-                    <CardDescription>
-                      Calories: {plan.totalCalories}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="flex flex-col gap-3 justify-between ">
-                    <div>
-                      {plan.meals.map((meal) => (
-                        <p key={meal.id}>{meal.title}</p>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Link>
-                <CardFooter className="flex items-center justify-between gap-3">
-                  <Link href={`/meal-plan/${plan.id}`}>
-                    <Button>Go to plan</Button>
-                  </Link>
-                  <AlertDialog>
-                    <AlertDialogTrigger asChild>
-                      <Button variant={"destructive"}>Delete</Button>
-                    </AlertDialogTrigger>
-                    <AlertDialogContent>
-                      <AlertDialogHeader>
-                        <AlertDialogTitle>
-                          Are you absolutely sure?
-                        </AlertDialogTitle>
-                        <AlertDialogDescription>
-                          This action cannot be undone. This will permanently
-                          delete your meal plan.
-                        </AlertDialogDescription>
-                      </AlertDialogHeader>
-                      <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction
-                          onClick={() => handleDeleteMealPlan(plan.id)}
-                        >
-                          Continue
-                        </AlertDialogAction>
-                      </AlertDialogFooter>
-                    </AlertDialogContent>
-                  </AlertDialog>
-                </CardFooter>
-              </Card>
+              <DailyMealPlan key={plan.id} plan={plan} />
             ))}
             <Link href={"meal-planner"}>
-              <Card className="h-full cursor-pointer from-primary/40 to-transparent transition duration-300 ease-in-out hover:-translate-y-2 hover:bg-primary/10 hover:bg-gradient-to-br size-72">
-                <CardContent className="flex flex-col gap-3 items-center justify-center size-full">
+              <Card className="size-72 h-full cursor-pointer from-primary/40 to-transparent transition duration-300 ease-in-out hover:-translate-y-2 hover:bg-primary/10 hover:bg-gradient-to-br">
+                <CardContent className="flex size-full flex-col items-center justify-center gap-3">
                   <p className="text-2xl">Create a new plan</p>
                   <Plus className="size-10" />
                 </CardContent>
