@@ -49,12 +49,13 @@ export const addDailyPlanAndMeals = async (
     })
     .returning({ id: dailyPlans.id });
 
-  data.meals.map(async (meal: Meal) => {
+  data.meals.map(async (meal: Meal, index: number) => {
     await db.insert(meals).values({
       title: meal.title,
       calories: meal.calories,
       ingredients: JSON.stringify(meal.ingredients),
       dailyPlanId: dailyPlan.id,
+      mealOrder: index + 1,
     });
   });
 

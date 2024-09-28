@@ -1,7 +1,7 @@
 import db from "@/db/drizzle";
-import { dailyPlans } from "@/db/schema";
+import { dailyPlans, meals } from "@/db/schema";
 import { currentUser } from "@clerk/nextjs/server";
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { z } from "zod";
 import { publicProcedure, router } from "../trpc";
 
@@ -14,7 +14,9 @@ export const mealPlansRouter = router({
       try {
         const [dailyMealPlan] = await db.query.dailyPlans.findMany({
           with: {
-            meals: true,
+            meals: {
+              orderBy: desc(meals.mealOrder),
+            },
           },
           where: eq(dailyPlans.id, input.mealPlanId),
         });
@@ -31,7 +33,9 @@ export const mealPlansRouter = router({
 
       return await db.query.dailyPlans.findMany({
         with: {
-          meals: true,
+          meals: {
+            orderBy: desc(meals.createdAt),
+          },
         },
         where: eq(dailyPlans.email, user?.emailAddresses[0].emailAddress!),
       });

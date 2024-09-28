@@ -48,6 +48,7 @@ export const meals = pgTable("meals", {
   title: text("title").notNull(),
   calories: text("calories").notNull(),
   ingredients: text("ingredients").notNull(),
+  mealOrder: integer("meal_order").notNull(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   dailyPlanId: uuid("daily_plan_id"),
 });
