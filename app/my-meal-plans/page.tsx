@@ -1,47 +1,17 @@
 "use client";
 
 import { trpc } from "@/server/client";
-import {
-  Button,
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-  Skeleton,
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui";
+import { Card, CardContent, Skeleton } from "@/components/ui";
 
 import Link from "next/link";
 import { Plus } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import { DailyMealPlan } from "@/components/features";
 
 export default function MyMealPlansPage() {
   const dailyPlans = trpc.mealPlans.getDailyPlans.useQuery();
-  const deleteMealPlan = trpc.mealPlans.delete.useMutation();
   const utils = trpc.useUtils();
 
-  const { toast } = useToast();
-
   utils.mealPlans.getDailyPlans.refetch();
-
-  const handleDeleteMealPlan = (mealPlanId: string) => {
-    deleteMealPlan.mutate({ mealPlanId });
-    toast({
-      title: "Meal plan deleted",
-      description: "Your meal plan has been deleted.",
-    });
-  };
 
   return (
     <main className="flex flex-col items-center justify-center gap-5 p-24">
