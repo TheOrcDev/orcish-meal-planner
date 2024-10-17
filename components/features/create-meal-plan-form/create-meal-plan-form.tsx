@@ -22,6 +22,8 @@ import {
   FormLabel,
   FormMessage,
   Input,
+  RadioGroup,
+  RadioGroupItem,
   Select,
   SelectContent,
   SelectItem,
@@ -40,6 +42,10 @@ export const formSchema = z.object({
   meals: z.coerce.number().min(2).max(12),
   sex: z.enum(["male", "female"]),
   diet: z.nativeEnum(Diet),
+  weight: z.coerce.number().min(1).max(400).optional(),
+  height: z.coerce.number().min(1).max(400).optional(),
+  weightUnit: z.enum(["kg", "lb"]),
+  heightUnit: z.enum(["cm", "in"]),
   allergies: z.string(),
 });
 
@@ -58,6 +64,8 @@ export default function CreateMealPlanForm() {
       meals: 2,
       sex: "male",
       diet: Diet.ANY,
+      weightUnit: "kg",
+      heightUnit: "cm",
       allergies: "",
     },
   });
@@ -247,6 +255,103 @@ export default function CreateMealPlanForm() {
                   )}
                 />
               </div>
+
+              <FormField
+                control={form.control}
+                name="weightUnit"
+                render={({ field }) => (
+                  <FormItem className="space-y-3">
+                    <FormControl>
+                      <RadioGroup
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        className="flex gap-2"
+                      >
+                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem value="kg" />
+                          </FormControl>
+                          <FormLabel className="font-normal">
+                            Kilograms (kg)
+                          </FormLabel>
+                        </FormItem>
+                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem value="lb" />
+                          </FormControl>
+                          <FormLabel className="font-normal">
+                            Pounds (lb)
+                          </FormLabel>
+                        </FormItem>
+                      </RadioGroup>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="heightUnit"
+                render={({ field }) => (
+                  <FormItem className="space-y-3">
+                    <FormControl>
+                      <RadioGroup
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        className="flex gap-2"
+                      >
+                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem value="cm" />
+                          </FormControl>
+                          <FormLabel className="font-normal">
+                            Centimeters (cm)
+                          </FormLabel>
+                        </FormItem>
+                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem value="in" />
+                          </FormControl>
+                          <FormLabel className="font-normal">
+                            Inches (in)
+                          </FormLabel>
+                        </FormItem>
+                      </RadioGroup>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="weight"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Weight</FormLabel>
+                    <FormControl>
+                      <Input type="number" placeholder="Weight" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="height"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Height</FormLabel>
+                    <FormControl>
+                      <Input type="number" placeholder="Height" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
               <div className="col-span-full flex w-full justify-center">
                 <Button type="submit">Get your meal plan!</Button>
               </div>

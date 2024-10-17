@@ -42,6 +42,10 @@ export const aiRouter = router({
         sex: z.enum(["male", "female"]),
         diet: z.nativeEnum(Diet),
         allergies: z.string(),
+        weight: z.coerce.number().min(1).max(400).optional(),
+        height: z.coerce.number().min(1).max(400).optional(),
+        weightUnit: z.enum(["kg", "lb"]),
+        heightUnit: z.enum(["cm", "in"]),
         mealPlannerType: z.enum(["daily", "weekly"]),
         model: z.nativeEnum(CompletionModel),
       })

@@ -11,6 +11,7 @@ export { Input } from "./input/input";
 export { Label } from "./label/label";
 export { default as Loading } from "./loading/loading";
 export { ModeToggle } from "./mode-toggle/mode-toggle";
+export * from "./radio-group/radio-group";
 export * from "./select/select";
 export { Skeleton } from "./skeleton/skeleton";
 export { Textarea } from "./textarea/textarea";

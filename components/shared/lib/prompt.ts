@@ -37,7 +37,20 @@ export const getPrompt = (
     - Number of meals per day: ${values.meals}
     - Diet type: ${values.diet} (e.g., vegetarian, keto, low-carb)
     - Primary goal: ${values.goal} (e.g., weight loss, muscle gain, maintenance)
+   
   `;
+
+  if (values.weight) {
+    prompt += `
+      - Weight: ${values.weight} ${values.weightUnit}
+    `;
+  }
+
+  if (values.height) {
+    prompt += `
+      - Height: ${values.height} ${values.heightUnit}
+    `;
+  }
 
   if (values.allergies) {
     prompt += `
