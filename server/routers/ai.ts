@@ -39,7 +39,7 @@ export const aiRouter = router({
         age: z.coerce.number().min(1).max(100),
         goal: z.nativeEnum(Goal),
         meals: z.coerce.number().min(2).max(12),
-        sex: z.enum(["male", "female"]),
+        gender: z.enum(["male", "female"]),
         diet: z.nativeEnum(Diet),
         allergies: z.string(),
         weight: z.coerce.number().min(1).max(400).optional(),

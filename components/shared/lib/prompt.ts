@@ -33,7 +33,7 @@ export const getPrompt = (
     Create a customized meal plan for the entire ${type} based on the following details:
 
     - Age: ${values.age}
-    - Sex: ${values.sex}
+    - Gender: ${values.gender}
     - Number of meals per day: ${values.meals}
     - Diet type: ${values.diet} (e.g., vegetarian, keto, low-carb)
     - Primary goal: ${values.goal} (e.g., weight loss, muscle gain, maintenance)

@@ -40,7 +40,7 @@ export const formSchema = z.object({
   age: z.coerce.number().min(1).max(100),
   goal: z.nativeEnum(Goal),
   meals: z.coerce.number().min(2).max(12),
-  sex: z.enum(["male", "female"]),
+  gender: z.enum(["male", "female"]),
   diet: z.nativeEnum(Diet),
   weight: z.coerce.number().min(1).max(400).optional(),
   height: z.coerce.number().min(1).max(400).optional(),
@@ -62,7 +62,7 @@ export default function CreateMealPlanForm() {
       age: 18,
       goal: Goal.HEALTHY,
       meals: 2,
-      sex: "male",
+      gender: "male",
       diet: Diet.ANY,
       weightUnit: "kg",
       heightUnit: "cm",
@@ -151,10 +151,10 @@ export default function CreateMealPlanForm() {
 
               <FormField
                 control={form.control}
-                name="sex"
+                name="gender"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Sex</FormLabel>
+                    <FormLabel>gender</FormLabel>
                     <FormControl>
                       <Select
                         onValueChange={field.onChange}
@@ -162,7 +162,7 @@ export default function CreateMealPlanForm() {
                       >
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder="Your Sex" />
+                            <SelectValue placeholder="Your gender" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
