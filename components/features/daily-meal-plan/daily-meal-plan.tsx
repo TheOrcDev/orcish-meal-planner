@@ -21,25 +21,30 @@ import {
   CardTitle,
 } from "@/components/ui";
 import { useToast } from "@/hooks/use-toast";
-import { trpc } from "@/server/client";
+import { deleteDailyPlan } from "@/server/meal-plans";
 
 interface DailyMealPlanProps {
   plan: DailyMealPlanType;
 }
+
 export default function DailyMealPlan({ plan }: DailyMealPlanProps) {
-  const deleteMealPlan = trpc.mealPlans.delete.useMutation();
-  const utils = trpc.useUtils();
   const { toast } = useToast();
 
-  const handleDeleteMealPlan = (mealPlanId: string) => {
-    deleteMealPlan.mutate({ mealPlanId });
+  const handleDeleteMealPlan = async (mealPlanId: string) => {
+    try {
+      await deleteDailyPlan(mealPlanId);
 
-    utils.mealPlans.getDailyPlans.refetch();
-
-    toast({
-      title: "Meal plan deleted",
-      description: "Your meal plan has been deleted.",
-    });
+      toast({
+        title: "Meal plan deleted",
+        description: "Your meal plan has been deleted.",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "An error occurred while deleting your meal plan.",
+      });
+      console.log(error);
+    }
   };
   return (
     <Card
