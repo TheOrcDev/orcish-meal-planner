@@ -1,6 +1,7 @@
 import Image from "next/image";
-import { ModeToggle } from "../mode-toggle/mode-toggle";
 import Link from "next/link";
+
+import { ModeToggle } from "../mode-toggle/mode-toggle";
 import UserInfo from "../user-info/user-info";
 
 export default function Header() {

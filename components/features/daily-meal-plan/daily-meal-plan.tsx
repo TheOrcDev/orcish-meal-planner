@@ -1,26 +1,27 @@
 "use client";
+import Link from "next/link";
+
 import { DailyMealPlan as DailyMealPlanType } from "@/components/shared/types";
 import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardFooter,
   AlertDialog,
-  AlertDialogTrigger,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogDescription,
   AlertDialogAction,
   AlertDialogCancel,
-  Button,
-  CardDescription,
+  AlertDialogContent,
+  AlertDialogDescription,
   AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui";
 import { useToast } from "@/hooks/use-toast";
 import { trpc } from "@/server/client";
-import Link from "next/link";
 
 interface DailyMealPlanProps {
   plan: DailyMealPlanType;

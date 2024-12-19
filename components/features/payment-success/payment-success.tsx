@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-
-import { trpc } from "@/server/client";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import { Button, Loading } from "@/components/ui";
+import { trpc } from "@/server/client";
 
 export default function PaymentSuccess() {
   const searchParams = useSearchParams();
@@ -36,7 +35,6 @@ export default function PaymentSuccess() {
 
     getData();
     // Disabling ESLint warning - Hooks cannot go in here
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

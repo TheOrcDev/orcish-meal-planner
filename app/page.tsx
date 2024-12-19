@@ -1,9 +1,10 @@
 "use client";
 
-import { AuroraBackground, Button } from "@/components/ui";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+
+import { AuroraBackground, Button } from "@/components/ui";
 
 export default function Home() {
   return (

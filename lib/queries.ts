@@ -1,3 +1,6 @@
+import { count, eq, sum } from "drizzle-orm";
+
+import { DailyMealPlan, Meal, WeeklyMealPlan } from "@/components/shared/types";
 import db from "@/db/drizzle";
 import {
   dailyPlans,
@@ -6,9 +9,6 @@ import {
   tokenSpends,
   weeklyPlans,
 } from "@/db/schema";
-import { count, eq, sum } from "drizzle-orm";
-
-import { DailyMealPlan, Meal, WeeklyMealPlan } from "@/components/shared/types";
 
 const FREE_TOKENS = 5;
 

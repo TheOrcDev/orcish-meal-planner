@@ -1,18 +1,13 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
-
 import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 
-import { trpc } from "@/server/client";
-import { Goal, Diet } from ".";
-
-import { CompletionModel } from "@/components/shared/types";
 import { NotEnoughTokens } from "@/components/features";
-
+import { CompletionModel } from "@/components/shared/types";
 import {
   Button,
   Form,
@@ -32,6 +27,9 @@ import {
   Skeleton,
   Textarea,
 } from "@/components/ui";
+import { trpc } from "@/server/client";
+
+import { Diet, Goal } from ".";
 
 const goals = Object.values(Goal);
 const diets = Object.values(Diet);

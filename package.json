@@ -55,10 +55,12 @@
     "@types/node": "^22.10.2",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
+    "@typescript-eslint/parser": "^8.18.1",
     "autoprefixer": "^10.4.20",
     "cz-customizable": "^7.3.0",
     "eslint": "^9.17.0",
     "eslint-config-next": "15.1.2",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-tailwindcss": "^3.17.5",
     "husky": "^9.1.7",
     "postcss": "^8.4.49",
@@ -70,5 +72,6 @@
     "cz-customizable": {
       "config": "cz-config.js"
     }
-  }
+  },
+  "type": "module"
 }

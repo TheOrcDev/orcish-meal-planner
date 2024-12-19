@@ -1,14 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import { CheckCircledIcon } from "@radix-ui/react-icons";
 import { Elements } from "@stripe/react-stripe-js";
-import getStripe from "@/lib/stripe";
-import PaymentForm from "./payment-form";
-
-import { trpc } from "@/server/client";
+import { useTheme } from "next-themes";
+import React, { useState } from "react";
 
 import { Tokens } from "@/components/shared/types";
-
 import {
   Button,
   Card,
@@ -19,9 +16,10 @@ import {
   CardTitle,
   Loading,
 } from "@/components/ui";
+import getStripe from "@/lib/stripe";
+import { trpc } from "@/server/client";
 
-import { CheckCircledIcon } from "@radix-ui/react-icons";
-import { useTheme } from "next-themes";
+import PaymentForm from "./payment-form";
 
 export default function BuyTokens() {
   const stripePromise = getStripe();

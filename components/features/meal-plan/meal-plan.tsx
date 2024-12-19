@@ -1,3 +1,6 @@
+import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
+
 import { DailyMealPlan } from "@/components/shared/types";
 import {
   Button,
@@ -7,8 +10,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui";
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
 
 interface Props {
   daily: DailyMealPlan;

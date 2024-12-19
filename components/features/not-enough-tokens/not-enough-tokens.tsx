@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import {
   Button,
   Card,
@@ -6,7 +8,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui";
-import Link from "next/link";
 
 export default function NotEnoughTokens() {
   return (

@@ -1,20 +1,19 @@
 "use client";
 
-import Link from "next/link";
-
 import {
   ClerkLoading,
-  SignInButton,
   SignedIn,
   SignedOut,
+  SignInButton,
   UserButton,
 } from "@clerk/nextjs";
-import { useTheme } from "next-themes";
 import { dark } from "@clerk/themes";
-
-import { trpc } from "@/server/client";
-import { Badge, Button, Skeleton } from "@/components/ui";
 import { Loader2 } from "lucide-react";
+import Link from "next/link";
+import { useTheme } from "next-themes";
+
+import { Badge, Button, Skeleton } from "@/components/ui";
+import { trpc } from "@/server/client";
 
 export default function UserInfo() {
   const tokens = trpc.tokens.getTokens.useQuery();

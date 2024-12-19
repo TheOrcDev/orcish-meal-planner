@@ -1,4 +1,5 @@
 import { CheckCircledIcon } from "@radix-ui/react-icons";
+import Link from "next/link";
 
 import {
   Card,
@@ -7,7 +8,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui";
-import Link from "next/link";
 
 const dailyBenefits = [
   "Meal plan for one day",

@@ -1,11 +1,11 @@
 "use client";
 
-import { trpc } from "@/server/client";
-import { Card, CardContent, Skeleton } from "@/components/ui";
-
-import Link from "next/link";
 import { Plus } from "lucide-react";
+import Link from "next/link";
+
 import { DailyMealPlan } from "@/components/features";
+import { Card, CardContent, Skeleton } from "@/components/ui";
+import { trpc } from "@/server/client";
 
 export default function MyMealPlansPage() {
   const dailyPlans = trpc.mealPlans.getDailyPlans.useQuery();
