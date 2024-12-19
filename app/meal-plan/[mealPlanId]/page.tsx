@@ -11,12 +11,16 @@ import {
 } from "@/components/ui";
 import { getMealPlan } from "@/server/meal-plans";
 
-export default async function MealPlanPage({
-  params,
-}: {
-  params: { mealPlanId: string };
-}) {
-  const mealPlan = await getMealPlan(params.mealPlanId);
+interface MealPlanPageProps {
+  params: Promise<{
+    mealPlanId: string;
+  }>;
+}
+
+export default async function MealPlanPage({ params }: MealPlanPageProps) {
+  const { mealPlanId } = await params;
+
+  const mealPlan = await getMealPlan(mealPlanId);
 
   return (
     <main className="flex flex-col items-center justify-center gap-5 p-24">
