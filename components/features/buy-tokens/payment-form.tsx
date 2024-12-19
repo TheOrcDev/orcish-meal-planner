@@ -6,6 +6,7 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui";
 
@@ -14,6 +15,8 @@ interface Props {
 }
 
 export default function PaymentForm({ back }: Props) {
+  const router = useRouter();
+
   const stripe = useStripe();
   const elements = useElements();
 
@@ -24,12 +27,20 @@ export default function PaymentForm({ back }: Props) {
       return;
     }
 
-    await stripe.confirmPayment({
+    const result = await stripe.confirmPayment({
       elements,
-      confirmParams: {
-        return_url: `${process.env.NEXT_PUBLIC_APP_URL}/order-complete`,
-      },
+      redirect: "if_required",
     });
+
+    if (result.error) {
+      console.log(result.error.message);
+    }
+
+    if (result.paymentIntent?.status === "succeeded") {
+      router.push(
+        `/order-complete/${result.paymentIntent.id}/${result.paymentIntent.client_secret}`
+      );
+    }
   }
 
   return (

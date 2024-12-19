@@ -4,4 +4,3 @@ export { default as CreateMealPlanForm } from "./create-meal-plan-form/create-me
 export { default as DailyMealPlan } from "./daily-meal-plan/daily-meal-plan";
 export { default as MealPlan } from "./meal-plan/meal-plan";
 export { default as NotEnoughTokens } from "./not-enough-tokens/not-enough-tokens";
-export { default as PaymentSuccess } from "./payment-success/payment-success";
