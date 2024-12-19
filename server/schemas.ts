@@ -10,7 +10,7 @@ export const mealPlannerSchema = z.object({
   diet: z.nativeEnum(Diet),
   weight: z.coerce.number().min(1).max(400).optional(),
   height: z.coerce.number().min(1).max(400).optional(),
-  weightUnit: z.enum(["kg", "lb"]),
-  heightUnit: z.enum(["cm", "in"]),
+  weightUnit: z.enum(["kg", "lb"]).default("kg"),
+  heightUnit: z.enum(["cm", "in"]).default("cm"),
   allergies: z.string(),
 });
