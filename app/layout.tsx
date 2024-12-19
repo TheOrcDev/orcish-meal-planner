@@ -12,9 +12,13 @@ import { ThemeProvider } from "@/components/providers";
 import { Toaster } from "@/components/ui";
 
 export const metadata: Metadata = {
-  title: "Orcish Meal Planner",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL!),
+  title: "AI Meal Planner - Plan your meals with AI",
   description:
-    "Your personal chef & nutritionist. Transform your eating habits.",
+    "Your personal chef & nutritionist. Transform your eating habits. Get your meal plan in seconds.",
+  openGraph: {
+    images: "/images/healthy-food.png",
+  },
 };
 
 export default function RootLayout({
