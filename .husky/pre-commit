@@ -1,6 +1,3 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
 echo '🪓🏗️👹 Preparing orc axes for the mighty project conquest! 👹🏗️🪓'
 echo 'Get ready for battle, this may take a while...'
 
