@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
+import { Leaf, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -10,6 +10,8 @@ import { z } from "zod";
 import { NotEnoughTokens } from "@/components/features";
 import {
   Button,
+  Card,
+  CardContent,
   Form,
   FormControl,
   FormField,
@@ -24,7 +26,6 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Skeleton,
   Textarea,
 } from "@/components/ui";
 import { getMealPlan } from "@/server/ai";
@@ -74,269 +75,318 @@ export default function CreateMealPlanForm() {
   }
 
   return (
-    <main className="flex flex-col items-center justify-center gap-5 p-24">
-      {notEnoughTokens && <NotEnoughTokens />}
+    <div className="flex items-center justify-center bg-gradient-to-b from-gray-900 to-gray-800 p-24">
+      <Card className="w-full max-w-2xl border-gray-800 bg-gray-900/50">
+        <CardContent className="space-y-8 p-6">
+          {notEnoughTokens && <NotEnoughTokens />}
 
-      {!notEnoughTokens && (
-        <div className="flex flex-col items-center justify-center gap-5">
-          <p className="w-1/2 text-center">
-            Please take a moment to fill out this form so we can tailor your
-            experience and provide you with the most personalized and effective
-            results possible. Let&apos;s get started on your journey to BE
-            HEALTHY!
-          </p>
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="grid w-full gap-5 md:w-1/2 md:grid-cols-2"
-            >
-              <FormField
-                control={form.control}
-                name="age"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Age</FormLabel>
-                    <FormControl>
-                      <Input type="number" placeholder="Age" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="meals"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Number of meals</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="number"
-                        placeholder="Number of meals"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="gender"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>gender</FormLabel>
-                    <FormControl>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Your gender" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          <SelectItem value="male">Male</SelectItem>
-                          <SelectItem value="female">Female</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="goal"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Goal</FormLabel>
-                    <FormControl>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Your Goal" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {goals.map((goal) => (
-                            <SelectItem key={goal} value={goal}>
-                              {goal}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="diet"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Diet</FormLabel>
-                    <FormControl>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Your Diet" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {diets.map((diet) => (
-                            <SelectItem key={diet} value={diet}>
-                              {diet}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <div className="col-span-full flex w-full justify-center">
-                <FormField
-                  control={form.control}
-                  name="allergies"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel>Allergies</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Some allergies or food that you don't like"
-                          {...field}
-                          rows={5}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+          {!notEnoughTokens && (
+            <div className="flex flex-col items-center justify-center gap-5">
+              <div className="space-y-2 text-center">
+                <h1 className="text-2xl font-semibold text-white">
+                  Start Your Health Journey
+                </h1>
+                <p className="mx-auto max-w-xl text-sm text-gray-400">
+                  Please take a moment to fill out this form so we can tailor
+                  your experience and provide you with the most personalized and
+                  effective results possible. Let&apos;s get started on your
+                  journey to BE HEALTHY!
+                </p>
               </div>
 
-              <FormField
-                control={form.control}
-                name="weightUnit"
-                render={({ field }) => (
-                  <FormItem className="space-y-3">
-                    <FormControl>
-                      <RadioGroup
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                        className="flex gap-2"
-                      >
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="kg" />
-                          </FormControl>
-                          <FormLabel className="font-normal">
-                            Kilograms (kg)
-                          </FormLabel>
-                        </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="lb" />
-                          </FormControl>
-                          <FormLabel className="font-normal">
-                            Pounds (lb)
-                          </FormLabel>
-                        </FormItem>
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="grid w-full gap-6 md:grid-cols-2"
+                >
+                  <FormField
+                    control={form.control}
+                    name="age"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-gray-200">Age</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="number"
+                            placeholder="Age"
+                            {...field}
+                            className="border-gray-700 bg-gray-800/50 text-white placeholder:text-gray-500"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="meals"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-gray-200">
+                          Number of meals
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            type="number"
+                            placeholder="Number of meals"
+                            {...field}
+                            className="border-gray-700 bg-gray-800/50 text-white placeholder:text-gray-500"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-              <FormField
-                control={form.control}
-                name="heightUnit"
-                render={({ field }) => (
-                  <FormItem className="space-y-3">
-                    <FormControl>
-                      <RadioGroup
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                        className="flex gap-2"
-                      >
-                        <FormItem className="flex items-center space-x-3 space-y-0">
+                  <FormField
+                    control={form.control}
+                    name="gender"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-gray-200">Gender</FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
                           <FormControl>
-                            <RadioGroupItem value="cm" />
+                            <SelectTrigger className="border-gray-700 bg-gray-800/50 text-white">
+                              <SelectValue placeholder="Your gender" />
+                            </SelectTrigger>
                           </FormControl>
-                          <FormLabel className="font-normal">
-                            Centimeters (cm)
-                          </FormLabel>
-                        </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <SelectContent>
+                            <SelectItem value="male">Male</SelectItem>
+                            <SelectItem value="female">Female</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="goal"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-gray-200">Goal</FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
                           <FormControl>
-                            <RadioGroupItem value="in" />
+                            <SelectTrigger className="border-gray-700 bg-gray-800/50 text-white">
+                              <SelectValue placeholder="Your Goal" />
+                            </SelectTrigger>
                           </FormControl>
-                          <FormLabel className="font-normal">
-                            Inches (in)
+                          <SelectContent>
+                            {goals.map((goal) => (
+                              <SelectItem key={goal} value={goal}>
+                                {goal}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="diet"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-gray-200">Diet</FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger className="border-gray-700 bg-gray-800/50 text-white">
+                              <SelectValue placeholder="Your Diet" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {diets.map((diet) => (
+                              <SelectItem key={diet} value={diet}>
+                                {diet}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <div className="col-span-full">
+                    <FormField
+                      control={form.control}
+                      name="allergies"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-gray-200">
+                            Allergies
                           </FormLabel>
+                          <FormControl>
+                            <Textarea
+                              placeholder="Some allergies or food that you don't like"
+                              {...field}
+                              rows={5}
+                              className="border-gray-700 bg-gray-800/50 text-white placeholder:text-gray-500"
+                            />
+                          </FormControl>
+                          <FormMessage />
                         </FormItem>
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                      )}
+                    />
+                  </div>
 
-              <FormField
-                control={form.control}
-                name="weight"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Weight</FormLabel>
-                    <FormControl>
-                      <Input type="number" placeholder="Weight" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                  <FormField
+                    control={form.control}
+                    name="weightUnit"
+                    render={({ field }) => (
+                      <FormItem className="space-y-3">
+                        <FormLabel className="text-gray-200">
+                          Weight Unit
+                        </FormLabel>
+                        <FormControl>
+                          <RadioGroup
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                            className="flex gap-4"
+                          >
+                            <FormItem className="flex items-center space-x-2 space-y-0">
+                              <FormControl>
+                                <RadioGroupItem
+                                  value="kg"
+                                  className="border-purple-600"
+                                />
+                              </FormControl>
+                              <FormLabel className="font-normal text-gray-300">
+                                Kilograms (kg)
+                              </FormLabel>
+                            </FormItem>
+                            <FormItem className="flex items-center space-x-2 space-y-0">
+                              <FormControl>
+                                <RadioGroupItem
+                                  value="lb"
+                                  className="border-purple-600"
+                                />
+                              </FormControl>
+                              <FormLabel className="font-normal text-gray-300">
+                                Pounds (lb)
+                              </FormLabel>
+                            </FormItem>
+                          </RadioGroup>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-              <FormField
-                control={form.control}
-                name="height"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Height</FormLabel>
-                    <FormControl>
-                      <Input type="number" placeholder="Height" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                  <FormField
+                    control={form.control}
+                    name="heightUnit"
+                    render={({ field }) => (
+                      <FormItem className="space-y-3">
+                        <FormLabel className="text-gray-200">
+                          Height Unit
+                        </FormLabel>
+                        <FormControl>
+                          <RadioGroup
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                            className="flex gap-4"
+                          >
+                            <FormItem className="flex items-center space-x-2 space-y-0">
+                              <FormControl>
+                                <RadioGroupItem
+                                  value="cm"
+                                  className="border-purple-600"
+                                />
+                              </FormControl>
+                              <FormLabel className="font-normal text-gray-300">
+                                Centimeters (cm)
+                              </FormLabel>
+                            </FormItem>
+                            <FormItem className="flex items-center space-x-2 space-y-0">
+                              <FormControl>
+                                <RadioGroupItem
+                                  value="in"
+                                  className="border-purple-600"
+                                />
+                              </FormControl>
+                              <FormLabel className="font-normal text-gray-300">
+                                Inches (in)
+                              </FormLabel>
+                            </FormItem>
+                          </RadioGroup>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-              <div className="col-span-full flex w-full justify-center">
-                <Button type="submit">
-                  {isLoading ? (
-                    <Loader2 className="size-4 animate-spin" />
-                  ) : (
-                    "Get your meal plan!"
-                  )}
-                </Button>
-              </div>
-            </form>
-          </Form>
-        </div>
-      )}
-    </main>
+                  <FormField
+                    control={form.control}
+                    name="weight"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-gray-200">Weight</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="number"
+                            placeholder="Weight"
+                            {...field}
+                            className="border-gray-700 bg-gray-800/50 text-white placeholder:text-gray-500"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="height"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-gray-200">Height</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="number"
+                            placeholder="Height"
+                            {...field}
+                            className="border-gray-700 bg-gray-800/50 text-white placeholder:text-gray-500"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <div className="col-span-full flex justify-center pt-4">
+                    <Button
+                      type="submit"
+                      size="lg"
+                      className="rounded-full bg-purple-600 px-8 py-6 text-lg text-white transition-all duration-300 hover:scale-105 hover:bg-purple-700"
+                      disabled={isLoading}
+                    >
+                      {isLoading ? (
+                        <Loader2 className="mr-2 size-5 animate-spin" />
+                      ) : (
+                        <Leaf className="mr-2 size-5" />
+                      )}
+                      Get your meal plan!
+                    </Button>
+                  </div>
+                </form>
+              </Form>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+    </div>
   );
 }
