@@ -54,6 +54,7 @@ export const Method = {
 export type Method = (typeof Method)[keyof typeof Method];
 
 export interface Meal {
+  id: string;
   title: string;
   calories: string;
   ingredients: string;

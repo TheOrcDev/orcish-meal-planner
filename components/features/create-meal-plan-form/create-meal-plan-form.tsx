@@ -19,24 +19,25 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { NotEnoughTokens } from "@/components/features";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import {
-  Button,
-  Card,
-  CardContent,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  Input,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Textarea,
-} from "@/components/ui";
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { getMealPlan } from "@/server/ai";
 import { mealPlannerSchema } from "@/server/schemas";
 

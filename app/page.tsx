@@ -4,7 +4,9 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
-import { AuroraBackground, Button, Header } from "@/components/ui";
+import { AuroraBackground } from "@/components/ui/aurora-background/aurora-background";
+import { Button } from "@/components/ui/button";
+import Header from "@/components/ui/header/header";
 
 export default function Home() {
   return (

@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Suspense } from "react";
 
-import { Button, Loading } from "@/components/ui";
+import { Button } from "@/components/ui/button";
+import Loading from "@/components/ui/loading/loading";
 import { getPaymentIntent } from "@/server/tokens";
 
 interface PageProps {

@@ -1,14 +1,14 @@
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
+import { Button } from "@/components/ui/button";
 import {
-  Button,
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui";
+} from "@/components/ui/card";
 import { getMealPlan } from "@/server/meal-plans";
 
 interface MealPlanPageProps {

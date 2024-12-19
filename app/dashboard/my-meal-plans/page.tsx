@@ -3,7 +3,8 @@ import Link from "next/link";
 import { Suspense } from "react";
 
 import { DailyMealPlan } from "@/components/features";
-import { Card, CardContent, Skeleton } from "@/components/ui";
+import { Card, CardContent } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { getDailyPlans } from "@/server/meal-plans";
 
 export default async function MyMealPlansPage() {

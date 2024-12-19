@@ -8,7 +8,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { useRouter } from "next/navigation";
 
-import { Button } from "@/components/ui";
+import { Button } from "@/components/ui/button";
 
 interface Props {
   back: () => void;

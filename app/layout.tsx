@@ -4,12 +4,12 @@ import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
-import { Footer, Header } from "@/components/ui";
+import Footer from "@/components/ui/footer/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
 import { ThemeProvider } from "@/components/providers";
-import { Toaster } from "@/components/ui";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL!),
