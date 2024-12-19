@@ -1,7 +1,7 @@
 import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import Link from "next/link";
 
-import { Badge, Button, Skeleton } from "@/components/ui";
+import { Badge, Button } from "@/components/ui";
 import { getTokens } from "@/server/tokens";
 
 import ClerkButton from "../clerk-button/clerk-button";
@@ -26,7 +26,6 @@ export default async function UserInfo() {
             {tokens} tokens
           </Badge>
         </Link>
-
         <ClerkButton />
       </SignedIn>
     </div>

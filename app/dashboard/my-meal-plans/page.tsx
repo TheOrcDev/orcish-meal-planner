@@ -10,7 +10,7 @@ export default async function MyMealPlansPage() {
   const dailyPlans = await getDailyPlans();
 
   return (
-    <main className="flex flex-col items-center justify-center gap-5 p-24">
+    <main className="flex flex-col items-center justify-center gap-5">
       <h2 className="text-2xl">My Meal Plans</h2>
 
       <Suspense

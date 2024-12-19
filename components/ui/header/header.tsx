@@ -20,7 +20,7 @@ export default function Header() {
 
       <div className="flex gap-3">
         <ModeToggle />
-        <UserInfo />
+        {/* <UserInfo /> */}
       </div>
     </header>
   );
