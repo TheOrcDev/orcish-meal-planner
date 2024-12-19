@@ -8,7 +8,7 @@ import { Footer, Header } from "@/components/ui";
 
 const inter = Inter({ subsets: ["latin"] });
 
-import { ThemeProvider, TRPCProvider } from "@/components/providers";
+import { ThemeProvider } from "@/components/providers";
 import { Toaster } from "@/components/ui";
 
 export const metadata: Metadata = {
@@ -26,19 +26,17 @@ export default function RootLayout({
     <ClerkProvider>
       <html suppressHydrationWarning lang="en">
         <body className={`${inter.className}`}>
-          <TRPCProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <Header />
-              {children}
-              <Footer />
-              <Toaster />
-            </ThemeProvider>
-          </TRPCProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Header />
+            {children}
+            <Footer />
+            <Toaster />
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
