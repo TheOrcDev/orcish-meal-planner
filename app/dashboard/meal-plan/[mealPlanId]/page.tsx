@@ -45,7 +45,7 @@ export default async function MealPlanPage({ params }: MealPlanPageProps) {
             </Card>
           ))}
           <div className="col-span-full flex items-center justify-center">
-            <Link href={"/meal-planner"}>
+            <Link href={"/dashboard/meal-planner"}>
               <Button>
                 <ArrowLeft className="mr-1 size-5" />
                 New Meal Plan

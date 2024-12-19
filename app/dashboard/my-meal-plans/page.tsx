@@ -26,7 +26,7 @@ export default async function MyMealPlansPage() {
           {dailyPlans?.map((plan) => (
             <DailyMealPlan key={plan.id} plan={plan} />
           ))}
-          <Link href={"meal-planner"}>
+          <Link href={"/dashboard/meal-planner"}>
             <Card className="size-72 h-full cursor-pointer from-primary/40 to-transparent p-5 transition duration-300 ease-in-out hover:-translate-y-2 hover:bg-primary/10 hover:bg-gradient-to-br">
               <CardContent className="flex size-full flex-col items-center justify-center gap-3">
                 <p className="text-2xl">New Plan</p>

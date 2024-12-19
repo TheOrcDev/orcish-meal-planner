@@ -61,6 +61,7 @@ export interface Meal {
 
 export interface DailyMealPlan {
   id: string;
+  title: string;
   meals: Meal[];
   totalCalories: string;
   mealPlanTitle?: string;

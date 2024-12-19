@@ -52,7 +52,7 @@ export default function DailyMealPlan({ plan }: DailyMealPlanProps) {
       key={plan.id}
       className="h-full cursor-pointer from-primary/40 to-transparent transition duration-300 ease-in-out hover:-translate-y-2 hover:bg-primary/10 hover:bg-gradient-to-br"
     >
-      <Link href={`/meal-plan/${plan.id}`}>
+      <Link href={`/dashboard/meal-plan/${plan.id}`}>
         <CardHeader>
           <CardTitle>{plan.title}</CardTitle>
           <CardDescription>Calories: {plan.totalCalories}</CardDescription>
@@ -66,7 +66,7 @@ export default function DailyMealPlan({ plan }: DailyMealPlanProps) {
         </CardContent>
       </Link>
       <CardFooter className="flex items-center justify-between gap-3">
-        <Link href={`/meal-plan/${plan.id}`}>
+        <Link href={`/dashboard/meal-plan/${plan.id}`}>
           <Button>Go to plan</Button>
         </Link>
         <AlertDialog>

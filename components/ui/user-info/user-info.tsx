@@ -18,10 +18,10 @@ export default async function UserInfo() {
       </SignedOut>
 
       <SignedIn>
-        <Link href={"/my-meal-plans"}>
+        <Link href={"/dashboard/my-meal-plans"}>
           <Button variant={"outline"}>My Meal Plans</Button>
         </Link>
-        <Link href={"/buy-tokens"}>
+        <Link href={"/dashboard/buy-tokens"}>
           <Badge className={`${tokens === 0 && "bg-destructive"} text-base`}>
             {tokens} tokens
           </Badge>
