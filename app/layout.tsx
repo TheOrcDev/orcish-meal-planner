@@ -4,8 +4,6 @@ import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
-import Footer from "@/components/ui/footer/footer";
-
 const inter = Inter({ subsets: ["latin"] });
 
 import { ThemeProvider } from "@/components/providers";
@@ -37,7 +35,6 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             {children}
-            <Footer />
             <Toaster />
           </ThemeProvider>
         </body>
