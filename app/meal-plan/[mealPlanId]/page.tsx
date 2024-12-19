@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui";
 import { getMealPlan } from "@/server/meal-plans";
+
 export default async function MealPlanPage({
   params,
 }: {

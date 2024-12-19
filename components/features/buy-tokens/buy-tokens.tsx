@@ -14,26 +14,21 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-  Loading,
 } from "@/components/ui";
 import getStripe from "@/lib/stripe";
-import { trpc } from "@/server/client";
+import { getClientSecret } from "@/server/tokens";
 
 import PaymentForm from "./payment-form";
 
 export default function BuyTokens() {
   const stripePromise = getStripe();
-  const createClientSecret = trpc.tokens.getClientSecret.useMutation();
 
   const { resolvedTheme } = useTheme();
 
   const [paymentIntentSecret, setPaymentIntentSecret] = useState("");
-  const [showPayment, setShowPayment] = useState<boolean>(false);
 
   const buyTokens = async (bundle: Tokens) => {
-    const clientSecret = await createClientSecret.mutateAsync({
-      tokens: bundle,
-    });
+    const clientSecret = await getClientSecret(bundle);
 
     if (!clientSecret) {
       console.log("No client secret");
@@ -41,12 +36,11 @@ export default function BuyTokens() {
     }
 
     setPaymentIntentSecret(clientSecret);
-    setShowPayment(true);
   };
 
   return (
     <>
-      {!showPayment && !createClientSecret.isPending && (
+      {!paymentIntentSecret && (
         <>
           <div className="grid w-full gap-5 md:grid-cols-2 lg:px-20 xl:grid-cols-3">
             <Card
@@ -156,9 +150,7 @@ export default function BuyTokens() {
         </>
       )}
 
-      {createClientSecret.isPending && <Loading />}
-
-      {paymentIntentSecret && showPayment && (
+      {paymentIntentSecret && (
         <Elements
           stripe={stripePromise}
           options={{
@@ -168,7 +160,7 @@ export default function BuyTokens() {
             },
           }}
         >
-          <PaymentForm back={() => setShowPayment(false)} />
+          <PaymentForm back={() => setPaymentIntentSecret("")} />
         </Elements>
       )}
     </>

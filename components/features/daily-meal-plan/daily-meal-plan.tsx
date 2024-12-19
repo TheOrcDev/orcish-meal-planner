@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 
 import { DailyMealPlan as DailyMealPlanType } from "@/components/shared/types";
