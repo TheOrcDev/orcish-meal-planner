@@ -1,8 +1,10 @@
-import db from "@/db/drizzle";
-import { weeklyPlans } from "@/db/schema";
 import { currentUser } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
+
+import db from "@/db/drizzle";
+import { weeklyPlans } from "@/db/schema";
+
 import { publicProcedure, router } from "../trpc";
 
 export const weeklyMealPlansRouter = router({

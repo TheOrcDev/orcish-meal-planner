@@ -1,23 +1,13 @@
-"use client";
-
-import {
-  ClerkLoading,
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  UserButton,
-} from "@clerk/nextjs";
-import { dark } from "@clerk/themes";
-import { Loader2 } from "lucide-react";
+import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import Link from "next/link";
-import { useTheme } from "next-themes";
 
 import { Badge, Button, Skeleton } from "@/components/ui";
-import { trpc } from "@/server/client";
+import { getTokens } from "@/server/tokens";
 
-export default function UserInfo() {
-  const tokens = trpc.tokens.getTokens.useQuery();
-  const { resolvedTheme } = useTheme();
+import ClerkButton from "../clerk-button/clerk-button";
+
+export default async function UserInfo() {
+  const tokens = await getTokens();
 
   return (
     <div className="flex items-center gap-2">
@@ -32,26 +22,12 @@ export default function UserInfo() {
           <Button variant={"outline"}>My Meal Plans</Button>
         </Link>
         <Link href={"/buy-tokens"}>
-          <Badge
-            className={`${tokens?.data === 0 && "bg-destructive"} text-base`}
-          >
-            {tokens.isPending ? (
-              <Loader2 className="mr-2 animate-spin" />
-            ) : (
-              tokens?.data
-            )}{" "}
-            tokens
+          <Badge className={`${tokens === 0 && "bg-destructive"} text-base`}>
+            {tokens} tokens
           </Badge>
         </Link>
 
-        <ClerkLoading>
-          <Skeleton className="size-8 rounded-full" />
-        </ClerkLoading>
-        <UserButton
-          appearance={{
-            baseTheme: resolvedTheme === "dark" ? dark : undefined,
-          }}
-        />
+        <ClerkButton />
       </SignedIn>
     </div>
   );
