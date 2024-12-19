@@ -19,12 +19,16 @@ export default function Home() {
         }}
         className="relative flex flex-col items-center justify-center gap-4 px-4"
       >
-        <Image
-          src={"/images/healthy-food.png"}
-          width={400}
-          height={400}
-          alt="Meal Planner Healthy Food"
-        />
+        <Link href={"/meal-planner"}>
+          <Image
+            src={"/images/healthy-food.png"}
+            width={400}
+            height={400}
+            alt="Meal Planner Healthy Food"
+            priority
+            className="rounded-full transition-all duration-700 hover:scale-105"
+          />
+        </Link>
         <div className="text-center text-3xl font-bold dark:text-white md:text-7xl">
           Your personal chef & nutritionist
         </div>
