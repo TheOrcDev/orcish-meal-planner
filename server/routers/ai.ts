@@ -1,8 +1,11 @@
+import { currentUser } from "@clerk/nextjs/server";
 import * as fs from "fs";
 import { OrcishOpenAIService } from "orcish-openai-connector";
 import path from "path";
 import { z } from "zod";
 
+import { Diet, Goal } from "@/components/features/create-meal-plan-form";
+import { getPrompt } from "@/components/shared/lib";
 import {
   CompletionModel,
   ImageModel,
@@ -10,9 +13,6 @@ import {
   Voice,
   VoiceModel,
 } from "@/components/shared/types";
-
-import { Diet, Goal } from "@/components/features/create-meal-plan-form";
-import { getPrompt } from "@/components/shared/lib";
 import db from "@/db/drizzle";
 import { tokenSpends } from "@/db/schema";
 import {
@@ -21,7 +21,7 @@ import {
   getTotalTokens,
 } from "@/lib/queries";
 import { createFileName } from "@/lib/utils";
-import { currentUser } from "@clerk/nextjs/server";
+
 import { publicProcedure, router } from "../trpc";
 
 if (!process.env.OPENAI_API_KEY) {

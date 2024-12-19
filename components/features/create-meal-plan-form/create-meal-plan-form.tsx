@@ -28,24 +28,12 @@ import {
   Textarea,
 } from "@/components/ui";
 import { trpc } from "@/server/client";
+import { mealPlannerSchema } from "@/server/schemas";
 
 import { Diet, Goal } from ".";
 
 const goals = Object.values(Goal);
 const diets = Object.values(Diet);
-
-export const formSchema = z.object({
-  age: z.coerce.number().min(1).max(100),
-  goal: z.nativeEnum(Goal),
-  meals: z.coerce.number().min(2).max(12),
-  gender: z.enum(["male", "female"]),
-  diet: z.nativeEnum(Diet),
-  weight: z.coerce.number().min(1).max(400).optional(),
-  height: z.coerce.number().min(1).max(400).optional(),
-  weightUnit: z.enum(["kg", "lb"]),
-  heightUnit: z.enum(["cm", "in"]),
-  allergies: z.string(),
-});
 
 export default function CreateMealPlanForm() {
   const router = useRouter();
@@ -54,8 +42,8 @@ export default function CreateMealPlanForm() {
   const getCompletion = trpc.ai.getMealPlan.useMutation();
   const utils = trpc.useUtils();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof mealPlannerSchema>>({
+    resolver: zodResolver(mealPlannerSchema),
     defaultValues: {
       age: 18,
       goal: Goal.HEALTHY,
@@ -68,7 +56,7 @@ export default function CreateMealPlanForm() {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof mealPlannerSchema>) {
     try {
       const completion = await getCompletion.mutateAsync({
         ...values,
