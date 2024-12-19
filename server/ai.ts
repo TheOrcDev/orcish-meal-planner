@@ -1,3 +1,5 @@
+"use server";
+
 import { currentUser } from "@clerk/nextjs/server";
 import { OrcishOpenAIService } from "orcish-openai-connector";
 import { z } from "zod";

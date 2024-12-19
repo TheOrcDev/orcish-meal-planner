@@ -24,7 +24,7 @@ export async function getMealPlan(mealPlanId: string) {
 
 export async function getDailyPlans() {
   const user = await currentUser();
-  console.log(user);
+
   try {
     return await db.query.dailyPlans.findMany({
       with: {

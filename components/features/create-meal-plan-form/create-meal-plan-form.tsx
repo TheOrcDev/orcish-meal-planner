@@ -1,13 +1,13 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { NotEnoughTokens } from "@/components/features";
-import { CompletionModel } from "@/components/shared/types";
 import {
   Button,
   Form,
@@ -27,7 +27,7 @@ import {
   Skeleton,
   Textarea,
 } from "@/components/ui";
-import { trpc } from "@/server/client";
+import { getMealPlan } from "@/server/ai";
 import { mealPlannerSchema } from "@/server/schemas";
 
 import { Diet, Goal } from ".";
@@ -38,9 +38,7 @@ const diets = Object.values(Diet);
 export default function CreateMealPlanForm() {
   const router = useRouter();
   const [notEnoughTokens, setNotEnoughTokens] = useState<boolean>(false);
-
-  const getCompletion = trpc.ai.getMealPlan.useMutation();
-  const utils = trpc.useUtils();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof mealPlannerSchema>>({
     resolver: zodResolver(mealPlannerSchema),
@@ -58,40 +56,28 @@ export default function CreateMealPlanForm() {
 
   async function onSubmit(values: z.infer<typeof mealPlannerSchema>) {
     try {
-      const completion = await getCompletion.mutateAsync({
-        ...values,
-        model: CompletionModel.GPT_3_5_TURBO,
-        mealPlannerType: "daily",
-      });
+      setIsLoading(true);
+      const completion = await getMealPlan(values, "daily");
 
       if (completion === "Not enough tokens") {
         setNotEnoughTokens(true);
         return;
       }
 
-      utils.tokens.getTokens.refetch();
-
       router.push(`/meal-plan/${completion.id}`);
     } catch (e) {
       console.error("Error fetching AI completion:", e);
       throw e;
+    } finally {
+      setIsLoading(false);
     }
   }
 
   return (
     <main className="flex flex-col items-center justify-center gap-5 p-24">
-      {getCompletion.isPending && (
-        <div className="grid gap-5 md:grid-cols-2">
-          <Skeleton className="h-52 w-96 rounded-xl" />
-          <Skeleton className="h-52 w-96 rounded-xl" />
-          <Skeleton className="h-52 w-96 rounded-xl" />
-          <Skeleton className="h-52 w-96 rounded-xl" />
-        </div>
-      )}
-
       {notEnoughTokens && <NotEnoughTokens />}
 
-      {!getCompletion.isPending && !notEnoughTokens && (
+      {!notEnoughTokens && (
         <div className="flex flex-col items-center justify-center gap-5">
           <p className="w-1/2 text-center">
             Please take a moment to fill out this form so we can tailor your
@@ -339,7 +325,13 @@ export default function CreateMealPlanForm() {
               />
 
               <div className="col-span-full flex w-full justify-center">
-                <Button type="submit">Get your meal plan!</Button>
+                <Button type="submit">
+                  {isLoading ? (
+                    <Loader2 className="size-4 animate-spin" />
+                  ) : (
+                    "Get your meal plan!"
+                  )}
+                </Button>
               </div>
             </form>
           </Form>
