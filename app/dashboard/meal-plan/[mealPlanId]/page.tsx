@@ -1,7 +1,3 @@
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
-
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -23,7 +19,7 @@ export default async function MealPlanPage({ params }: MealPlanPageProps) {
   const mealPlan = await getMealPlan(mealPlanId);
 
   return (
-    <main className="flex flex-col items-center justify-center gap-5 p-24">
+    <main className="flex flex-col items-center justify-center gap-5">
       <div className="flex flex-col items-center justify-center gap-10">
         <h2 className="text-3xl text-primary">
           {mealPlan.totalCalories} Calories
@@ -44,14 +40,6 @@ export default async function MealPlanPage({ params }: MealPlanPageProps) {
               </CardContent>
             </Card>
           ))}
-          <div className="col-span-full flex items-center justify-center">
-            <Link href={"/dashboard/meal-planner"}>
-              <Button>
-                <ArrowLeft className="mr-1 size-5" />
-                New Meal Plan
-              </Button>
-            </Link>
-          </div>
         </div>
       </div>
     </main>
