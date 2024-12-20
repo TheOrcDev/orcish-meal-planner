@@ -92,7 +92,7 @@ export default function CreateMealPlanForm() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center p-4">
+    <div className="flex justify-center">
       <Card className="w-full max-w-2xl border-gray-800 bg-gray-900/50">
         <CardContent className="space-y-8 p-6">
           {notEnoughTokens && <NotEnoughTokens />}
