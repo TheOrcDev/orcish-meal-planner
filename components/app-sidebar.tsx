@@ -5,6 +5,7 @@ import {
   BookOpen,
   Bot,
   Command,
+  ForkKnife,
   Frame,
   GalleryVerticalEnd,
   Map,
@@ -35,9 +36,9 @@ const data = {
   },
   teams: [
     {
-      name: "Acme Inc",
+      name: "Meal Planner",
       logo: GalleryVerticalEnd,
-      plan: "Enterprise",
+      plan: "Free",
     },
     {
       name: "Acme Corp.",
@@ -52,18 +53,18 @@ const data = {
   ],
   navMain: [
     {
-      title: "Playground",
-      url: "#",
-      icon: SquareTerminal,
+      title: "Meal Plans",
+      url: "/dashboard/meal-planner",
+      icon: ForkKnife,
       isActive: true,
       items: [
         {
-          title: "History",
-          url: "#",
+          title: "All Plans",
+          url: "/dashboard/my-meal-plans",
         },
         {
-          title: "Starred",
-          url: "#",
+          title: "Favorites",
+          url: "/dashboard/favorites",
         },
         {
           title: "Settings",
