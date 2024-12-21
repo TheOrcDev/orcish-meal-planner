@@ -34,6 +34,9 @@ export async function getDailyPlans() {
     return await db.query.dailyPlans.findMany({
       with: {
         meals: {
+          with: {
+            ingredients: true,
+          },
           orderBy: desc(meals.createdAt),
         },
       },

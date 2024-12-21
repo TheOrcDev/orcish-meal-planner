@@ -28,7 +28,11 @@ export const dailyPlans = pgTable("daily_plans", {
 
 export type DailyPlan = typeof dailyPlans.$inferInsert;
 export type DailyPlanWithMeals = typeof dailyPlans.$inferSelect & {
-  meals: Meal[] & { ingredients: Ingredient[] };
+  meals: Array<
+    typeof meals.$inferSelect & {
+      ingredients: Array<typeof ingredients.$inferSelect>;
+    }
+  >;
 };
 
 export const dailyPlansRelations = relations(dailyPlans, ({ many }) => ({
