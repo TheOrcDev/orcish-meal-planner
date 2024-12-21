@@ -1,7 +1,7 @@
 "use server";
 
 import { currentUser } from "@clerk/nextjs/server";
-import { desc, eq } from "drizzle-orm";
+import { asc, eq } from "drizzle-orm";
 
 import db from "@/db/drizzle";
 import { dailyPlans, meals } from "@/db/schema";
@@ -14,7 +14,7 @@ export async function getMealPlan(mealPlanId: number) {
           with: {
             ingredients: true,
           },
-          orderBy: desc(meals.mealOrder),
+          orderBy: asc(meals.mealOrder),
         },
       },
       where: eq(dailyPlans.id, mealPlanId),

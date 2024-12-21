@@ -7,6 +7,8 @@ import {
 } from "@/components/ui/card";
 import { getMealPlan } from "@/server/meal-plans";
 
+import { MealCard } from "../../meal-plans/meal-card";
+
 interface MealPlanPageProps {
   params: Promise<{
     mealPlanId: number;
@@ -25,27 +27,8 @@ export default async function MealPlanPage({ params }: MealPlanPageProps) {
           {mealPlan.totalCalories} Calories
         </h2>
         <div className="grid gap-5 md:grid-cols-2">
-          {mealPlan.meals.map((meal, index) => (
-            <Card key={meal.title} className="min-w-96">
-              <CardHeader>
-                <CardTitle>
-                  Meal #{index + 1}: {meal.title}
-                </CardTitle>
-                <CardDescription className="flex gap-1">
-                  <span>Calories: {meal.calories}</span>
-                  <span>Protein: {meal.protein}</span>
-                  <span>Carbs: {meal.carb}</span>
-                  <span>Fat: {meal.fat}</span>
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                {meal.ingredients.map((ingredient) => (
-                  <p key={ingredient.name}>
-                    {ingredient.name} ({ingredient.grams}g)
-                  </p>
-                ))}
-              </CardContent>
-            </Card>
+          {mealPlan.meals.map((meal) => (
+            <MealCard key={meal.id} meal={meal} />
           ))}
         </div>
       </div>

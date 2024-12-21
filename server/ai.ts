@@ -52,9 +52,9 @@ export async function getMealPlan(input: z.infer<typeof mealPlannerSchema>) {
                 fat: z.number(),
               })
             ),
-            protein: z.string(),
-            carb: z.string(),
-            fat: z.string(),
+            protein: z.number(),
+            carb: z.number(),
+            fat: z.number(),
           })
         ),
         totalCalories: z.string(),
@@ -78,7 +78,6 @@ export async function getMealPlan(input: z.infer<typeof mealPlannerSchema>) {
     );
 
     return {
-      type: mealPlannerType,
       id,
     };
   } catch (e) {

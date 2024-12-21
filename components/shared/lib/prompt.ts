@@ -1,6 +1,8 @@
 import { z } from "zod";
 
-export const getPrompt = (values: z.infer<typeof formSchema>) => {
+import { mealPlannerSchema } from "@/server/schemas";
+
+export const getPrompt = (values: z.infer<typeof mealPlannerSchema>) => {
   let prompt = `
     Create a customized meal plan for the entire day based on the following details:
 
