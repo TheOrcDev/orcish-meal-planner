@@ -1,10 +1,3 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { getMealPlan } from "@/server/meal-plans";
 
 import { MealCard } from "../../meal-plans/meal-card";

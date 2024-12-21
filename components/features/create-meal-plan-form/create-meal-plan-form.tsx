@@ -82,7 +82,7 @@ export default function CreateMealPlanForm() {
         return;
       }
 
-      router.push(`/meal-plan/${completion.id}`);
+      router.push(`/dashboard/meal-plan/${completion.id}`);
     } catch (e) {
       console.error("Error fetching AI completion:", e);
       throw e;
