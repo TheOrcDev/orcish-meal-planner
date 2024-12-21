@@ -14,3 +14,27 @@ export const mealPlannerSchema = z.object({
   heightUnit: z.enum(["cm", "in"]).default("cm"),
   allergies: z.string(),
 });
+
+export const mealPlanSchema = z.object({
+  title: z.string(),
+  meals: z.array(
+    z.object({
+      title: z.string(),
+      calories: z.string(),
+      ingredients: z.array(
+        z.object({
+          name: z.string(),
+          grams: z.number(),
+          calories: z.number(),
+          protein: z.number(),
+          carb: z.number(),
+          fat: z.number(),
+        })
+      ),
+      protein: z.number(),
+      carb: z.number(),
+      fat: z.number(),
+    })
+  ),
+  totalCalories: z.string(),
+});
