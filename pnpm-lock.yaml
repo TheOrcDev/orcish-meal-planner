@@ -107,9 +107,6 @@ importers:
       next-themes:
         specifier: ^0.4.4
         version: 0.4.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      orcish-openai-connector:
-        specifier: ^1.5.70
-        version: 1.5.70
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -2715,9 +2712,6 @@ packages:
   optionator@0.9.4:
     resolution: {integrity: sha512-6IpQ7mKUxRcZNLIObR0hz7lxsapSSIYNZJwXPGeF0mTVqGKFIXj1DQcMoT22S3ROcLyY/rz0PWaWZ9ayWmad9g==}
     engines: {node: '>= 0.8.0'}
-
-  orcish-openai-connector@1.5.70:
-    resolution: {integrity: sha512-SSP6RBWk3ToOv2MN0XKogRJdgwF+I80kF7C2N8juLOADw1kQs4DJXopS1fb2spbSbrVX4+TS3fVBsCMIOxVz/A==}
 
   os-homedir@1.0.2:
     resolution: {integrity: sha512-B5JU3cabzk8c67mRRd3ECmROafjYMXbuzlwtqdM8IbS8ktlTix8aFGb2bAGKrSRIlnfKwovGUUr72JUPyOb6kQ==}
@@ -5930,8 +5924,6 @@ snapshots:
       prelude-ls: 1.2.1
       type-check: 0.4.0
       word-wrap: 1.2.5
-
-  orcish-openai-connector@1.5.70: {}
 
   os-homedir@1.0.2: {}
 
