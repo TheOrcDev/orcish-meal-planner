@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 
-import { DailyMealPlan as DailyMealPlanType } from "@/components/shared/types";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -23,17 +22,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { DailyPlanWithMeals } from "@/db/schema";
 import { useToast } from "@/hooks/use-toast";
 import { deleteDailyPlan } from "@/server/meal-plans";
 
 interface DailyMealPlanProps {
-  plan: DailyMealPlanType;
+  plan: DailyPlanWithMeals;
 }
 
 export default function DailyMealPlan({ plan }: DailyMealPlanProps) {
   const { toast } = useToast();
 
-  const handleDeleteMealPlan = async (mealPlanId: string) => {
+  const handleDeleteMealPlan = async (mealPlanId: number) => {
     try {
       await deleteDailyPlan(mealPlanId);
 
@@ -62,7 +62,7 @@ export default function DailyMealPlan({ plan }: DailyMealPlanProps) {
         <CardContent className="flex flex-col justify-between gap-3 ">
           <div>
             {plan.meals.map((meal) => (
-              <p key={meal.id}>{meal.title}</p>
+              <p key={meal.dailyPlanId}>{meal.title}</p>
             ))}
           </div>
         </CardContent>
