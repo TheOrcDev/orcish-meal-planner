@@ -62,7 +62,7 @@ export default function DailyMealPlan({ plan }: DailyMealPlanProps) {
         <CardContent className="flex flex-col justify-between gap-3 ">
           <div>
             {plan.meals.map((meal) => (
-              <p key={meal.dailyPlanId}>{meal.title}</p>
+              <p key={meal.id}>{meal.title}</p>
             ))}
           </div>
         </CardContent>
