@@ -9,7 +9,7 @@ import {
   purchases,
   tokenSpends,
 } from "@/db/schema";
-import { mealPlanSchema } from "@/server/ai";
+import { mealPlanSchema } from "@/server/schemas";
 
 const FREE_TOKENS = 5;
 
