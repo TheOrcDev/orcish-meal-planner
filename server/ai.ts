@@ -16,14 +16,11 @@ if (!process.env.OPENAI_API_KEY) {
   throw "No OpenAI API Key";
 }
 
-export async function getMealPlan(
-  input: z.infer<typeof mealPlannerSchema>,
-  mealPlannerType: "weekly" | "daily"
-) {
+export async function getMealPlan(input: z.infer<typeof mealPlannerSchema>) {
   const user = await currentUser();
 
   try {
-    const prompt = getPrompt(input, mealPlannerType);
+    const prompt = getPrompt(input);
 
     const totalUserTokens = await getTotalTokens(
       user?.emailAddresses[0].emailAddress!

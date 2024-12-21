@@ -75,7 +75,7 @@ export default function CreateMealPlanForm() {
         weightUnit,
         heightUnit,
       };
-      const completion = await getMealPlan(completionValues, "daily");
+      const completion = await getMealPlan(completionValues);
 
       if (completion === "Not enough tokens") {
         setNotEnoughTokens(true);

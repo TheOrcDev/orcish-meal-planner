@@ -1,36 +1,8 @@
 import { z } from "zod";
 
-import { formSchema } from "../../features/create-meal-plan-form/create-meal-plan-form";
-
-const formats = {
-  daily: `
-    {
-      "meals": [{"title": "string", "calories": "string", "ingredients": ["string"]}],
-      "totalCalories": "string",
-      "mealPlanTitle": "string",
-    }
-  `,
-  weekly: `
-    {
-      "days": [
-        { 
-          "meals": [{"title": "string", "calories": "string", "ingredients": ["string"]}],
-          "totalCalories": "string"
-          "mealPlanTitle": "string",
-        }
-      ],
-      "weeklyMealPlanTitle": "string",
-      "totalCalories": "string",
-    }
-  `,
-};
-
-export const getPrompt = (
-  values: z.infer<typeof formSchema>,
-  type: "daily" | "weekly"
-) => {
+export const getPrompt = (values: z.infer<typeof formSchema>) => {
   let prompt = `
-    Create a customized meal plan for the entire ${type} based on the following details:
+    Create a customized meal plan for the entire day based on the following details:
 
     - Age: ${values.age}
     - Gender: ${values.gender}
