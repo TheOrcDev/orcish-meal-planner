@@ -1,13 +1,13 @@
 import { count, eq, sum } from "drizzle-orm";
 
-import { DailyMealPlan, Meal, WeeklyMealPlan } from "@/components/shared/types";
 import db from "@/db/drizzle";
 import {
   dailyPlans,
+  DailyPlanWithMeals,
+  ingredients,
   meals,
   purchases,
   tokenSpends,
-  weeklyPlans,
 } from "@/db/schema";
 
 const FREE_TOKENS = 5;
@@ -35,46 +35,48 @@ export const getTotalTokens = async (email: string): Promise<number> => {
 };
 
 export const addDailyPlanAndMeals = async (
-  data: DailyMealPlan,
-  email: string,
-  weeklyPlanId?: string
+  data: DailyPlanWithMeals,
+  email: string
 ) => {
+  const { title, totalCalories } = data;
+
   const [dailyPlan] = await db
     .insert(dailyPlans)
     .values({
       email,
-      title: data.mealPlanTitle ?? "",
-      totalCalories: data.totalCalories,
-      weeklyPlanId,
+      title,
+      totalCalories,
     })
     .returning({ id: dailyPlans.id });
 
-  data.meals.map(async (meal: Meal, index: number) => {
-    await db.insert(meals).values({
-      title: meal.title,
-      calories: meal.calories,
-      ingredients: JSON.stringify(meal.ingredients),
-      dailyPlanId: dailyPlan.id,
-      mealOrder: index + 1,
+  data.meals.map(async (meal, index: number) => {
+    const [newMeal] = await db
+      .insert(meals)
+      .values({
+        title: meal.title,
+        calories: meal.calories,
+        dailyPlanId: dailyPlan.id,
+        protein: meal.protein,
+        carb: meal.carb,
+        fat: meal.fat,
+        mealOrder: index + 1,
+      })
+      .returning({ id: meals.id });
+
+    meal.ingredients.map(async (ingredient) => {
+      await db.insert(ingredients).values({
+        name: ingredient.name,
+        grams: ingredient.grams,
+        calories: ingredient.calories,
+        protein: ingredient.protein,
+        carb: ingredient.carb,
+        fat: ingredient.fat,
+        mealId: newMeal.id,
+      });
     });
   });
 
   return dailyPlan.id;
-};
-
-export const addWeeklyPlan = async (data: WeeklyMealPlan, email: string) => {
-  const [weeklyPlan] = await db
-    .insert(weeklyPlans)
-    .values({
-      email,
-      title: data.weeklyMealPlanTitle,
-      totalCalories: data.totalCalories,
-    })
-    .returning({ id: weeklyPlans.id });
-
-  data.days.map((dailyPlan) => {
-    addDailyPlanAndMeals(dailyPlan, email, weeklyPlan.id);
-  });
 };
 
 export const spendTokens = async (

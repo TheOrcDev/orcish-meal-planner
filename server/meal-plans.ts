@@ -6,11 +6,14 @@ import { desc, eq } from "drizzle-orm";
 import db from "@/db/drizzle";
 import { dailyPlans, meals } from "@/db/schema";
 
-export async function getMealPlan(mealPlanId: string) {
+export async function getMealPlan(mealPlanId: number) {
   try {
     const [dailyMealPlan] = await db.query.dailyPlans.findMany({
       with: {
         meals: {
+          with: {
+            ingredients: true,
+          },
           orderBy: desc(meals.mealOrder),
         },
       },
@@ -42,7 +45,7 @@ export async function getDailyPlans() {
   }
 }
 
-export async function deleteDailyPlan(mealPlanId: string) {
+export async function deleteDailyPlan(mealPlanId: number) {
   try {
     return await db.delete(dailyPlans).where(eq(dailyPlans.id, mealPlanId));
   } catch (error) {

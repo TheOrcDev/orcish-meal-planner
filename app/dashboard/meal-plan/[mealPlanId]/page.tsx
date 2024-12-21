@@ -9,7 +9,7 @@ import { getMealPlan } from "@/server/meal-plans";
 
 interface MealPlanPageProps {
   params: Promise<{
-    mealPlanId: string;
+    mealPlanId: number;
   }>;
 }
 
@@ -31,11 +31,18 @@ export default async function MealPlanPage({ params }: MealPlanPageProps) {
                 <CardTitle>
                   Meal #{index + 1}: {meal.title}
                 </CardTitle>
-                <CardDescription>Calories: {meal.calories}</CardDescription>
+                <CardDescription className="flex gap-1">
+                  <span>Calories: {meal.calories}</span>
+                  <span>Protein: {meal.protein}</span>
+                  <span>Carbs: {meal.carb}</span>
+                  <span>Fat: {meal.fat}</span>
+                </CardDescription>
               </CardHeader>
               <CardContent>
-                {JSON.parse(meal?.ingredients).map((ingredient: string) => (
-                  <p key={ingredient}>{ingredient}</p>
+                {meal.ingredients.map((ingredient) => (
+                  <p key={ingredient.name}>
+                    {ingredient.name} ({ingredient.grams}g)
+                  </p>
                 ))}
               </CardContent>
             </Card>

@@ -53,27 +53,6 @@ export const Method = {
 } as const;
 export type Method = (typeof Method)[keyof typeof Method];
 
-export interface Meal {
-  id: string;
-  title: string;
-  calories: string;
-  ingredients: string;
-}
-
-export interface DailyMealPlan {
-  id: string;
-  title: string;
-  meals: Meal[];
-  totalCalories: string;
-  mealPlanTitle?: string;
-}
-
-export interface WeeklyMealPlan {
-  days: DailyMealPlan[];
-  totalCalories: string;
-  weeklyMealPlanTitle: string;
-}
-
 export const Tokens = {
   TEN: "10",
   FIFTY: "50",

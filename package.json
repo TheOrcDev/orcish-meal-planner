@@ -12,6 +12,7 @@
     "commit": "./node_modules/cz-customizable/standalone.js"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^1.0.11",
     "@clerk/nextjs": "^6.9.6",
     "@clerk/themes": "^2.2.3",
     "@heroicons/react": "^2.2.0",
@@ -33,6 +34,7 @@
     "@stripe/react-stripe-js": "^3.1.1",
     "@stripe/stripe-js": "^5.4.0",
     "@tanstack/react-query": "^5.62.8",
+    "ai": "^4.0.22",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dotenv": "^16.4.7",
