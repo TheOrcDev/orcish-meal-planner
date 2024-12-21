@@ -16,6 +16,30 @@ if (!process.env.OPENAI_API_KEY) {
   throw "No OpenAI API Key";
 }
 
+export const mealPlanSchema = z.object({
+  title: z.string(),
+  meals: z.array(
+    z.object({
+      title: z.string(),
+      calories: z.string(),
+      ingredients: z.array(
+        z.object({
+          name: z.string(),
+          grams: z.number(),
+          calories: z.number(),
+          protein: z.number(),
+          carb: z.number(),
+          fat: z.number(),
+        })
+      ),
+      protein: z.number(),
+      carb: z.number(),
+      fat: z.number(),
+    })
+  ),
+  totalCalories: z.string(),
+});
+
 export async function getMealPlan(input: z.infer<typeof mealPlannerSchema>) {
   const user = await currentUser();
 
@@ -36,29 +60,7 @@ export async function getMealPlan(input: z.infer<typeof mealPlannerSchema>) {
       }),
       schemaName: "mealPlan",
       schemaDescription: "A meal plan for one day.",
-      schema: z.object({
-        title: z.string(),
-        meals: z.array(
-          z.object({
-            title: z.string(),
-            calories: z.string(),
-            ingredients: z.array(
-              z.object({
-                name: z.string(),
-                grams: z.number(),
-                calories: z.number(),
-                protein: z.number(),
-                carb: z.number(),
-                fat: z.number(),
-              })
-            ),
-            protein: z.number(),
-            carb: z.number(),
-            fat: z.number(),
-          })
-        ),
-        totalCalories: z.string(),
-      }),
+      schema: mealPlanSchema,
       prompt,
     });
 

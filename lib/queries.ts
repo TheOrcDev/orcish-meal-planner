@@ -1,14 +1,15 @@
 import { count, eq, sum } from "drizzle-orm";
+import { z } from "zod";
 
 import db from "@/db/drizzle";
 import {
   dailyPlans,
-  DailyPlanWithMeals,
   ingredients,
   meals,
   purchases,
   tokenSpends,
 } from "@/db/schema";
+import { mealPlanSchema } from "@/server/ai";
 
 const FREE_TOKENS = 5;
 
@@ -35,7 +36,7 @@ export const getTotalTokens = async (email: string): Promise<number> => {
 };
 
 export const addDailyPlanAndMeals = async (
-  data: DailyPlanWithMeals,
+  data: z.infer<typeof mealPlanSchema>,
   email: string
 ) => {
   const { title, totalCalories } = data;
