@@ -3,7 +3,6 @@
 import { openai } from "@ai-sdk/openai";
 import { currentUser } from "@clerk/nextjs/server";
 import { generateObject } from "ai";
-import { OrcishOpenAIService } from "orcish-openai-connector";
 import { z } from "zod";
 
 import { getPrompt } from "@/components/shared/lib";
@@ -16,10 +15,6 @@ import { mealPlannerSchema } from "./schemas";
 if (!process.env.OPENAI_API_KEY) {
   throw "No OpenAI API Key";
 }
-
-const orcishOpenAIService = new OrcishOpenAIService({
-  apiKey: process.env.OPENAI_API_KEY,
-});
 
 export async function getMealPlan(
   input: z.infer<typeof mealPlannerSchema>,
