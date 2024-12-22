@@ -48,7 +48,9 @@ export const meals = pgTable("meals", {
   fat: integer("fat").notNull(),
   mealOrder: integer("meal_order").notNull(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
-  dailyPlanId: integer("daily_plan_id").references(() => dailyPlans.id),
+  dailyPlanId: integer("daily_plan_id").references(() => dailyPlans.id, {
+    onDelete: "cascade",
+  }),
 });
 
 export type Meal = typeof meals.$inferInsert & { ingredients: Ingredient[] };
@@ -68,7 +70,9 @@ export const ingredients = pgTable("ingredients", {
   protein: integer("protein").notNull(),
   carb: integer("carb").notNull(),
   fat: integer("fat").notNull(),
-  mealId: integer("meal_id").references(() => meals.id),
+  mealId: integer("meal_id").references(() => meals.id, {
+    onDelete: "cascade",
+  }),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 

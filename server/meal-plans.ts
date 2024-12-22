@@ -50,7 +50,9 @@ export async function getDailyPlans() {
 
 export async function deleteDailyPlan(mealPlanId: number) {
   try {
-    return await db.delete(dailyPlans).where(eq(dailyPlans.id, mealPlanId));
+    await db.delete(dailyPlans).where(eq(dailyPlans.id, mealPlanId));
+
+    return true;
   } catch (error) {
     console.log(error);
     throw error;
