@@ -44,7 +44,9 @@ export function NavSettings({ tokens }: { tokens: number }) {
                   <item.icon className="size-5" />
                   <span>{item.name}</span>
                 </div>
-                <Badge>{tokens}</Badge>
+                <Badge variant={tokens > 0 ? "default" : "destructive"}>
+                  {tokens}
+                </Badge>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

@@ -11,7 +11,7 @@ import {
 
 export default function NotEnoughTokens() {
   return (
-    <Card className="min-w-96">
+    <Card>
       <CardHeader>
         <CardTitle>Not enough tokens :(</CardTitle>
         <CardDescription>
@@ -23,7 +23,7 @@ export default function NotEnoughTokens() {
           Ready to unlock more? Get tokens now and start crafting your awesome
           meal plans!
         </p>
-        <Link href={"/buy-tokens"}>
+        <Link href={"/dashboard/buy-tokens"}>
           <Button>Buy Now!</Button>
         </Link>
       </CardContent>
