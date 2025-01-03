@@ -5,10 +5,11 @@ import {
   BadgeCheck,
   Bell,
   ChevronsUpDown,
+  Coins,
   CreditCard,
   LogOut,
-  Sparkles,
 } from "lucide-react";
+import Link from "next/link";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -81,10 +82,12 @@ export function NavUser({}: {}) {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <Sparkles />
-                Upgrade to Pro
-              </DropdownMenuItem>
+              <Link href="/dashboard/buy-tokens">
+                <DropdownMenuItem>
+                  <Coins />
+                  Add more tokens
+                </DropdownMenuItem>
+              </Link>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
