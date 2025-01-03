@@ -30,12 +30,12 @@ const data = {
       isActive: true,
       items: [
         {
-          title: "All Plans",
-          url: "/dashboard/my-meal-plans",
+          title: "New Meal Plan",
+          url: "/dashboard/meal-planner",
         },
         {
-          title: "Favorites",
-          url: "/dashboard/favorites",
+          title: "All Plans",
+          url: "/dashboard/my-meal-plans",
         },
       ],
     },

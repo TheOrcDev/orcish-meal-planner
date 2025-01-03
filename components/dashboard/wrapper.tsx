@@ -60,7 +60,7 @@ export default function DashboardWrapper({
         </div>
         <div className="flex flex-1 items-center justify-end gap-2 px-4">
           <Link href="/dashboard/meal-planner">
-            <Button>New Plan</Button>
+            <Button>New Meal Plan</Button>
           </Link>
         </div>
       </header>
