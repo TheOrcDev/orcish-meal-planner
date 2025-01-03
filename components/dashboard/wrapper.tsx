@@ -12,11 +12,12 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 
 import { Button } from "../ui/button";
+import { ModeToggle } from "../ui/mode-toggle";
 import { SidebarTrigger } from "../ui/sidebar";
 
 interface DashboardWrapperProps {
   children: React.ReactNode;
-  breadcrumb: {
+  breadcrumb?: {
     title: string;
     href: string;
   }[];
@@ -39,29 +40,33 @@ export default function DashboardWrapper({
               <BreadcrumbItem className="hidden md:block">
                 <BreadcrumbLink href="/dashboard">Dashboard</BreadcrumbLink>
               </BreadcrumbItem>
-              <BreadcrumbSeparator className="hidden md:block" />
-              {breadcrumb.map((item, index) => (
-                <div key={item.href} className="flex items-center gap-2">
-                  <BreadcrumbItem>
-                    {breadcrumb.length > 1 &&
-                      breadcrumb.length - 1 !== index && (
-                        <BreadcrumbLink href={item.href}>
-                          {item.title}
-                        </BreadcrumbLink>
+              {breadcrumb && breadcrumb.length > 0 && (
+                <BreadcrumbSeparator className="hidden md:block" />
+              )}
+              {breadcrumb &&
+                breadcrumb.map((item, index) => (
+                  <div key={item.title} className="flex items-center gap-2">
+                    <BreadcrumbItem>
+                      {breadcrumb.length > 1 &&
+                        breadcrumb.length - 1 !== index && (
+                          <BreadcrumbLink href={item.href}>
+                            {item.title}
+                          </BreadcrumbLink>
+                        )}
+                      {breadcrumb.length - 1 === index && (
+                        <BreadcrumbPage>{item.title}</BreadcrumbPage>
                       )}
-                    {breadcrumb.length - 1 === index && (
-                      <BreadcrumbPage>{item.title}</BreadcrumbPage>
+                    </BreadcrumbItem>
+                    {breadcrumb.length - 1 !== index && (
+                      <BreadcrumbSeparator className="hidden md:block" />
                     )}
-                  </BreadcrumbItem>
-                  {breadcrumb.length - 1 !== index && (
-                    <BreadcrumbSeparator className="hidden md:block" />
-                  )}
-                </div>
-              ))}
+                  </div>
+                ))}
             </BreadcrumbList>
           </Breadcrumb>
         </div>
         <div className="flex flex-1 items-center justify-end gap-2 px-4">
+          <ModeToggle />
           <Link href="/dashboard/meal-planner">
             <Button>New Meal Plan</Button>
           </Link>
