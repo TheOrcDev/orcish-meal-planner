@@ -10,6 +10,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { cn } from "@/lib/utils";
 
 export function NavSettings({
   settings,
@@ -18,6 +19,7 @@ export function NavSettings({
     name: string;
     url: string;
     icon: LucideIcon;
+    isActive?: boolean;
   }[];
 }) {
   return (
@@ -27,7 +29,10 @@ export function NavSettings({
         {settings.map((item) => (
           <SidebarMenuItem key={item.name}>
             <SidebarMenuButton asChild>
-              <Link href={item.url}>
+              <Link
+                href={item.url}
+                className={cn(item.isActive && "bg-gray-100 dark:bg-gray-800")}
+              >
                 <item.icon />
                 <span>{item.name}</span>
               </Link>

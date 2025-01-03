@@ -342,12 +342,7 @@ export default function CreateMealPlanForm() {
                   />
 
                   <div className="col-span-full flex justify-center pt-4">
-                    <Button
-                      type="submit"
-                      size="lg"
-                      className="rounded-full bg-purple-600 px-8 py-6 text-lg text-white transition-all duration-300 hover:scale-105 hover:bg-purple-700"
-                      disabled={isLoading}
-                    >
+                    <Button type="submit" size="lg" disabled={isLoading}>
                       {isLoading ? (
                         <Loader2 className="mr-2 size-5 animate-spin" />
                       ) : (
