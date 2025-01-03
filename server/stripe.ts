@@ -29,3 +29,12 @@ export async function createPaymentIntent(amount: number) {
     });
   }
 }
+
+export async function getInvoice(paymentIntentId: string) {
+  try {
+    const invoice = await stripe.invoices.retrieve(paymentIntentId);
+    return invoice;
+  } catch (error) {
+    throw new Error("Failed to get invoice");
+  }
+}

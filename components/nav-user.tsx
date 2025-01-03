@@ -97,10 +97,12 @@ export function NavUser({}: {}) {
                   Account
                 </DropdownMenuItem>
               </Link>
-              <DropdownMenuItem>
-                <CreditCard />
-                Billing
-              </DropdownMenuItem>
+              <Link href="/dashboard/billing">
+                <DropdownMenuItem>
+                  <CreditCard />
+                  Billing
+                </DropdownMenuItem>
+              </Link>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => signOut()}>
