@@ -30,7 +30,7 @@ export default function DashboardWrapper({
   className,
 }: DashboardWrapperProps) {
   return (
-    <div className={cn("flex flex-col", className)}>
+    <div className={cn("flex flex-col container mx-auto max-w-7xl", className)}>
       <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
         <div className="flex items-center justify-between gap-2 px-4">
           <SidebarTrigger className="-ml-1" />

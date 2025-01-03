@@ -7,6 +7,7 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 import { ThemeProvider } from "@/components/providers";
+import { ScreenSize } from "@/components/ui/screen-size";
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
@@ -36,6 +37,7 @@ export default function RootLayout({
           >
             {children}
             <Toaster />
+            <ScreenSize />
           </ThemeProvider>
         </body>
       </html>
