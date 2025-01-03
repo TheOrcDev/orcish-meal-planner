@@ -9,6 +9,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
 
 import { Button } from "../ui/button";
 import { SidebarTrigger } from "../ui/sidebar";
@@ -19,14 +20,16 @@ interface DashboardWrapperProps {
     title: string;
     href: string;
   }[];
+  className?: string;
 }
 
 export default function DashboardWrapper({
   children,
   breadcrumb,
+  className,
 }: DashboardWrapperProps) {
   return (
-    <>
+    <div className={cn("flex flex-col", className)}>
       <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
         <div className="flex items-center justify-between gap-2 px-4">
           <SidebarTrigger className="-ml-1" />
@@ -65,6 +68,6 @@ export default function DashboardWrapper({
         </div>
       </header>
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</div>
-    </>
+    </div>
   );
 }
