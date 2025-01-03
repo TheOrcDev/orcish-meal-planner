@@ -38,7 +38,7 @@ export default function PaymentForm({ back }: Props) {
 
     if (result.paymentIntent?.status === "succeeded") {
       router.push(
-        `/order-complete/${result.paymentIntent.id}/${result.paymentIntent.client_secret}`
+        `/dashboard/order-complete/${result.paymentIntent.id}/${result.paymentIntent.client_secret}`
       );
     }
   }

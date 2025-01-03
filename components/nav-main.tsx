@@ -1,7 +1,8 @@
 "use client";
 
-import { ChevronRight, type LucideIcon } from "lucide-react";
+import { ChevronRight, ForkKnife, type LucideIcon } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import {
   Collapsible,
@@ -20,21 +21,30 @@ import {
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
 
-export function NavMain({
-  items,
-}: {
-  items: {
-    title: string;
-    url: string;
-    icon?: LucideIcon;
-    isActive?: boolean;
-    items?: {
-      title: string;
-      url: string;
-      isActive?: boolean;
-    }[];
-  }[];
-}) {
+export function NavMain() {
+  const currentPath = usePathname();
+
+  const items = [
+    {
+      title: "Meal Plans",
+      url: "/dashboard/meal-planner",
+      icon: ForkKnife,
+      isActive: true,
+      items: [
+        {
+          title: "New Meal Plan",
+          url: "/dashboard/meal-planner",
+          isActive: currentPath === "/dashboard/meal-planner",
+        },
+        {
+          title: "All Plans",
+          url: "/dashboard/my-meal-plans",
+          isActive: currentPath === "/dashboard/my-meal-plans",
+        },
+      ],
+    },
+  ];
+
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Platform</SidebarGroupLabel>

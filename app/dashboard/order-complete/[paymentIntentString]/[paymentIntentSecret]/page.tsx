@@ -33,7 +33,7 @@ export default async function Page({ params }: PageProps) {
         <Suspense fallback={<Loading />}>
           <div className="flex flex-col items-center justify-center gap-5">
             <h2>You have successfully bought {paymentIntent} tokens!</h2>
-            <Link href={"/meal-planner"}>
+            <Link href={"/dashboard/meal-planner"}>
               <Button>Go and use your tokens!</Button>
             </Link>
           </div>
