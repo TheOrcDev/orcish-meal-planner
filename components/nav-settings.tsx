@@ -1,6 +1,6 @@
 "use client";
 
-import { Coins, type LucideIcon } from "lucide-react";
+import { Coins } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -49,12 +49,6 @@ export function NavSettings({ tokens }: { tokens: number }) {
             </SidebarMenuButton>
           </SidebarMenuItem>
         ))}
-        {/* <SidebarMenuItem>
-          <SidebarMenuButton className="text-sidebar-foreground/70">
-            <MoreHorizontal className="text-sidebar-foreground/70" />
-            <span>More</span>
-          </SidebarMenuButton>
-        </SidebarMenuItem> */}
       </SidebarMenu>
     </SidebarGroup>
   );
