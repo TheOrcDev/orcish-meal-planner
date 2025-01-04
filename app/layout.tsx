@@ -1,6 +1,7 @@
 import "./globals.css";
 
 import { ClerkProvider } from "@clerk/nextjs";
+import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
@@ -38,6 +39,7 @@ export default function RootLayout({
             {children}
             <Toaster />
             {process.env.APP_ENV === "development" && <ScreenSize />}
+            <Analytics />
           </ThemeProvider>
         </body>
       </html>
