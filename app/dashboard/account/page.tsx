@@ -1,7 +1,5 @@
 "use client";
 
-import { UserProfile } from "@clerk/nextjs";
-import { dark } from "@clerk/themes";
 import { useTheme } from "next-themes";
 
 import DashboardWrapper from "@/components/dashboard/wrapper";
@@ -13,12 +11,13 @@ export default function AccountPage() {
       breadcrumb={[{ title: "Account", href: "/dashboard/account" }]}
     >
       <div className="flex items-center justify-center">
-        <UserProfile
+        {/* <UserProfile
           appearance={{
             baseTheme: resolvedTheme === "dark" ? dark : undefined,
           }}
           routing={"hash"}
-        />
+        /> */}
+        <h1>Account</h1>
       </div>
     </DashboardWrapper>
   );
