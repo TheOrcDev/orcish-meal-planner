@@ -37,7 +37,7 @@ export default function RootLayout({
           >
             {children}
             <Toaster />
-            <ScreenSize />
+            {process.env.APP_ENV === "development" && <ScreenSize />}
           </ThemeProvider>
         </body>
       </html>
