@@ -93,17 +93,17 @@ export default function CreateMealPlanForm() {
 
   return (
     <div className="flex justify-center">
-      <Card className="w-full max-w-2xl border-gray-800 bg-gray-900/50">
+      <Card className="w-full max-w-2xl bg-background">
         <CardContent className="space-y-8 p-6">
           {notEnoughTokens && <NotEnoughTokens />}
 
           {!notEnoughTokens && (
             <div className="flex flex-col items-center justify-center gap-5">
               <div className="space-y-2 text-center">
-                <h1 className="text-2xl font-semibold text-white">
+                <h1 className="text-2xl font-semibold">
                   Start Your Health Journey
                 </h1>
-                <p className="mx-auto max-w-xl text-gray-400">
+                <p className="mx-auto max-w-xl text-muted-foreground">
                   Please take a moment to fill out this form so we can tailor
                   your experience and provide you with the most personalized and
                   effective results possible. Let&apos;s get started on your
@@ -121,17 +121,12 @@ export default function CreateMealPlanForm() {
                     name="age"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="flex items-center gap-2 text-gray-200">
+                        <FormLabel className="flex items-center gap-2 text-muted-foreground">
                           <Cake className="size-4" />
                           Age
                         </FormLabel>
                         <FormControl>
-                          <Input
-                            type="number"
-                            placeholder="Age"
-                            {...field}
-                            className="border-gray-700 bg-gray-800/50 text-white placeholder:text-gray-500"
-                          />
+                          <Input type="number" placeholder="Age" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -142,7 +137,7 @@ export default function CreateMealPlanForm() {
                     name="meals"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="flex items-center gap-2 text-gray-200">
+                        <FormLabel className="flex items-center gap-2 text-muted-foreground">
                           <Utensils className="size-4" />
                           Number of meals
                         </FormLabel>
@@ -151,7 +146,6 @@ export default function CreateMealPlanForm() {
                             type="number"
                             placeholder="Number of meals"
                             {...field}
-                            className="border-gray-700 bg-gray-800/50 text-white placeholder:text-gray-500"
                           />
                         </FormControl>
                         <FormMessage />
@@ -164,7 +158,7 @@ export default function CreateMealPlanForm() {
                     name="gender"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="flex items-center gap-2 text-gray-200">
+                        <FormLabel className="flex items-center gap-2 text-muted-foreground">
                           <Users className="size-4" />
                           Gender
                         </FormLabel>
@@ -173,7 +167,7 @@ export default function CreateMealPlanForm() {
                           defaultValue={field.value}
                         >
                           <FormControl>
-                            <SelectTrigger className="border-gray-700 bg-gray-800/50 text-white">
+                            <SelectTrigger>
                               <SelectValue placeholder="Your gender" />
                             </SelectTrigger>
                           </FormControl>
@@ -192,7 +186,7 @@ export default function CreateMealPlanForm() {
                     name="goal"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="flex items-center gap-2 text-gray-200">
+                        <FormLabel className="flex items-center gap-2 text-muted-foreground">
                           <Target className="size-4" />
                           Goal
                         </FormLabel>
@@ -201,7 +195,7 @@ export default function CreateMealPlanForm() {
                           defaultValue={field.value}
                         >
                           <FormControl>
-                            <SelectTrigger className="border-gray-700 bg-gray-800/50 text-white">
+                            <SelectTrigger>
                               <SelectValue placeholder="Your Goal" />
                             </SelectTrigger>
                           </FormControl>
@@ -223,7 +217,7 @@ export default function CreateMealPlanForm() {
                     name="diet"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="flex items-center gap-2 text-gray-200">
+                        <FormLabel className="flex items-center gap-2 text-muted-foreground">
                           <Activity className="size-4" />
                           Diet
                         </FormLabel>
@@ -232,7 +226,7 @@ export default function CreateMealPlanForm() {
                           defaultValue={field.value}
                         >
                           <FormControl>
-                            <SelectTrigger className="border-gray-700 bg-gray-800/50 text-white">
+                            <SelectTrigger>
                               <SelectValue placeholder="Your Diet" />
                             </SelectTrigger>
                           </FormControl>
@@ -255,7 +249,7 @@ export default function CreateMealPlanForm() {
                       name="allergies"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="flex items-center gap-2 text-gray-200">
+                          <FormLabel className="flex items-center gap-2 text-muted-foreground">
                             <AlertCircle className="size-4" />
                             Allergies
                           </FormLabel>
@@ -264,7 +258,6 @@ export default function CreateMealPlanForm() {
                               placeholder="Some allergies or food that you don't like"
                               {...field}
                               rows={5}
-                              className="border-gray-700 bg-gray-800/50 text-white placeholder:text-gray-500"
                             />
                           </FormControl>
                           <FormMessage />
@@ -278,7 +271,7 @@ export default function CreateMealPlanForm() {
                     name="weight"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="flex items-center gap-2 text-gray-200">
+                        <FormLabel className="flex items-center gap-2 text-muted-foreground">
                           <Weight className="size-4" />
                           Weight
                         </FormLabel>
@@ -288,12 +281,12 @@ export default function CreateMealPlanForm() {
                               type="number"
                               placeholder="Weight"
                               {...field}
-                              className="rounded-r-none border-gray-700 bg-gray-800/50 text-white placeholder:text-gray-500"
+                              className="rounded-r-none"
                             />
                             <Button
                               type="button"
                               variant="outline"
-                              className="rounded-l-none bg-gray-900"
+                              className="rounded-l-none"
                               onClick={() =>
                                 setWeightUnit(weightUnit === "kg" ? "lb" : "kg")
                               }
@@ -312,7 +305,7 @@ export default function CreateMealPlanForm() {
                     name="height"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="flex items-center gap-2 text-gray-200">
+                        <FormLabel className="flex items-center gap-2 text-muted-foreground">
                           <Ruler className="size-4" />
                           Height
                         </FormLabel>
@@ -322,12 +315,12 @@ export default function CreateMealPlanForm() {
                               type="number"
                               placeholder="Height"
                               {...field}
-                              className="rounded-r-none border-gray-700 bg-gray-800/50 text-white placeholder:text-gray-500"
+                              className="rounded-r-none"
                             />
                             <Button
                               type="button"
                               variant={"outline"}
-                              className="rounded-l-none bg-gray-900"
+                              className="rounded-l-none"
                               onClick={() =>
                                 setHeightUnit(heightUnit === "cm" ? "in" : "cm")
                               }
