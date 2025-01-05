@@ -12,7 +12,7 @@
     "commit": "./node_modules/cz-customizable/standalone.js"
   },
   "dependencies": {
-    "@ai-sdk/openai": "^1.0.12",
+    "@ai-sdk/openai": "^1.0.13",
     "@clerk/nextjs": "^6.9.6",
     "@clerk/themes": "^2.2.3",
     "@heroicons/react": "^2.2.0",
@@ -34,9 +34,9 @@
     "@radix-ui/react-tooltip": "^1.1.6",
     "@stripe/react-stripe-js": "^3.1.1",
     "@stripe/stripe-js": "^5.4.0",
-    "@tanstack/react-query": "^5.62.11",
+    "@tanstack/react-query": "^5.62.15",
     "@vercel/analytics": "^1.4.1",
-    "ai": "^4.0.23",
+    "ai": "^4.0.26",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dotenv": "^16.4.7",
@@ -57,7 +57,7 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "@types/node": "^22.10.4",
+    "@types/node": "^22.10.5",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
     "@typescript-eslint/parser": "^8.19.0",
