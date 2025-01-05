@@ -33,12 +33,13 @@ export const getPrompt = (values: z.infer<typeof mealPlannerSchema>) => {
   }
 
   const jsonFormat = `
-    Ensure that the meal plan aligns with my nutritional needs and goals, 
+    Ensure that the meal plan aligns with nutritional needs and goals, 
     offering a balanced and varied diet. Provide detailed meal ideas with portion sizes, 
     ingredient suggestions, and nutritional information. 
     Ingredients should have amounts in grams.
     Title should be something logical, connected to the diet type, and goal.
     Meal title should be connected to food ingredients inside that specific meal.
+    Be aware of calories intake. Minimum 1500 calories per day, and maximum 4500 calories per day based on the goal.
   `;
 
   return `${prompt} ${jsonFormat}`;
