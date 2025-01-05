@@ -40,7 +40,7 @@ export default function Home() {
             Transform your eating habits.
           </div>
           <Link href={"/dashboard/meal-planner"}>
-            <Button className="w-fit rounded-full bg-black px-4 py-2 text-white dark:bg-white dark:text-black">
+            <Button className="w-fit rounded-full bg-primary px-4 py-2">
               Get 5 Free Meal Plans Now
             </Button>
           </Link>
