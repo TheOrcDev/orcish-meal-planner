@@ -41,7 +41,7 @@ export default function Home() {
           </div>
           <Link href={"/dashboard/meal-planner"}>
             <Button className="w-fit rounded-full bg-black px-4 py-2 text-white dark:bg-white dark:text-black">
-              Create Your Meal Plan Now
+              Get 5 Free Meal Plans Now
             </Button>
           </Link>
         </motion.div>
