@@ -1,6 +1,6 @@
 # Orcish Meal Planner
 
-![orcish-meal-planner](https://github.com/user-attachments/assets/9c1cdd6d-9e46-4380-8ec6-b36b69934bf8)
+![meal-planner](https://github.com/user-attachments/assets/080fca21-92fa-42a8-8e8d-0cfb6feb5863)
 
 ## Overview
 
