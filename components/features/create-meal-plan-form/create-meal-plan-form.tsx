@@ -58,7 +58,7 @@ export default function CreateMealPlanForm() {
     defaultValues: {
       age: 18,
       goal: Goal.HEALTHY,
-      meals: 2,
+      meals: 3,
       gender: "male",
       diet: Diet.ANY,
       weight: 70,
