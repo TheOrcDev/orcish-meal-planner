@@ -40,8 +40,6 @@ export async function getMealPlan(input: z.infer<typeof mealPlannerSchema>) {
       prompt,
     });
 
-    console.log(JSON.stringify(result.object, null, 2));
-
     const data = result.object;
 
     await db.insert(tokenSpends).values({
