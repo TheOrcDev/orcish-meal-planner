@@ -10,7 +10,7 @@ import { Tokens } from "@/components/shared/types";
 import db from "@/db/drizzle";
 import { purchases, tokenSpends } from "@/db/schema";
 import { getTotalTokens } from "@/lib/queries";
-const STRIPE_API_VERSION = "2024-12-18.acacia";
+const STRIPE_API_VERSION = "2025-02-24.acacia";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   typescript: true,
