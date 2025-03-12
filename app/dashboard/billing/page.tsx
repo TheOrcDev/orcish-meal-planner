@@ -16,9 +16,14 @@ export default async function BillingPage() {
           </p>
         )}
         {allPurchases.map((purchase) => (
-          <div key={purchase.id}>
-            You bought {purchase.amount} tokens on{" "}
-            {purchase.createdAt.toLocaleDateString()}
+          <div
+            key={purchase.id}
+            className="flex items-center justify-between rounded-lg border p-4"
+          >
+            <p>You bought {purchase.amount} tokens</p>
+            <p className="text-sm text-muted-foreground">
+              {purchase.createdAt.toLocaleDateString()}
+            </p>
           </div>
         ))}
       </div>
