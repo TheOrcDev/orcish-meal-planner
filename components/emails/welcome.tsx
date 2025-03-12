@@ -14,7 +14,11 @@ import {
 } from "@react-email/components";
 import * as React from "react";
 
-export const WelcomeEmail = () => {
+interface WelcomeEmailProps {
+  name: string;
+}
+
+export const WelcomeEmail = ({ name }: WelcomeEmailProps) => {
   return (
     <Html>
       <Head />
@@ -36,7 +40,7 @@ export const WelcomeEmail = () => {
                 Welcome to Your Meal Planning Journey!
               </Heading>
 
-              <Text className="text-[16px] text-gray-700">Hi there,</Text>
+              <Text className="text-[16px] text-gray-700">Hi {name},</Text>
 
               <Text className="text-[16px] text-gray-700">
                 We're thrilled to have you join our community of meal planners!
