@@ -10,6 +10,9 @@ export default async function BillingPage() {
     >
       <div className="flex flex-col gap-4">
         <h1 className="text-2xl font-bold">Billing</h1>
+        <p className="text-sm text-muted-foreground">
+          Here you can see all your purchases.
+        </p>
         {allPurchases.length === 0 && (
           <p className="text-sm text-gray-500">
             You have not made any purchases yet.
