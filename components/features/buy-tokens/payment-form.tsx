@@ -6,7 +6,9 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
+import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 
@@ -16,11 +18,14 @@ interface Props {
 
 export default function PaymentForm({ back }: Props) {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const stripe = useStripe();
   const elements = useElements();
 
   async function onSubmit(event: React.FormEvent) {
+    setIsLoading(true);
+
     event.preventDefault();
 
     if (!stripe || !elements) {
@@ -41,6 +46,8 @@ export default function PaymentForm({ back }: Props) {
         `/dashboard/order-complete/${result.paymentIntent.id}/${result.paymentIntent.client_secret}`
       );
     }
+
+    setIsLoading(false);
   }
 
   return (
@@ -50,8 +57,8 @@ export default function PaymentForm({ back }: Props) {
         Back
       </Button>
       <PaymentElement options={{ layout: "accordion" }} />
-      <Button variant={"outline"} type="submit">
-        Buy Tokens
+      <Button variant={"outline"} type="submit" disabled={isLoading}>
+        {isLoading ? <Loader2 className="size-4 animate-spin" /> : "Buy Tokens"}
       </Button>
     </form>
   );
