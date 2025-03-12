@@ -101,7 +101,7 @@ export async function getPaymentIntent(
       from: `${process.env.EMAIL_SENDER_NAME} <${process.env.EMAIL_SENDER_ADDRESS}>`,
       to: [user?.emailAddresses[0].emailAddress!],
       subject: "Your Meal Planning Starts Here",
-      react: await BoughtTokens({ tokens: amountOfTokens }),
+      react: BoughtTokens({ tokens: amountOfTokens }),
     });
 
     if (error) {

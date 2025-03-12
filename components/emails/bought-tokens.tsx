@@ -15,7 +15,7 @@ import {
 import * as React from "react";
 
 interface BoughtTokensProps {
-  tokens: number;
+  tokens: string;
 }
 
 export const BoughtTokens = ({ tokens }: BoughtTokensProps) => {
@@ -23,8 +23,7 @@ export const BoughtTokens = ({ tokens }: BoughtTokensProps) => {
     <Html>
       <Head />
       <Preview>
-        You successfully purchased {tokens.toString()} tokens for your meal
-        planner!
+        You successfully purchased {tokens} tokens for your meal planner!
       </Preview>
       <Tailwind>
         <Body className="bg-gray-100 font-sans">
