@@ -42,9 +42,9 @@ export default function BuyTokens() {
     <>
       {!paymentIntentSecret && (
         <>
-          <div className="grid w-full gap-5 md:grid-cols-2 lg:px-20 xl:grid-cols-3">
+          <div className="mt-5 grid w-full gap-5 md:grid-cols-2 xl:grid-cols-3">
             <Card
-              className="cursor-pointer from-primary/40 to-transparent transition duration-300 ease-in-out hover:-translate-y-2 hover:bg-primary/10 hover:bg-gradient-to-br"
+              className="flex cursor-pointer flex-col justify-between from-primary/40 to-transparent transition duration-300 ease-in-out hover:-translate-y-2 hover:bg-primary/10 hover:bg-gradient-to-br"
               onClick={() => buyTokens(Tokens.TEN)}
             >
               <CardHeader>
@@ -78,7 +78,7 @@ export default function BuyTokens() {
             </Card>
 
             <Card
-              className="cursor-pointer from-primary/40 to-transparent transition duration-300 ease-in-out hover:-translate-y-2 hover:bg-primary/10 hover:bg-gradient-to-br"
+              className="flex cursor-pointer flex-col justify-between from-primary/40 to-transparent transition duration-300 ease-in-out hover:-translate-y-2 hover:bg-primary/10 hover:bg-gradient-to-br"
               onClick={() => buyTokens(Tokens.FIFTY)}
             >
               <CardHeader>
@@ -113,7 +113,7 @@ export default function BuyTokens() {
             </Card>
 
             <Card
-              className="cursor-pointer from-primary/40 to-transparent transition duration-300 ease-in-out hover:-translate-y-2 hover:bg-primary/10 hover:bg-gradient-to-br"
+              className="flex cursor-pointer flex-col justify-between from-primary/40 to-transparent transition duration-300 ease-in-out hover:-translate-y-2 hover:bg-primary/10 hover:bg-gradient-to-br"
               onClick={() => buyTokens(Tokens.HUNDRED)}
             >
               <CardHeader>
