@@ -52,7 +52,7 @@ export default function DailyMealPlan({ plan }: DailyMealPlanProps) {
   return (
     <Card
       key={plan.id}
-      className="h-full cursor-pointer from-primary/40 to-transparent transition duration-300 ease-in-out hover:-translate-y-2 hover:bg-primary/10 hover:bg-gradient-to-br"
+      className="h-full cursor-pointer from-primary/40 to-transparent transition duration-300 ease-in-out hover:-translate-y-2 hover:bg-primary/10 hover:bg-linear-to-br"
     >
       <Link href={`/dashboard/meal-plan/${plan.id}`}>
         <CardHeader>
