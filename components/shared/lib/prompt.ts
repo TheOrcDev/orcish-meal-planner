@@ -4,14 +4,21 @@ import { mealPlannerSchema } from "@/server/schemas";
 
 export const getPrompt = (values: z.infer<typeof mealPlannerSchema>) => {
   let prompt = `
-    Create a customized meal plan for the entire day based on the following details:
+    You are a professional nutritionist’s assistant.
 
-    - Age: ${values.age}
-    - Gender: ${values.gender}
-    - Number of meals per day: ${values.meals}
-    - Diet type: ${values.diet} (e.g., vegetarian, keto, low-carb)
-    - Primary goal: ${values.goal} (e.g., weight loss, muscle gain, maintenance)
-   
+    Based on the information provided below, generate a personalized full-day meal plan that aligns with the user’s dietary needs and health goals. Ensure the meals are well-balanced, realistic, and tailored to their preferences.
+
+    User Details:
+
+    Age: ${values.age}
+
+    Gender: ${values.gender}
+
+    Meals per day: ${values.meals}
+
+    Dietary preference: ${values.diet}
+
+    Primary goal: ${values.goal}
   `;
 
   if (values.weight) {
