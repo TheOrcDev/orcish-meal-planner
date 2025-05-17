@@ -10,11 +10,9 @@ import { Tokens } from "@/components/shared/types";
 import db from "@/db/drizzle";
 import { purchases, tokenSpends } from "@/db/schema";
 import { getTotalTokens } from "@/lib/queries";
-const STRIPE_API_VERSION = "2025-03-31.basil";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   typescript: true,
-  apiVersion: STRIPE_API_VERSION,
 });
 
 const priceMap = {
