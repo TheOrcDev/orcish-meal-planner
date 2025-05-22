@@ -56,7 +56,7 @@ export function NavUser({}: {}) {
             >
               <Avatar className="size-8 rounded-lg">
                 <AvatarImage
-                  src={session?.user?.image}
+                  src={session?.user?.image ?? ""}
                   alt={session?.user?.name ?? ""}
                 />
                 <AvatarFallback className="rounded-lg">CN</AvatarFallback>
