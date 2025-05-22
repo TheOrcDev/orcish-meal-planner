@@ -1,7 +1,7 @@
 "use server";
 
-import { currentUser } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
+import { headers } from "next/headers";
 import { Resend } from "resend";
 import Stripe from "stripe";
 
@@ -9,6 +9,7 @@ import { BoughtTokens } from "@/components/emails/bought-tokens";
 import { Tokens } from "@/components/shared/types";
 import db from "@/db/drizzle";
 import { purchases, tokenSpends } from "@/db/schema";
+import { auth } from "@/lib/auth";
 import { getTotalTokens } from "@/lib/queries";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -33,11 +34,13 @@ const getTokenByPrice = (price: number) => {
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function getTokens() {
-  const user = await currentUser();
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
 
   try {
     const totalUserTokens = await getTotalTokens(
-      user?.emailAddresses[0].emailAddress!
+      session?.user?.email!
     );
 
     return totalUserTokens;
@@ -66,7 +69,9 @@ export async function getPaymentIntent(
   paymentIntentSecret: string
 ) {
   try {
-    const user = await currentUser();
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
 
     const paymentIntent = await stripe.paymentIntents.retrieve(
       paymentIntentString
@@ -89,7 +94,7 @@ export async function getPaymentIntent(
     const amountOfTokens = getTokenByPrice(paymentIntent.amount / 100);
 
     await db.insert(purchases).values({
-      email: user?.emailAddresses[0].emailAddress!,
+      email: session?.user?.email!,
       paymentIntent: paymentIntentString,
       paymentIntentSecret,
       amount: +amountOfTokens,
@@ -97,7 +102,7 @@ export async function getPaymentIntent(
 
     const { error } = await resend.emails.send({
       from: `${process.env.EMAIL_SENDER_NAME} <${process.env.EMAIL_SENDER_ADDRESS}>`,
-      to: [user?.emailAddresses[0].emailAddress!],
+      to: [session?.user?.email!],
       subject: "Your Meal Planning Starts Here",
       react: BoughtTokens({ tokens: amountOfTokens }),
     });

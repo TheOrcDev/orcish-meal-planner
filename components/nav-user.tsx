@@ -1,6 +1,5 @@
 "use client";
 
-import { useClerk, useUser } from "@clerk/nextjs";
 import {
   BadgeCheck,
   Bell,
@@ -10,6 +9,7 @@ import {
   LogOut,
 } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -27,11 +27,23 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { authClient } from "@/lib/auth-client";
 
 export function NavUser({}: {}) {
   const { isMobile } = useSidebar();
-  const { user } = useUser();
-  const { signOut } = useClerk();
+  const router = useRouter();
+
+  const { data: session, isPending } = authClient.useSession();
+
+  const handleLogout = async () => {
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/login");
+        },
+      },
+    });
+  };
 
   return (
     <SidebarMenu>
@@ -43,14 +55,17 @@ export function NavUser({}: {}) {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="size-8 rounded-lg">
-                <AvatarImage src={user?.imageUrl} alt={user?.fullName ?? ""} />
+                <AvatarImage
+                  src={session?.user?.image}
+                  alt={session?.user?.name ?? ""}
+                />
                 <AvatarFallback className="rounded-lg">CN</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">{user?.fullName}</span>
-                <span className="truncate text-xs">
-                  {user?.emailAddresses[0].emailAddress}
+                <span className="truncate font-semibold">
+                  {session?.user?.name}
                 </span>
+                <span className="truncate text-xs">{session?.user?.email}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
@@ -65,17 +80,17 @@ export function NavUser({}: {}) {
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="size-8 rounded-lg">
                   <AvatarImage
-                    src={user?.imageUrl}
-                    alt={user?.fullName ?? ""}
+                    src={session?.user?.image ?? ""}
+                    alt={session?.user?.name ?? ""}
                   />
                   <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">
-                    {user?.fullName}
+                    {session?.user?.name}
                   </span>
                   <span className="truncate text-xs">
-                    {user?.emailAddresses[0].emailAddress}
+                    {session?.user?.email}
                   </span>
                 </div>
               </div>
@@ -105,7 +120,7 @@ export function NavUser({}: {}) {
               </Link>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => signOut()}>
+            <DropdownMenuItem onClick={() => handleLogout()}>
               <LogOut />
               Log out
             </DropdownMenuItem>

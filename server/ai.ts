@@ -1,13 +1,14 @@
 "use server";
 
 import { openai } from "@ai-sdk/openai";
-import { currentUser } from "@clerk/nextjs/server";
 import { generateObject } from "ai";
+import { headers } from "next/headers";
 import { z } from "zod";
 
 import { getPrompt } from "@/components/shared/lib";
 import db from "@/db/drizzle";
 import { tokenSpends } from "@/db/schema";
+import { auth } from "@/lib/auth";
 import { addDailyPlanAndMeals, getTotalTokens } from "@/lib/queries";
 
 import { mealPlannerSchema, mealPlanSchema } from "./schemas";
@@ -17,13 +18,15 @@ if (!process.env.OPENAI_API_KEY) {
 }
 
 export async function getMealPlan(input: z.infer<typeof mealPlannerSchema>) {
-  const user = await currentUser();
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
 
   try {
     const prompt = getPrompt(input);
 
     const totalUserTokens = await getTotalTokens(
-      user?.emailAddresses[0].emailAddress!
+      session?.user?.email!
     );
 
     if (totalUserTokens <= 0) {
@@ -44,13 +47,13 @@ export async function getMealPlan(input: z.infer<typeof mealPlannerSchema>) {
 
     await db.insert(tokenSpends).values({
       amount: 1,
-      email: user?.emailAddresses[0].emailAddress!,
+      email: session?.user?.email!,
       action: "daily meal plan",
     });
 
     const id = await addDailyPlanAndMeals(
       data,
-      user?.emailAddresses[0].emailAddress!
+      session?.user?.email!
     );
 
     return {

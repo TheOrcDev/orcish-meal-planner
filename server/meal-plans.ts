@@ -1,10 +1,11 @@
 "use server";
 
-import { currentUser } from "@clerk/nextjs/server";
 import { asc, desc, eq } from "drizzle-orm";
+import { headers } from "next/headers";
 
 import db from "@/db/drizzle";
 import { dailyPlans, meals } from "@/db/schema";
+import { auth } from "@/lib/auth";
 
 export async function getMealPlan(mealPlanId: number) {
   try {
@@ -28,7 +29,17 @@ export async function getMealPlan(mealPlanId: number) {
 }
 
 export async function getDailyPlans() {
-  const user = await currentUser();
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  const user = {
+    emailAddresses: [
+      {
+        emailAddress: session?.user?.email!,
+      },
+    ],
+  };
 
   try {
     return await db.query.dailyPlans.findMany({
@@ -40,7 +51,7 @@ export async function getDailyPlans() {
           orderBy: desc(meals.createdAt),
         },
       },
-      where: eq(dailyPlans.email, user?.emailAddresses[0].emailAddress!),
+      where: eq(dailyPlans.email, session?.user?.email!),
     });
   } catch (error) {
     console.log(error);
