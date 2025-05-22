@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
+import { ChevronLeft, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -68,11 +68,13 @@ export function ForgotPasswordForm() {
 
   return (
     <Card>
-      <CardHeader className="text-center">
-        <CardTitle className="text-xl">Forgot Password</CardTitle>
-        <CardDescription>
-          Enter your email to reset your password
-        </CardDescription>
+      <CardHeader>
+        <div className="flex flex-col gap-2 text-center">
+          <CardTitle className="text-xl">Forgot Password</CardTitle>
+          <CardDescription>
+            Enter your email to reset your password
+          </CardDescription>
+        </div>
       </CardHeader>
       <CardContent>
         <Form {...form}>
