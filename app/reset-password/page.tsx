@@ -18,7 +18,10 @@ export default function ResetPasswordPage() {
       </Link>
 
       <div className="flex w-full max-w-sm flex-col gap-6">
-        <a href="#" className="flex items-center gap-2 self-center font-medium">
+        <Link
+          href="/"
+          className="flex items-center gap-2 self-center font-medium"
+        >
           <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
             <Image
               width={50}
@@ -29,7 +32,7 @@ export default function ResetPasswordPage() {
             />
           </div>
           Meal Planner
-        </a>
+        </Link>
         <Suspense fallback={<Skeleton className="h-72 w-full" />}>
           <ResetPasswordForm />
         </Suspense>
