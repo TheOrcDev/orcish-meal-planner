@@ -41,10 +41,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { getMealPlan } from "@/server/ai";
 import { mealPlannerSchema } from "@/server/schemas";
 
-import { Diet, Goal } from ".";
+import { ActivityLevel, Diet, Goal } from ".";
 
 const goals = Object.values(Goal);
 const diets = Object.values(Diet);
+const activityLevels = Object.values(ActivityLevel);
 
 export default function CreateMealPlanForm() {
   const router = useRouter();
@@ -61,6 +62,7 @@ export default function CreateMealPlanForm() {
       meals: 3,
       gender: "male",
       diet: Diet.ANY,
+      activityLevel: ActivityLevel.MODERATE,
       weight: 70,
       height: 170,
       allergies: "",
@@ -104,17 +106,17 @@ export default function CreateMealPlanForm() {
                   Start Your Health Journey
                 </h1>
                 <p className="mx-auto max-w-xl text-muted-foreground">
-                  Please take a moment to fill out this form so we can tailor
-                  your experience and provide you with the most personalized and
-                  effective results possible. Let&apos;s get started on your
-                  journey to BE HEALTHY!
+                  Take a moment to complete this form so we can customize your
+                  meal planning experience and deliver the most personalized,
+                  effective results for your health journey. Let’s start
+                  building a healthier you!
                 </p>
               </div>
 
               <Form {...form}>
                 <form
                   onSubmit={form.handleSubmit(onSubmit)}
-                  className="grid w-full gap-6 md:grid-cols-2"
+                  className="grid w-full gap-6 grid-cols-2 md:grid-cols-3"
                 >
                   <FormField
                     control={form.control}
@@ -243,6 +245,40 @@ export default function CreateMealPlanForm() {
                     )}
                   />
 
+                  <FormField
+                    control={form.control}
+                    name="activityLevel"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-2 text-muted-foreground">
+                          <Activity className="size-4" />
+                          Activity Level
+                        </FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Your Activity Level" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {activityLevels.map((activityLevel) => (
+                              <SelectItem
+                                key={activityLevel}
+                                value={activityLevel}
+                              >
+                                {activityLevel}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
                   <div className="col-span-full">
                     <FormField
                       control={form.control}
@@ -257,7 +293,7 @@ export default function CreateMealPlanForm() {
                             <Textarea
                               placeholder="Some allergies or food that you don't like"
                               {...field}
-                              rows={5}
+                              rows={3}
                             />
                           </FormControl>
                           <FormMessage />

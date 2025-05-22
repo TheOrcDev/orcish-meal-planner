@@ -27,3 +27,10 @@ export const Goal = {
   ENHANCE_MOOD: "Enhance Mood",
 } as const;
 export type Goal = (typeof Goal)[keyof typeof Goal];
+
+export const ActivityLevel = {
+  LOW: "Low",
+  MODERATE: "Moderate",
+  HIGH: "High",
+} as const;
+export type ActivityLevel = (typeof ActivityLevel)[keyof typeof ActivityLevel];

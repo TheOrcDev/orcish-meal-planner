@@ -16,6 +16,8 @@ export const getPrompt = (values: z.infer<typeof mealPlannerSchema>) => {
 
     Meals per day: ${values.meals}
 
+    Activity level: ${values.activityLevel}
+
     Dietary preference: ${values.diet}
 
     Primary goal: ${values.goal}
