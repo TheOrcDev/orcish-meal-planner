@@ -40,7 +40,7 @@
     "dotenv": "^16.5.0",
     "drizzle-kit": "^0.31.1",
     "drizzle-orm": "^0.43.1",
-    "framer-motion": "^12.12.1",
+    "framer-motion": "^12.12.2",
     "fs": "0.0.1-security",
     "lucide-react": "^0.511.0",
     "next": "15.3.2",
@@ -52,7 +52,7 @@
     "stripe": "^18.1.1",
     "tailwind-merge": "^3.3.0",
     "tailwindcss-animate": "^1.0.7",
-    "zod": "^3.25.17"
+    "zod": "^3.25.27"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^15.3.2",
