@@ -33,12 +33,32 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 Create a copy of the provided `.env.example` file and name it `.env`. Fill in the required OpenAI API Key in the newly created `.env` file, and Clerk variables if you're going to use authentication:
 
 ```bash
+# App
+APP_ENV=development
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+# OpenAI
 OPENAI_API_KEY=your_openai_api_key
 
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
-CLERK_SECRET_KEY=your_clerk_secret_key
-NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
-NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+# Better Auth
+BETTER_AUTH_SECRET=your_better_auth_secret
+BETTER_AUTH_URL=http://localhost:3000
+
+# Google
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+
+# Stripe
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_publishable_key
+STRIPE_SECRET_KEY=your_secret_key
+
+# Database
+DATABASE_URL=your_database_url
+
+# Email
+RESEND_API_KEY=your_re_send_api_key
+EMAIL_SENDER_NAME=your_email_sender_name
+EMAIL_SENDER_ADDRESS=your_email_sender_address
 ```
 
 Make sure to replace placeholder values with your actual API keys, and keep them safe!
