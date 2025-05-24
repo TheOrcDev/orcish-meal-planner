@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { toast } from "sonner";
 
 import {
   AlertDialog,
@@ -23,7 +24,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { DailyPlanWithMeals } from "@/db/schema";
-import { useToast } from "@/hooks/use-toast";
 import { deleteDailyPlan } from "@/server/meal-plans";
 
 interface DailyMealPlanProps {
@@ -31,21 +31,13 @@ interface DailyMealPlanProps {
 }
 
 export default function DailyMealPlan({ plan }: DailyMealPlanProps) {
-  const { toast } = useToast();
-
   const handleDeleteMealPlan = async (mealPlanId: number) => {
     try {
       await deleteDailyPlan(mealPlanId);
 
-      toast({
-        title: "Meal plan deleted",
-        description: "Your meal plan has been deleted.",
-      });
+      toast("Meal plan deleted");
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "An error occurred while deleting your meal plan.",
-      });
+      toast("An error occurred while deleting your meal plan.");
       console.log(error);
     }
   };

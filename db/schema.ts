@@ -1,14 +1,25 @@
 import { relations } from "drizzle-orm";
-import { boolean, integer, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { boolean, integer, pgEnum, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+
+export const genderEnum = pgEnum("gender", ["male", "female", "other"]);
+export const heightUnitEnum = pgEnum("height_unit", ["cm", "in"]);
+export const weightUnitEnum = pgEnum("weight_unit", ["kg", "lb"]);
 
 export const user = pgTable("user", {
   id: text('id').primaryKey(),
   name: text('name').notNull(),
+  dateOfBirth: timestamp('date_of_birth'),
+  gender: genderEnum('gender').notNull(),
+  height: integer('height'),
+  heightUnit: heightUnitEnum('height_unit'),
+  weight: integer('weight'),
+  weightUnit: weightUnitEnum('weight_unit'),
+  allergies: text('allergies'),
   email: text('email').notNull().unique(),
   emailVerified: boolean('email_verified').$defaultFn(() => false).notNull(),
   image: text('image'),
-  createdAt: timestamp('created_at').$defaultFn(() => /* @__PURE__ */ new Date()).notNull(),
-  updatedAt: timestamp('updated_at').$defaultFn(() => /* @__PURE__ */ new Date()).notNull()
+  createdAt: timestamp('created_at').$defaultFn(() => new Date()).notNull(),
+  updatedAt: timestamp('updated_at').$defaultFn(() => new Date()).notNull()
 });
 
 export const session = pgTable("session", {

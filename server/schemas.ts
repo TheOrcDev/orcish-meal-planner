@@ -39,3 +39,14 @@ export const mealPlanSchema = z.object({
   ),
   totalCalories: z.string(),
 });
+
+export const userSchema = z.object({
+  name: z.string().min(3),
+  dateOfBirth: z.date().optional().nullable(),
+  gender: z.enum(["male", "female", "other"]),
+  height: z.number().optional().nullable(),
+  heightUnit: z.enum(["cm", "in"]).optional().nullable(),
+  weight: z.number().optional().nullable(),
+  weightUnit: z.enum(["kg", "lb"]).optional().nullable(),
+  allergies: z.string().optional().nullable(),
+});

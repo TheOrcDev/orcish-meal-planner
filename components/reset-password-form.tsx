@@ -7,6 +7,7 @@ import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -26,7 +27,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useToast } from "@/hooks/use-toast";
 import { authClient } from "@/lib/auth-client";
 
 const FormSchema = z.object({
@@ -43,7 +43,6 @@ export function ResetPasswordForm() {
     },
   });
 
-  const { toast } = useToast();
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
@@ -58,17 +57,11 @@ export function ResetPasswordForm() {
         newPassword: data.password,
         token: token as string,
       });
-      toast({
-        title: "Password reset",
-        description: "Your password has been reset.",
-      });
+      toast("Your password has been reset.");
 
       router.push("/login");
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "An error occurred while resetting your password.",
-      });
+      toast("An error occurred while resetting your password.");
       console.error(error);
     } finally {
       setIsLoading(false);

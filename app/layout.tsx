@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 import { ThemeProvider } from "@/components/providers";
 import { ScreenSize } from "@/components/ui/screen-size";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL!),

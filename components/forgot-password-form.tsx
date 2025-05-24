@@ -5,6 +5,7 @@ import { ChevronLeft, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -24,7 +25,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useToast } from "@/hooks/use-toast";
 import { authClient } from "@/lib/auth-client";
 
 const FormSchema = z.object({
@@ -41,7 +41,6 @@ export function ForgotPasswordForm() {
     },
   });
 
-  const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
@@ -51,15 +50,9 @@ export function ForgotPasswordForm() {
         email: data.email,
         redirectTo: "/reset-password",
       });
-      toast({
-        title: "Password reset",
-        description: "A reset password link has been sent to your email.",
-      });
+      toast("A reset password link has been sent to your email.");
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "An error occurred while sending the reset password link.",
-      });
+      toast("An error occurred while sending the reset password link.");
       console.error(error);
     } finally {
       setIsLoading(false);

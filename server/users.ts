@@ -1,6 +1,15 @@
 "use server";
 
+
+import { eq } from "drizzle-orm";
+import { headers } from "next/headers";
+import { z } from "zod";
+
+import db from "@/db/drizzle";
+import { user } from "@/db/schema";
 import { auth } from "@/lib/auth";
+
+import { userSchema } from "./schemas";
 
 export const signIn = async (_: unknown, formData: FormData): Promise<{
     errors: Record<string, string[]>;
@@ -72,3 +81,44 @@ export const signUp = async (_: unknown, formData: FormData): Promise<{
         }
     }
 }
+
+export const getUserProfile = async () => {
+    const session = await auth.api.getSession({
+        headers: await headers(),
+    });
+
+    if (!session?.user?.id) {
+        throw new Error("User not found");
+    }
+
+    const [userProfile] = await db.select().from(user).where(eq(user.id, session?.user?.id));
+
+    return userProfile;
+}
+
+export const updateProfile = async (data: z.infer<typeof userSchema>) => {
+    const session = await auth.api.getSession({
+        headers: await headers(),
+    });
+
+    if (!session?.user?.id) {
+        throw new Error("User not found");
+    }
+
+    try {
+        await db.update(user).set(data).where(eq(user.id, session?.user?.id));
+
+        return {
+            values: {
+                text: "Successfully updated profile.",
+            },
+            redirect: "/dashboard/meal-planner",
+        }
+    } catch (e) {
+        const error = e as Error;
+        return {
+            errors: { message: [error.message || 'An unknown error occurred'] },
+        }
+    }
+}
+
