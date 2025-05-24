@@ -1,7 +1,6 @@
 "use server";
 
 import { eq } from "drizzle-orm";
-import { headers } from "next/headers";
 import { Resend } from "resend";
 import Stripe from "stripe";
 
@@ -9,8 +8,9 @@ import { BoughtTokens } from "@/components/emails/bought-tokens";
 import { Tokens } from "@/components/shared/types";
 import db from "@/db/drizzle";
 import { purchases, tokenSpends } from "@/db/schema";
-import { auth } from "@/lib/auth";
 import { getTotalTokens } from "@/lib/queries";
+
+import { getUserSession } from "./users";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   typescript: true,
@@ -34,13 +34,11 @@ const getTokenByPrice = (price: number) => {
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function getTokens() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const session = await getUserSession();
 
   try {
     const totalUserTokens = await getTotalTokens(
-      session?.user?.email!
+      session?.user?.email
     );
 
     return totalUserTokens;
@@ -69,9 +67,7 @@ export async function getPaymentIntent(
   paymentIntentSecret: string
 ) {
   try {
-    const session = await auth.api.getSession({
-      headers: await headers(),
-    });
+    const session = await getUserSession();
 
     const paymentIntent = await stripe.paymentIntents.retrieve(
       paymentIntentString
@@ -94,7 +90,7 @@ export async function getPaymentIntent(
     const amountOfTokens = getTokenByPrice(paymentIntent.amount / 100);
 
     await db.insert(purchases).values({
-      email: session?.user?.email!,
+      email: session?.user?.email,
       paymentIntent: paymentIntentString,
       paymentIntentSecret,
       amount: +amountOfTokens,
@@ -102,7 +98,7 @@ export async function getPaymentIntent(
 
     const { error } = await resend.emails.send({
       from: `${process.env.EMAIL_SENDER_NAME} <${process.env.EMAIL_SENDER_ADDRESS}>`,
-      to: [session?.user?.email!],
+      to: [session?.user?.email],
       subject: "Your Meal Planning Starts Here",
       react: BoughtTokens({ tokens: amountOfTokens }),
     });

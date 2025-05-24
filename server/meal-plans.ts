@@ -1,11 +1,11 @@
 "use server";
 
 import { asc, desc, eq } from "drizzle-orm";
-import { headers } from "next/headers";
 
 import db from "@/db/drizzle";
 import { dailyPlans, meals } from "@/db/schema";
-import { auth } from "@/lib/auth";
+
+import { getUserSession } from "./users";
 
 export async function getMealPlan(mealPlanId: number) {
   try {
@@ -29,14 +29,12 @@ export async function getMealPlan(mealPlanId: number) {
 }
 
 export async function getDailyPlans() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const session = await getUserSession();
 
   const user = {
     emailAddresses: [
       {
-        emailAddress: session?.user?.email!,
+        emailAddress: session?.user?.email,
       },
     ],
   };
