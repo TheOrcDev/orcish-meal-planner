@@ -23,6 +23,7 @@ export function TeamSwitcher() {
                 height={70}
                 src={"/meal-planner.png"}
                 alt="Meal Planner Logo"
+                className="-ml-1.5 size-9"
               />
             </div>
             <div className="grid flex-1 text-left text-sm leading-tight">
