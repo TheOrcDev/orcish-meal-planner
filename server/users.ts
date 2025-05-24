@@ -11,6 +11,18 @@ import { auth } from "@/lib/auth";
 
 import { userSchema } from "./schemas";
 
+export const getUserSession = async () => {
+    const session = await auth.api.getSession({
+        headers: await headers(),
+    });
+
+    if (!session?.user?.id) {
+        throw new Error("User not found");
+    }
+
+    return session;
+}
+
 export const signIn = async (_: unknown, formData: FormData): Promise<{
     errors: Record<string, string[]>;
     values: Record<string, string>;
@@ -97,13 +109,7 @@ export const getUserProfile = async () => {
 }
 
 export const updateProfile = async (data: z.infer<typeof userSchema>) => {
-    const session = await auth.api.getSession({
-        headers: await headers(),
-    });
-
-    if (!session?.user?.id) {
-        throw new Error("User not found");
-    }
+    const session = await getUserSession();
 
     try {
         await db.update(user).set(data).where(eq(user.id, session?.user?.id));
