@@ -20,8 +20,8 @@ export async function getMealPlan(input: z.infer<typeof mealPlannerSchema>) {
   const session = await getUserSession();
 
   try {
-    const prompt = getPrompt(input);
-
+    const prompt = await getPrompt(input);
+    console.log(prompt);
     const totalUserTokens = await getTotalTokens(
       session?.user?.email
     );

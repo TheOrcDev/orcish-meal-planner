@@ -20,7 +20,18 @@ export const getUserSession = async () => {
         throw new Error("User not found");
     }
 
-    return session;
+    const currentUser = await db.query.user.findFirst({
+        where: eq(user.id, session?.user?.id),
+    });
+
+    if (!currentUser) {
+        throw new Error("User not found");
+    }
+
+    return {
+        ...session,
+        user: currentUser,
+    };
 }
 
 export const signIn = async (_: unknown, formData: FormData): Promise<{

@@ -1,8 +1,11 @@
 import { z } from "zod";
 
 import { mealPlannerSchema } from "@/server/schemas";
+import { getUserSession } from "@/server/users";
 
-export const getPrompt = (values: z.infer<typeof mealPlannerSchema>) => {
+export const getPrompt = async (values: z.infer<typeof mealPlannerSchema>) => {
+  const session = await getUserSession();
+
   let prompt = `
     You are a professional nutritionist’s assistant.
 
@@ -10,9 +13,9 @@ export const getPrompt = (values: z.infer<typeof mealPlannerSchema>) => {
 
     User Details:
 
-    Age: ${values.age}
+    Date of birth: ${session?.user?.dateOfBirth}
 
-    Gender: ${values.gender}
+    Gender: ${session?.user?.gender}
 
     Meals per day: ${values.meals}
 
@@ -23,21 +26,21 @@ export const getPrompt = (values: z.infer<typeof mealPlannerSchema>) => {
     Primary goal: ${values.goal}
   `;
 
-  if (values.weight) {
+  if (session?.user?.weight) {
     prompt += `
-      - Weight: ${values.weight} ${values.weightUnit}
+      - Weight: ${session?.user?.weight} ${session?.user?.weightUnit}
     `;
   }
 
-  if (values.height) {
+  if (session?.user?.height) {
     prompt += `
-      - Height: ${values.height} ${values.heightUnit}
+      - Height: ${session?.user?.height} ${session?.user?.heightUnit}
     `;
   }
 
-  if (values.allergies) {
+  if (session?.user?.allergies) {
     prompt += `
-      - Allergies and dislikes: ${values.allergies}
+      - Allergies and dislikes: ${session?.user?.allergies}
     `;
   }
 

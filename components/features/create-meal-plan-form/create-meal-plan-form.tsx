@@ -57,15 +57,10 @@ export default function CreateMealPlanForm() {
   const form = useForm<z.infer<typeof mealPlannerSchema>>({
     resolver: zodResolver(mealPlannerSchema),
     defaultValues: {
-      age: 18,
       goal: Goal.HEALTHY,
       meals: 3,
-      gender: "male",
       diet: Diet.ANY,
       activityLevel: ActivityLevel.MODERATE,
-      weight: 70,
-      height: 170,
-      allergies: "",
     },
   });
 
@@ -120,22 +115,6 @@ export default function CreateMealPlanForm() {
                 >
                   <FormField
                     control={form.control}
-                    name="age"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="flex items-center gap-2 text-muted-foreground">
-                          <Cake className="size-4" />
-                          Age
-                        </FormLabel>
-                        <FormControl>
-                          <Input type="number" placeholder="Age" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
                     name="meals"
                     render={({ field }) => (
                       <FormItem>
@@ -150,34 +129,6 @@ export default function CreateMealPlanForm() {
                             {...field}
                           />
                         </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="gender"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="flex items-center gap-2 text-muted-foreground">
-                          <Users className="size-4" />
-                          Gender
-                        </FormLabel>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                        >
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Your gender" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="male">Male</SelectItem>
-                            <SelectItem value="female">Female</SelectItem>
-                          </SelectContent>
-                        </Select>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -274,97 +225,6 @@ export default function CreateMealPlanForm() {
                             ))}
                           </SelectContent>
                         </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <div className="col-span-full">
-                    <FormField
-                      control={form.control}
-                      name="allergies"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="flex items-center gap-2 text-muted-foreground">
-                            <AlertCircle className="size-4" />
-                            Allergies
-                          </FormLabel>
-                          <FormControl>
-                            <Textarea
-                              placeholder="Some allergies or food that you don't like"
-                              {...field}
-                              rows={3}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-
-                  <FormField
-                    control={form.control}
-                    name="weight"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="flex items-center gap-2 text-muted-foreground">
-                          <Weight className="size-4" />
-                          Weight
-                        </FormLabel>
-                        <FormControl>
-                          <div className="flex">
-                            <Input
-                              type="number"
-                              placeholder="Weight"
-                              {...field}
-                              className="rounded-r-none"
-                            />
-                            <Button
-                              type="button"
-                              variant="outline"
-                              className="rounded-l-none"
-                              onClick={() =>
-                                setWeightUnit(weightUnit === "kg" ? "lb" : "kg")
-                              }
-                            >
-                              {weightUnit.toUpperCase()}
-                            </Button>
-                          </div>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="height"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="flex items-center gap-2 text-muted-foreground">
-                          <Ruler className="size-4" />
-                          Height
-                        </FormLabel>
-                        <FormControl>
-                          <div className="flex">
-                            <Input
-                              type="number"
-                              placeholder="Height"
-                              {...field}
-                              className="rounded-r-none"
-                            />
-                            <Button
-                              type="button"
-                              variant={"outline"}
-                              className="rounded-l-none"
-                              onClick={() =>
-                                setHeightUnit(heightUnit === "cm" ? "in" : "cm")
-                              }
-                            >
-                              {heightUnit.toUpperCase()}
-                            </Button>
-                          </div>
-                        </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
