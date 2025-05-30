@@ -15,8 +15,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { authClient } from "@/lib/auth-client";
 import getStripe from "@/lib/stripe";
-import { getClientSecret } from "@/server/tokens";
 
 import PaymentForm from "./payment-form";
 
@@ -28,14 +28,10 @@ export default function BuyTokens() {
   const [paymentIntentSecret, setPaymentIntentSecret] = useState("");
 
   const buyTokens = async (bundle: Tokens) => {
-    const clientSecret = await getClientSecret(bundle);
-
-    if (!clientSecret) {
-      console.log("No client secret");
-      return;
-    }
-
-    setPaymentIntentSecret(clientSecret);
+    await authClient.checkout({
+      products: ["59639467-9595-49bf-b2a1-1c5cb79fef35"],
+      slug: "100-tokens",
+    });
   };
 
   return (
