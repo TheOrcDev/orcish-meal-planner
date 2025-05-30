@@ -30,7 +30,7 @@ export function LoginForm() {
   const signInWithGoogle = async () => {
     await authClient.signIn.social({
       provider: "google",
-      callbackURL: "/dashboard/meal-planner",
+      callbackURL: "/dashboard/account",
     });
   };
 
