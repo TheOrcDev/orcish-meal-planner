@@ -3,6 +3,7 @@
 
 import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 import { z } from "zod";
 
 import db from "@/db/drizzle";
@@ -17,7 +18,7 @@ export const getUserSession = async () => {
     });
 
     if (!session?.user?.id) {
-        throw new Error("User not found");
+        redirect("/login");
     }
 
     const currentUser = await db.query.user.findFirst({
@@ -25,7 +26,7 @@ export const getUserSession = async () => {
     });
 
     if (!currentUser) {
-        throw new Error("User not found");
+        redirect("/login");
     }
 
     return {
