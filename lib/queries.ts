@@ -1,4 +1,4 @@
-import { count, eq, sum } from "drizzle-orm";
+import { count, eq } from "drizzle-orm";
 import { z } from "zod";
 
 import db from "@/db/drizzle";
@@ -16,13 +16,9 @@ const FREE_TOKENS = 5;
 export const getTotalTokens = async (userId: string): Promise<number> => {
   try {
     const [tokens] = await db
-      .select({ value: sum(purchases.amount) })
+      .select({ value: purchases.productId })
       .from(purchases)
       .where(eq(purchases.userId, userId));
-
-    if (!tokens.value) {
-      tokens.value = "0";
-    }
 
     const [tokensSpend] = await db
       .select({ count: count() })
