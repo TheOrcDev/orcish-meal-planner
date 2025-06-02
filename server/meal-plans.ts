@@ -49,7 +49,7 @@ export async function getDailyPlans() {
           orderBy: desc(meals.createdAt),
         },
       },
-      where: eq(dailyPlans.email, session?.user?.email!),
+      where: eq(dailyPlans.userId, session?.user?.id!),
     });
   } catch (error) {
     console.log(error);

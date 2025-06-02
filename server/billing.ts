@@ -16,7 +16,7 @@ export async function getBilling() {
     }
 
     const allPurchases = await db.query.purchases.findMany({
-      where: eq(purchases.email, session.user.email!),
+      where: eq(purchases.userId, session.user.id),
     });
     return allPurchases;
   } catch (e) {

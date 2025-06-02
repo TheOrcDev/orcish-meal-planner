@@ -23,7 +23,7 @@ export async function getTokens() {
 
   try {
     const totalUserTokens = await getTotalTokens(
-      session?.user?.email
+      session?.user?.id
     );
 
     return totalUserTokens;

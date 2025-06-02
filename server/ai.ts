@@ -23,7 +23,7 @@ export async function getMealPlan(input: z.infer<typeof mealPlannerSchema>) {
     const prompt = await getPrompt(input);
     console.log(prompt);
     const totalUserTokens = await getTotalTokens(
-      session?.user?.email
+      session?.user?.id
     );
 
     if (totalUserTokens <= 0) {
@@ -44,13 +44,13 @@ export async function getMealPlan(input: z.infer<typeof mealPlannerSchema>) {
 
     await db.insert(tokenSpends).values({
       amount: 1,
-      email: session?.user?.email,
+      userId: session?.user?.id,
       action: "daily meal plan",
     });
 
     const id = await addDailyPlanAndMeals(
       data,
-      session?.user?.email
+      session?.user?.id
     );
 
     return {

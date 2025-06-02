@@ -13,12 +13,12 @@ import { mealPlanSchema } from "@/server/schemas";
 
 const FREE_TOKENS = 5;
 
-export const getTotalTokens = async (email: string): Promise<number> => {
+export const getTotalTokens = async (userId: string): Promise<number> => {
   try {
     const [tokens] = await db
       .select({ value: sum(purchases.amount) })
       .from(purchases)
-      .where(eq(purchases.email, email));
+      .where(eq(purchases.userId, userId));
 
     if (!tokens.value) {
       tokens.value = "0";
@@ -27,7 +27,7 @@ export const getTotalTokens = async (email: string): Promise<number> => {
     const [tokensSpend] = await db
       .select({ count: count() })
       .from(tokenSpends)
-      .where(eq(tokenSpends.email, email));
+      .where(eq(tokenSpends.userId, userId));
 
     return +tokens.value - tokensSpend.count + FREE_TOKENS;
   } catch (e) {
@@ -37,14 +37,14 @@ export const getTotalTokens = async (email: string): Promise<number> => {
 
 export const addDailyPlanAndMeals = async (
   data: z.infer<typeof mealPlanSchema>,
-  email: string
+  userId: string
 ) => {
   const { title, totalCalories } = data;
 
   const [dailyPlan] = await db
     .insert(dailyPlans)
     .values({
-      email,
+      userId,
       title,
       totalCalories,
     })
@@ -78,16 +78,4 @@ export const addDailyPlanAndMeals = async (
   });
 
   return dailyPlan.id;
-};
-
-export const spendTokens = async (
-  amount: number,
-  email: string,
-  action: string
-) => {
-  await db.insert(tokenSpends).values({
-    amount,
-    email,
-    action,
-  });
 };
