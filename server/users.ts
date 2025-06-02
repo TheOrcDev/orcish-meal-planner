@@ -18,6 +18,12 @@ export const getUserById = async (id: string) => {
     return currentUser;
 }
 
+export const getUserByEmail = async (email: string) => {
+    const [currentUser] = await db.select().from(user).where(eq(user.email, email));
+
+    return currentUser;
+}
+
 export const getUserSession = async () => {
     const session = await auth.api.getSession({
         headers: await headers(),
