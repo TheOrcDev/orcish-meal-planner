@@ -51,7 +51,7 @@ export const auth = betterAuth({
             use: [
                 checkout({
                     products,
-                    successUrl: "/payment/success",
+                    successUrl: "/dashboard/payment/success",
                     authenticatedUsersOnly: true,
                 }),
                 webhooks({
