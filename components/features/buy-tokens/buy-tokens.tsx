@@ -13,12 +13,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { authClient } from "@/lib/auth-client";
-import { getUserSession } from "@/server/users";
 
 export default function BuyTokens() {
   const buyTokens = async (bundle: Tokens) => {
-    const { user } = await getUserSession();
-
     try {
       let slug: string = "";
 
@@ -34,7 +31,6 @@ export default function BuyTokens() {
 
       await authClient.checkout({
         slug,
-        referenceId: user.id,
       });
     } catch (e) {
       console.log(e);
