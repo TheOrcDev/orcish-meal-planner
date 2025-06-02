@@ -47,12 +47,12 @@ export const auth = betterAuth({
             createCustomerOnSignUp: true,
             use: [
                 checkout({
-                    products: [
-                        {
-                            productId: "59639467-9595-49bf-b2a1-1c5cb79fef35", // ID of Product from Polar Dashboard
-                            slug: "100-tokens" // Custom slug for easy reference in Checkout URL, e.g. /checkout/pro
-                        }
-                    ],
+                    products:
+                        [
+                            { productId: "0b4b4595-507e-4a6e-82ad-ba6e45b33524", slug: "10-tokens" },
+                            { productId: "6f5eb95a-0291-465d-a5d3-073f78736a2c", slug: "50-tokens" },
+                            { productId: "7a89d286-80eb-4cf1-a23c-43e2d452195a", slug: "100-tokens" }
+                        ],
                     successUrl: "/success?checkout_id={CHECKOUT_ID}",
                     authenticatedUsersOnly: true
                 }),

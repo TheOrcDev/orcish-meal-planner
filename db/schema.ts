@@ -60,27 +60,23 @@ export const verification = pgTable("verification", {
 
 export const purchases = pgTable("purchases", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  // TODO: replace this to user_id when migrating to Better Auth
-  email: text("email").notNull(),
+  userId: text("user_id").notNull().references(() => user.id, { onDelete: 'cascade' }),
   amount: integer("amount").notNull(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
 export const tokenSpends = pgTable("token_spends", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  // TODO: replace this to user_id when migrating to Better Auth
-  email: text("email").notNull(),
+  userId: text("user_id").notNull().references(() => user.id, { onDelete: 'cascade' }),
   action: text("action").notNull(),
   amount: integer("amount").notNull(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
 export const dailyPlans = pgTable("daily_plans", {
-  // TODO: replace this to UUID when migrating to Better Auth
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   title: text("title").notNull(),
-  // TODO: replace this to user_id when migrating to Better Auth
-  email: text("email").notNull(),
+  userId: text("user_id").notNull().references(() => user.id, { onDelete: 'cascade' }),
   totalCalories: text("total_calories").notNull(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });

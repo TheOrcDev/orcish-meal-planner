@@ -16,22 +16,26 @@ import { authClient } from "@/lib/auth-client";
 
 export default function BuyTokens() {
   const buyTokens = async (bundle: Tokens) => {
-    let tokens: string[] = [];
+    try {
+      let tokens: string[] = [];
 
-    if (bundle === Tokens.TEN) {
-      tokens = ["0b4b4595-507e-4a6e-82ad-ba6e45b33524"];
-    }
-    if (bundle === Tokens.FIFTY) {
-      tokens = ["6f5eb95a-0291-465d-a5d3-073f78736a2c"];
-    }
-    if (bundle === Tokens.HUNDRED) {
-      tokens = ["7a89d286-80eb-4cf1-a23c-43e2d452195a"];
-    }
+      if (bundle === Tokens.TEN) {
+        tokens = ["0b4b4595-507e-4a6e-82ad-ba6e45b33524"];
+      }
+      if (bundle === Tokens.FIFTY) {
+        tokens = ["6f5eb95a-0291-465d-a5d3-073f78736a2c"];
+      }
+      if (bundle === Tokens.HUNDRED) {
+        tokens = ["7a89d286-80eb-4cf1-a23c-43e2d452195a"];
+      }
 
-    await authClient.checkout({
-      products: tokens,
-      slug: "100-tokens",
-    });
+      await authClient.checkout({
+        products: tokens,
+        slug: "100-tokens",
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (

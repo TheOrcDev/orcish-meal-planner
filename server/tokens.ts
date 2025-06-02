@@ -16,15 +16,6 @@ const priceMap = {
   [Tokens.HUNDRED]: 6,
 };
 
-const getTokenByPrice = (price: number) => {
-  for (const [key, value] of Object.entries(priceMap)) {
-    if (value === price) {
-      return key;
-    }
-  }
-  return Tokens.TEN;
-};
-
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function getTokens() {
@@ -48,7 +39,7 @@ export async function insertPurchase(
     const session = await getUserSession();
 
     await db.insert(purchases).values({
-      email: session?.user?.email,
+      userId: session?.user?.id,
       amount: priceMap[tokens],
     });
 
@@ -71,14 +62,15 @@ export async function insertPurchase(
 
 export async function spendTokens(
   amount: number,
-  email: string,
   action: string
 ) {
   try {
+    const session = await getUserSession();
+
     await db.insert(tokenSpends).values({
-      amount: amount,
-      email: email,
+      userId: session?.user?.id,
       action: action,
+      amount: amount,
     });
   } catch (e) {
     throw e;
