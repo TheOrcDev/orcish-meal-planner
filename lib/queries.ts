@@ -6,6 +6,7 @@ import {
   dailyPlans,
   ingredients,
   meals,
+  products,
   purchases,
   tokenSpends,
 } from "@/db/schema";
@@ -16,13 +17,21 @@ const FREE_TOKENS = 5;
 export const getTotalTokens = async (userId: string): Promise<number> => {
   try {
     let amount = 0;
-    const [tokens] = await db
+
+    const tokens = await db
       .select({ value: purchases.productId })
       .from(purchases)
       .where(eq(purchases.userId, userId));
 
-    if (tokens) {
-      amount = +tokens.value;
+    if (tokens.length > 0) {
+      tokens.map(async (token) => {
+        const [product] = await db
+          .select({ value: products.tokenAmount })
+          .from(products)
+          .where(eq(products.id, token.value));
+
+        amount += +product.value;
+      });
     }
 
     const [tokensSpend] = await db

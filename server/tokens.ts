@@ -39,11 +39,6 @@ export async function insertPurchase(
 ) {
   try {
     const user = await getUserById(userId);
-
-    if (!user) {
-      throw new Error("User not found");
-    }
-
     const [product] = await db.select().from(products).where(eq(products.polarProductId, polarProductId));
 
     if (!product) {
