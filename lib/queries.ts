@@ -24,14 +24,17 @@ export const getTotalTokens = async (userId: string): Promise<number> => {
       .where(eq(purchases.userId, userId));
 
     if (allPurchases.length > 0) {
-      allPurchases.map(async (purchase) => {
-        const [product] = await db
-          .select({ value: products.tokenAmount })
-          .from(products)
-          .where(eq(products.id, purchase.value));
+      const productAmounts = await Promise.all(
+        allPurchases.map(async (purchase) => {
+          const [product] = await db
+            .select({ value: products.tokenAmount })
+            .from(products)
+            .where(eq(products.id, purchase.value));
+          return product.value;
+        })
+      );
 
-        amount += product.value;
-      });
+      amount = productAmounts.reduce((sum, value) => sum + value, 0);
     }
 
     const [tokensSpend] = await db
