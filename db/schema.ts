@@ -9,7 +9,7 @@ export const user = pgTable("user", {
   id: text('id').primaryKey(),
   name: text('name').notNull(),
   dateOfBirth: timestamp('date_of_birth'),
-  gender: genderEnum('gender').notNull(),
+  gender: genderEnum('gender').notNull().default("male"),
   height: integer('height'),
   heightUnit: heightUnitEnum('height_unit'),
   weight: integer('weight'),

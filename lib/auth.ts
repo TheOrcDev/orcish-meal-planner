@@ -53,7 +53,7 @@ export const auth = betterAuth({
                             { productId: "6f5eb95a-0291-465d-a5d3-073f78736a2c", slug: "50-tokens" },
                             { productId: "7a89d286-80eb-4cf1-a23c-43e2d452195a", slug: "100-tokens" }
                         ],
-                    successUrl: "/success?checkout_id={CHECKOUT_ID}",
+                    successUrl: "/payment/success/{CHECKOUT_ID}/{SLUG}",
                     authenticatedUsersOnly: true
                 }),
             ],
