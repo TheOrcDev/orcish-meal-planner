@@ -12,6 +12,12 @@ import { auth } from "@/lib/auth";
 
 import { userSchema } from "./schemas";
 
+export const getUserById = async (id: string) => {
+    const [currentUser] = await db.select().from(user).where(eq(user.id, id));
+
+    return currentUser;
+}
+
 export const getUserSession = async () => {
     const session = await auth.api.getSession({
         headers: await headers(),

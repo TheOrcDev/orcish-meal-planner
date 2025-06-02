@@ -9,7 +9,7 @@ import db from "@/db/drizzle";
 import { products, purchases, tokenSpends } from "@/db/schema";
 import { getTotalTokens } from "@/lib/queries";
 
-import { getUserSession } from "./users";
+import { getUserById, getUserSession } from "./users";
 
 const priceMap = {
   [Tokens.TEN]: 1,
@@ -34,10 +34,15 @@ export async function getTokens() {
 }
 
 export async function insertPurchase(
-  polarProductId: string
+  polarProductId: string,
+  userId: string
 ) {
   try {
-    const session = await getUserSession();
+    const user = await getUserById(userId);
+
+    if (!user) {
+      throw new Error("User not found");
+    }
 
     const [product] = await db.select().from(products).where(eq(products.polarProductId, polarProductId));
 
@@ -46,13 +51,13 @@ export async function insertPurchase(
     }
 
     await db.insert(purchases).values({
-      userId: session?.user?.id,
+      userId,
       productId: product.id,
     });
 
     const { error } = await resend.emails.send({
       from: `${process.env.EMAIL_SENDER_NAME} <${process.env.EMAIL_SENDER_ADDRESS}>`,
-      to: [session?.user?.email],
+      to: [user.email],
       subject: "Your Meal Planning Starts Here",
       react: BoughtTokens({ tokens: product.name }),
     });
