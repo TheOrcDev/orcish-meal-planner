@@ -63,7 +63,7 @@ export const auth = betterAuth({
                     secret: process.env.POLAR_WEBHOOK_SECRET!,
                     onOrderPaid: async (payload) => {
                         if (payload.data.paid) {
-                            insertPurchase(payload.data.product.id, payload.data.customer.email)
+                            insertPurchase(payload.data.product.id, payload.data.metadata.referenceId as string)
                         }
                     }
                 })

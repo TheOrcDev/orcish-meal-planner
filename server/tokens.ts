@@ -9,7 +9,7 @@ import db from "@/db/drizzle";
 import { products, purchases, tokenSpends } from "@/db/schema";
 import { getTotalTokens } from "@/lib/queries";
 
-import { getUserByEmail, getUserSession } from "./users";
+import { getUserById, getUserSession } from "./users";
 
 const priceMap = {
   [Tokens.TEN]: 1,
@@ -35,10 +35,10 @@ export async function getTokens() {
 
 export async function insertPurchase(
   polarProductId: string,
-  email: string
+  userId: string
 ) {
   try {
-    const user = await getUserByEmail(email);
+    const user = await getUserById(userId);
 
     if (!user) {
       throw new Error("User not found");
