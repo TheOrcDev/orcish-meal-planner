@@ -15,17 +15,22 @@ const FREE_TOKENS = 5;
 
 export const getTotalTokens = async (userId: string): Promise<number> => {
   try {
+    let amount = 0;
     const [tokens] = await db
       .select({ value: purchases.productId })
       .from(purchases)
       .where(eq(purchases.userId, userId));
+
+    if (tokens) {
+      amount = +tokens.value;
+    }
 
     const [tokensSpend] = await db
       .select({ count: count() })
       .from(tokenSpends)
       .where(eq(tokenSpends.userId, userId));
 
-    return +tokens.value - tokensSpend.count + FREE_TOKENS;
+    return amount - tokensSpend.count + FREE_TOKENS;
   } catch (e) {
     throw e;
   }
