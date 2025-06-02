@@ -58,10 +58,20 @@ export const verification = pgTable("verification", {
   updatedAt: timestamp('updated_at').$defaultFn(() => /* @__PURE__ */ new Date())
 });
 
+export const products = pgTable("products", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  polarProductId: text("polar_product_id").notNull(),
+  name: text("name").notNull(),
+  slug: text("slug").notNull(),
+  price: integer("price").notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
 export const purchases = pgTable("purchases", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   userId: text("user_id").notNull().references(() => user.id, { onDelete: 'cascade' }),
-  amount: integer("amount").notNull(),
+  productId: integer("product_id").notNull().references(() => products.id, { onDelete: 'cascade' }),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 

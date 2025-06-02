@@ -1,8 +1,14 @@
 import DashboardWrapper from "@/components/dashboard/wrapper";
-import { getBilling } from "@/server/billing";
+import { authClient } from "@/lib/auth-client";
 
 export default async function BillingPage() {
-  const allPurchases = await getBilling();
+  const { data: allPurchases } = await authClient.customer.orders.list({
+    query: {
+      page: 1,
+      limit: 20,
+      productBillingType: "one_time",
+    },
+  });
 
   return (
     <DashboardWrapper
@@ -13,17 +19,17 @@ export default async function BillingPage() {
         <p className="text-sm text-muted-foreground">
           Here you can see all your purchases.
         </p>
-        {allPurchases.length === 0 && (
+        {allPurchases?.result.items.length === 0 && (
           <p className="text-sm text-gray-500">
             You have not made any purchases yet.
           </p>
         )}
-        {allPurchases.map((purchase) => (
+        {allPurchases?.result.items.map((purchase) => (
           <div
             key={purchase.id}
             className="flex items-center justify-between rounded-lg border p-4"
           >
-            <p>You bought {purchase.amount} tokens</p>
+            <p>You bought {purchase.product.name}</p>
             <p className="text-sm text-muted-foreground">
               {purchase.createdAt.toLocaleDateString()}
             </p>
