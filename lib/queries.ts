@@ -18,19 +18,19 @@ export const getTotalTokens = async (userId: string): Promise<number> => {
   try {
     let amount = 0;
 
-    const tokens = await db
+    const allPurchases = await db
       .select({ value: purchases.productId })
       .from(purchases)
       .where(eq(purchases.userId, userId));
 
-    if (tokens.length > 0) {
-      tokens.map(async (token) => {
+    if (allPurchases.length > 0) {
+      allPurchases.map(async (purchase) => {
         const [product] = await db
           .select({ value: products.tokenAmount })
           .from(products)
-          .where(eq(products.id, token.value));
+          .where(eq(products.id, purchase.value));
 
-        amount += +product.value;
+        amount += product.value;
       });
     }
 

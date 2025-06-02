@@ -14,15 +14,10 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 const polarClient = new Polar({
     accessToken: process.env.POLAR_ACCESS_TOKEN,
-    // Use 'sandbox' if you're using the Polar Sandbox environment
-    // Remember that access tokens, products, etc. are completely separated between environments.
-    // Access tokens obtained in Production are for instance not usable in the Sandbox environment.
-    server: 'sandbox'
 });
 
-// 0b4b4595-507e-4a6e-82ad-ba6e45b33524
 const products = [
-    { productId: "75bbbc66-aeab-41e4-bfb2-d547aca42334", slug: "10-tokens" },
+    { productId: "0b4b4595-507e-4a6e-82ad-ba6e45b33524", slug: "10-tokens" },
     { productId: "6f5eb95a-0291-465d-a5d3-073f78736a2c", slug: "50-tokens" },
     { productId: "7a89d286-80eb-4cf1-a23c-43e2d452195a", slug: "100-tokens" }
 ]
