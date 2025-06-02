@@ -1,18 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Activity,
-  AlertCircle,
-  Cake,
-  Leaf,
-  Loader2,
-  Ruler,
-  Target,
-  Users,
-  Utensils,
-  Weight,
-} from "lucide-react";
+import { Activity, Leaf, Loader2, Target, Utensils } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";

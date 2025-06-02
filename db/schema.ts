@@ -62,8 +62,6 @@ export const purchases = pgTable("purchases", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   // TODO: replace this to user_id when migrating to Better Auth
   email: text("email").notNull(),
-  paymentIntent: text("payment_intent").notNull(),
-  paymentIntentSecret: text("payment_intent_secret").notNull().unique(),
   amount: integer("amount").notNull(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });

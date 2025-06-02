@@ -48,9 +48,8 @@ BETTER_AUTH_URL=http://localhost:3000
 GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
 
-# Stripe
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_publishable_key
-STRIPE_SECRET_KEY=your_secret_key
+# Polar
+POLAR_ACCESS_TOKEN=your_polar_access_token
 
 # Database
 DATABASE_URL=your_database_url
