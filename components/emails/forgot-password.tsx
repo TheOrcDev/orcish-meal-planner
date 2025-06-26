@@ -48,8 +48,9 @@ const ForgotPasswordEmail = ({ resetLink, username }: ForgotPasswordProps) => {
             </Section>
 
             <Text className="text-[16px] leading-[24px] text-gray-600 mb-[24px]">
-              This password reset link will expire in 24 hours. If you didn't
-              request a password reset, you can safely ignore this email.
+              This password reset link will expire in 24 hours. If you
+              didn&apos;t request a password reset, you can safely ignore this
+              email.
             </Text>
 
             <Text className="text-[16px] leading-[24px] text-gray-600 mb-[32px]">
