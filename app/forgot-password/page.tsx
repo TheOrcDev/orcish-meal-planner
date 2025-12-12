@@ -2,7 +2,7 @@ import { ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { ForgotPasswordForm } from "@/components/forgot-password-form";
+import { ForgotPasswordForm } from "@/components/forms/forgot-password-form";
 import { Button } from "@/components/ui/button";
 
 export default function ForgotPasswordPage() {

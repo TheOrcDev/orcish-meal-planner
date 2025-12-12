@@ -4,7 +4,7 @@ import { ActivityLevel, Diet, Goal } from "@/components/features/create-meal-pla
 
 export const mealPlannerSchema = z.object({
   goal: z.nativeEnum(Goal),
-  meals: z.coerce.number().min(2).max(12),
+  meals: z.number().min(2).max(12),
   diet: z.nativeEnum(Diet),
   activityLevel: z.nativeEnum(ActivityLevel),
 });

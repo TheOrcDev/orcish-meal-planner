@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
-import { ResetPasswordForm } from "@/components/reset-password-form";
+import { ResetPasswordForm } from "@/components/forms/reset-password-form";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 

@@ -2,7 +2,7 @@ import { ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { SignupForm } from "@/components/signup-form";
+import { SignupForm } from "@/components/forms/signup-form";
 import { Button } from "@/components/ui/button";
 
 export default function SignupPage() {

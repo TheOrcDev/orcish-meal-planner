@@ -115,7 +115,14 @@ export default function CreateMealPlanForm() {
                           <Input
                             type="number"
                             placeholder="Number of meals"
-                            {...field}
+                            value={field.value ?? ""}
+                            onChange={(e) =>
+                              field.onChange(
+                                e.target.value === ""
+                                  ? undefined
+                                  : Number(e.target.value)
+                              )
+                            }
                           />
                         </FormControl>
                         <FormMessage />
